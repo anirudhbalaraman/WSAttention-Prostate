@@ -1,0 +1,17 @@
+project_dir: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/git_updated/Prostate-Foundation/MIL/new_folder/
+data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/pirad_model_test_PICAI/registered/t2_hist_matched/
+dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/git_updated/Prostate-Foundation/MIL/new_folder/dataset/PICAI_cspca.json
+num_classes: !!int 4
+mil_mode: att_trans
+tile_count: !!int 24
+tile_size: !!int 64
+depth: !!int 3
+use_heatmap: !!bool True
+workers: !!int 6
+checkpoint_cspca: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/git_updated/Prostate-Foundation/MIL/new_folder/models/cspca_model.pth
+num_seeds: !!int 2
+batch_size: !!int 1
+
+
+
+

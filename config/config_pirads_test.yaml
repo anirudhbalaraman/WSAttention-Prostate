@@ -1,0 +1,18 @@
+run_name: pirads_test_run
+project_dir: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/git_updated/Prostate-Foundation/MIL/new_folder/
+data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate-foundation/PICAI_registered/t2_hist_matched
+dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/git_updated/Prostate-Foundation/MIL/new_folder/dataset/PI-RADS_data.json
+num_classes: !!int 4
+mil_mode: att_trans
+tile_count: !!int 24
+tile_size: !!int 64
+depth: !!int 3
+use_heatmap: !!bool True
+workers: !!int 0
+checkpoint: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/git_updated/Prostate-Foundation/MIL/new_folder/models/pirads.pt
+amp: !!bool True
+dry_run: !!bool True
+
+
+
+
