@@ -1,0 +1,162 @@
+import argparse
+import os
+import shutil
+import time
+import yaml
+import sys
+import gdown
+import numpy as np
+import torch
+import torch.distributed as dist
+import torch.multiprocessing as mp
+import torch.nn as nn
+import torch.nn.functional as F
+from monai.config import KeysCollection
+from monai.metrics import Cumulative, CumulativeAverage
+from monai.networks.nets import milmodel, resnet, MILModel
+
+from sklearn.metrics import cohen_kappa_score
+from torch.cuda.amp import GradScaler, autocast
+from torch.utils.data.dataloader import default_collate
+from torchvision.models.resnet import ResNet50_Weights
+import shutil
+from pathlib import Path
+from torch.utils.data.distributed import DistributedSampler
+from torch.utils.tensorboard import SummaryWriter
+from monai.utils import set_determinism
+import matplotlib.pyplot as plt
+import wandb
+import math
+import logging
+from pathlib import Path
+
+
+from src.model.MIL import MILModel_3D
+from src.model.csPCa_model import csPCa_Model
+from src.data.data_loader import get_dataloader
+from src.utils import save_cspca_checkpoint, get_metrics, setup_logging, save_pirads_checkpoint
+from src.train import train_cspca, train_pirads
+import SimpleITK as sitk 
+
+import nrrd
+
+from tqdm import tqdm
+import pandas as pd
+from picai_prep.preprocessing import PreprocessingSettings, Sample
+import multiprocessing
+import sys
+from src.preprocessing.register_and_crop import register_files
+from src.preprocessing.prostate_mask import get_segmask
+from src.preprocessing.histogram_match import histmatch
+from src.preprocessing.generate_heatmap import get_heatmap
+import logging
+from pathlib import Path
+from src.utils import setup_logging
+from src.utils import validate_steps
+import argparse
+import yaml 
+from src.data.data_loader import data_transform, list_data_collate
+from monai.data import Dataset, load_decathlon_datalist, ITKReader, NumpyReader, PersistentDataset
+
+def parse_args():
+
+    parser = argparse.ArgumentParser(description="File preprocessing")
+    parser.add_argument("--config", type=str, help="Path to YAML config file")
+    parser.add_argument("--t2_dir", default=None, help="Path to T2W files")
+    parser.add_argument("--dwi_dir", default=None, help="Path to DWI files")
+    parser.add_argument("--adc_dir", default=None, help="Path to ADC files")
+    parser.add_argument("--seg_dir", default=None, help="Path to segmentation masks")
+    parser.add_argument("--output_dir", default=None, help="Path to output folder")
+    parser.add_argument("--margin", default=0.2, type=float, help="Margin to center crop the images")
+    parser.add_argument("--num_classes", default=4, type=int)
+    parser.add_argument("--mil_mode", default="att_trans", type=str)
+    parser.add_argument("--use_heatmap", default=True, type=bool)
+    parser.add_argument("--tile_size", default=64, type=int)
+    parser.add_argument("--tile_count", default=24, type=int)
+    parser.add_argument("--depth", default=3, type=int)
+    parser.add_argument("--project_dir", default=None, help="Project directory")
+    
+    args = parser.parse_args()
+    if args.config:
+        with open(args.config, 'r') as config_file:
+            config = yaml.safe_load(config_file)
+            args.__dict__.update(config)
+    return args
+
+if __name__ == "__main__":
+    args = parse_args()
+    FUNCTIONS = {
+    "register_and_crop": register_files,
+    "histogram_match": histmatch,
+    "get_segmentation_mask": get_segmask,
+    "get_heatmap": get_heatmap,
+    }
+
+    args.logfile = os.path.join(args.output_dir, f"inference.log")
+    setup_logging(args.logfile)
+    logging.info("Starting preprocessing")
+    steps = ["register_and_crop", "get_segmentation_mask", "histogram_match", "get_heatmap"]
+    for step in steps:
+        func = FUNCTIONS[step]
+        args = func(args) 
+
+    logging.info("Preprocessing completed.")
+
+    args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    logging.info("Loading PIRADS model")
+    pirads_model = MILModel_3D(
+        num_classes=args.num_classes,  
+        mil_mode=args.mil_mode 
+    )
+    pirads_checkpoint = torch.load(os.path.join(args.project_dir, 'models', 'pirads.pt'), map_location="cpu")
+    pirads_model.load_state_dict(pirads_checkpoint["state_dict"])
+    pirads_model.to(args.device)
+    logging.info("Loading csPCa model")
+    cspca_model = csPCa_Model(backbone=pirads_model).to(args.device)
+    checkpt = torch.load(os.path.join(args.project_dir, 'models', 'cspca_model.pth'), map_location="cpu")
+    cspca_model.load_state_dict(checkpt['state_dict'])
+    cspca_model = cspca_model.to(args.device)
+
+    transform = data_transform(args)
+    files = os.listdir(args.t2_dir)
+    data_list = []
+    for file in files:
+        temp = {}
+        temp['image'] = os.path.join(args.t2_dir, file)
+        temp['dwi'] = os.path.join(args.dwi_dir, file)
+        temp['adc'] = os.path.join(args.adc_dir, file)
+        temp['heatmap'] = os.path.join(args.heatmapdir, file)
+        temp['mask'] = os.path.join(args.seg_dir, file)
+        temp['label'] = 0  # dummy label
+        data_list.append(temp)
+
+    dataset = Dataset(data=data_list, transform=transform)
+    loader = torch.utils.data.DataLoader(
+        dataset,
+        batch_size=1,
+        shuffle=False,
+        num_workers=0,
+        pin_memory=True,
+        multiprocessing_context= None,
+        sampler=None,
+        collate_fn=list_data_collate,
+    )
+
+    pirads_list = []
+    pirads_model.eval()
+    cspca_risk_list = []
+    cspca_model.eval()
+    with torch.no_grad():
+        for idx, batch_data in enumerate(loader):
+            data = batch_data["image"].as_subclass(torch.Tensor).to(args.device)
+            logits = pirads_model(data)
+            pirads_score= torch.argmax(logits, dim=1)
+            pirads_list.append(pirads_score.item())
+
+            output = cspca_model(data)
+            output = output.squeeze(1)
+            cspca_risk_list.append(output.item())
+
+    for i,j in enumerate(files):
+        logging.info(f"File: {j}, PIRADS score: {pirads_list[i]}, csPCa risk score: {cspca_risk_list[i]:.4f}")
