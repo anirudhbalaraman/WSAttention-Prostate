@@ -2,3 +2,4 @@ logs/
 models/
 datatemp/
 __pycache__/
+temp_data/

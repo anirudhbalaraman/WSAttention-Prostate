@@ -1,121 +1,146 @@
 import streamlit as st
-import torch
-import torch.nn.functional as F
-import numpy as np
-import nrrd
-import matplotlib.pyplot as plt
-import tempfile
+import subprocess
 import os
+import shutil
+from huggingface_hub import hf_hub_download
 
-# --- 1. IMPORT CUSTOM SCRIPTS ---
-try:
-    from model_definition import MyModelClass
-    # Your preprocess function should now likely accept a LIST of arrays or a stacked array
-    from inference_utils import preprocess_multimodal 
-except ImportError:
-    st.warning("Could not import custom modules.")
+REPO_ID = "anirudh0410/WSAttention-Prostate" # <--- UPDATE THIS
+FILENAME = ["pirads.pt", "prostate_segmentation_model.pt", "cspca_model.pth"] # The name of the file inside Hugging Face
 
-# --- 2. CONFIGURATION ---
-MODEL_PATH = 'saved_model.pth'
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-# --- 3. LOAD MODEL ---
 @st.cache_resource
-def load_trained_model():
-    try:
-        model = torch.load(MODEL_PATH, map_location=DEVICE)
-        model.to(DEVICE)
-        model.eval()
-        return model
-    except Exception as e:
-        st.error(f"Error loading model: {e}")
-        return None
+def get_model_path(filename):
+    # 1. Download the file from Hugging Face
+    # This downloads it to a cache folder on the machine
+    cached_path = hf_hub_download(repo_id=REPO_ID, filename=filename)
+    
+    # 2. Copy it to the current directory
+    # Your run_inference.py likely expects 'saved_model.pth' to be right here
+    if not os.path.exists(filename):
+        shutil.copy(cached_path, os.path.join(os.getcwd(), 'models',filename))
 
-model = load_trained_model()
+    return filename
 
-# --- 4. APP INTERFACE ---
-st.title("Multi-Modal Medical Inference")
-st.write("Upload exactly 3 NRRD files (e.g., T1, T2, FLAIR) to generate a prediction.")
+# --- TRIGGER DOWNLOAD ---
+# Run this immediately when the app starts
+try:
+    with st.spinner("Fetching model from Hugging Face..."):
+        for i in FILENAME:
+            local_model_path = get_model_path(i)
+            st.success("Model ready!")
+except Exception as e:
+    st.error(f"Error downloading model: {e}")
+    st.stop()
 
-# Update: accept_multiple_files=True
-uploaded_files = st.file_uploader("Choose 3 NRRD files...", type=["nrrd"], accept_multiple_files=True)
+# --- CONFIGURATION ---
+# Base paths
+BASE_DIR = os.getcwd()
+INPUT_BASE = os.path.join(BASE_DIR, "temp_data" )
+OUTPUT_DIR = os.path.join(BASE_DIR, "temp_data", "processed")
 
-# LOGIC: Only proceed if exactly 3 files are present
-if uploaded_files:
-    if len(uploaded_files) != 3:
-        st.warning(f"Please upload exactly 3 files. You currently have {len(uploaded_files)}.")
-    else:
-        st.success("3 Files Uploaded. Processing...")
-        
-        # Sort files by name to ensure consistent order (e.g., file_01, file_02, file_03)
-        # This is CRITICAL if your model expects channels in a specific order.
-        uploaded_files.sort(key=lambda x: x.name)
-        
-        scan_data_list = []
-        temp_paths = []
+# Create specific sub-directories for each input type
+# This ensures we pass a clean directory path to your script
+T2_DIR = os.path.join(INPUT_BASE, "t2")
+ADC_DIR = os.path.join(INPUT_BASE, "adc")
+DWI_DIR = os.path.join(INPUT_BASE, "dwi")
 
-        try:
-            # --- A. Read all 3 files ---
-            # We create columns to show previews side-by-side
-            cols = st.columns(3)
+# Ensure all folders exist
+for path in [T2_DIR, ADC_DIR, DWI_DIR, OUTPUT_DIR]:
+    os.makedirs(path, exist_ok=True)
+
+st.title("Model Inference")
+st.markdown("### Upload your T2W, ADC, and DWI scans")
+
+# --- 1. UI: THREE UPLOADERS ---
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    t2_file = st.file_uploader("Upload T2W (NRRD)", type=["nrrd"])
+with col2:
+    adc_file = st.file_uploader("Upload ADC (NRRD)", type=["nrrd"])
+with col3:
+    dwi_file = st.file_uploader("Upload DWI (NRRD)", type=["nrrd"])
+
+# --- 2. EXECUTION LOGIC ---
+if t2_file and adc_file and dwi_file:
+    st.success("Files ready.")
+    
+    if st.button("Run Inference"):
+        # --- A. CLEANUP & SAVE ---
+        # Clear old files to prevent mixing previous runs
+        # (Optional but recommended for a clean state)
+        for folder in [T2_DIR, ADC_DIR, DWI_DIR, OUTPUT_DIR]:
+            for f in os.listdir(folder):
+                os.remove(os.path.join(folder, f))
+
+        # Save T2
+        # We save it inside the T2_DIR folder
+        with open(os.path.join(T2_DIR, t2_file.name), "wb") as f:
+            shutil.copyfileobj(t2_file, f)
             
-            for idx, file in enumerate(uploaded_files):
-                # Save to temp
-                with tempfile.NamedTemporaryFile(delete=False, suffix=".nrrd") as tmp:
-                    tmp.write(file.getvalue())
-                    tmp_path = tmp.name
-                    temp_paths.append(tmp_path)
+        # Save ADC
+        with open(os.path.join(ADC_DIR, adc_file.name), "wb") as f:
+            shutil.copyfileobj(adc_file, f)
+            
+        # Save DWI
+        with open(os.path.join(DWI_DIR, dwi_file.name), "wb") as f:
+            shutil.copyfileobj(dwi_file, f)
+
+        st.write("Files saved. Starting pipeline...")
+
+        # --- B. CONSTRUCT COMMAND ---
+        # We pass the FOLDER paths, not file paths, matching your argument names
+        command = [
+            "python", "run_inference.py",
+            "--t2_dir", T2_DIR,
+            "--dwi_dir", DWI_DIR,
+            "--adc_dir", ADC_DIR,
+            "--output_dir", OUTPUT_DIR,
+            "--project_dir", BASE_DIR
+        ]
+        
+        # DEBUG: Show the exact command being run (helpful for troubleshooting)
+        st.code(" ".join(command), language="bash")
+
+        # --- C. RUN SCRIPT ---
+        with st.spinner("Running Inference... (This may take a moment)"):
+            try:
+                # Run the script and capture output
+                result = subprocess.run(
+                    command,
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
                 
-                # Read NRRD
-                data, header = nrrd.read(tmp_path)
-                scan_data_list.append(data)
+                st.success("Pipeline Execution Successful!")
                 
-                # Visualize Middle Slice in the respective column
-                with cols[idx]:
-                    st.caption(file.name)
-                    mid_slice = data.shape[2] // 2 if data.ndim == 3 else 0
+                # Show Logs
+                with st.expander("View Execution Logs"):
+                    st.code(result.stdout)
+                
+                # --- D. SHOW OUTPUT FILES ---
+                st.subheader("Results & Downloads")
+                
+                # List everything in the output directory
+                if os.path.exists(OUTPUT_DIR):
+                    output_files = os.listdir(OUTPUT_DIR)
                     
-                    fig, ax = plt.subplots()
-                    # Show slice (assuming 3D data: H, W, D)
-                    ax.imshow(data[:, :, mid_slice], cmap="gray")
-                    ax.axis("off")
-                    st.pyplot(fig)
-
-            # --- B. Combine/Stack Data ---
-            if st.button("Run Prediction"):
-                st.write("Merging channels and analyzing...")
-                
-                # STACKING LOGIC:
-                # We assume the 3 files represent 3 channels.
-                # If each data is (H, W, D), result is (3, H, W, D)
-                # We stack along a new dimension (axis 0)
-                stacked_volume = np.stack(scan_data_list, axis=0) 
-                
-                # --- C. Preprocessing ---
-                # Pass this (3, ...) array to your pipeline
-                input_tensor = preprocess_multimodal(stacked_volume)
-
-                # Ensure Batch Dimension (1, 3, D, H, W)
-                if isinstance(input_tensor, torch.Tensor):
-                    if input_tensor.ndim == 4: # (3, D, H, W) -> (1, 3, D, H, W)
-                        input_tensor = input_tensor.unsqueeze(0)
-                    input_tensor = input_tensor.to(DEVICE)
-
-                # --- D. Inference ---
-                with torch.no_grad():
-                    output = model(input_tensor)
-                    probabilities = F.softmax(output, dim=1)
-                    confidence, predicted_class_idx = torch.max(probabilities, 1)
-
-                st.success("Done!")
-                st.metric("Prediction Class", predicted_class_idx.item())
-                st.metric("Confidence", f"{confidence.item()*100:.2f}%")
-
-        except Exception as e:
-            st.error(f"Error during processing: {e}")
-            
-        finally:
-            # Cleanup temp files
-            for p in temp_paths:
-                if os.path.exists(p):
-                    os.remove(p)
+                    if output_files:
+                        for file_name in output_files:
+                            file_path = os.path.join(OUTPUT_DIR, file_name)
+                            
+                            # Skip directories, show download buttons for files
+                            if os.path.isfile(file_path):
+                                with open(file_path, "rb") as f:
+                                    st.download_button(
+                                        label=f"Download {file_name}",
+                                        data=f,
+                                        file_name=file_name
+                                    )
+                    else:
+                        st.warning("Script finished but no files were found in output_dir.")
+                        
+            except subprocess.CalledProcessError as e:
+                st.error("Script Execution Failed.")
+                st.error("Error Output:")
+                st.code(e.stderr)
