@@ -7,29 +7,40 @@ from huggingface_hub import hf_hub_download
 REPO_ID = "anirudh0410/WSAttention-Prostate" # <--- UPDATE THIS
 FILENAME = ["pirads.pt", "prostate_segmentation_model.pt", "cspca_model.pth"] # The name of the file inside Hugging Face
 
+import os
+import shutil
+import streamlit as st
+from huggingface_hub import hf_hub_download
+
+REPO_ID = "anirudh0410/WSAttention-Prostate"
+FILENAMES = ["pirads.pt", "prostate_segmentation_model.pt", "cspca_model.pth"]
+
 @st.cache_resource
-def get_model_path(filename):
-    # 1. Download the file from Hugging Face
-    # This downloads it to a cache folder on the machine
-    cached_path = hf_hub_download(repo_id=REPO_ID, filename=filename)
-    
-    # 2. Copy it to the current directory
-    # Your run_inference.py likely expects 'saved_model.pth' to be right here
-    if not os.path.exists(filename):
-        shutil.copy(cached_path, os.path.join(os.getcwd(), 'models',filename))
+def download_all_models():
+    # 1. Ensure the 'models' directory exists
+    models_dir = os.path.join(os.getcwd(), 'models')
+    os.makedirs(models_dir, exist_ok=True) # <--- THIS FIXES YOUR ERROR
 
-    return filename
+    for filename in FILENAMES:
+        try:
+            # 2. Download from Hugging Face (to cache)
+            cached_path = hf_hub_download(repo_id=REPO_ID, filename=filename)
+            
+            # 3. Define where we want it to live locally
+            destination_path = os.path.join(models_dir, filename)
+            
+            # 4. Copy only if it's not already there
+            if not os.path.exists(destination_path):
+                shutil.copy(cached_path, destination_path)
+                
+        except Exception as e:
+            st.error(f"Failed to download {filename}: {e}")
+            st.stop()
 
-# --- TRIGGER DOWNLOAD ---
-# Run this immediately when the app starts
-try:
-    with st.spinner("Fetching model from Hugging Face..."):
-        for i in FILENAME:
-            local_model_path = get_model_path(i)
-            st.success("Model ready!")
-except Exception as e:
-    st.error(f"Error downloading model: {e}")
-    st.stop()
+# --- TRIGGER THE DOWNLOAD STARTUP ---
+with st.spinner("Downloading model weights..."):
+    download_all_models()
+    st.success("Models ready!")
 
 # --- CONFIGURATION ---
 # Base paths
