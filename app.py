@@ -4,14 +4,6 @@ import os
 import shutil
 from huggingface_hub import hf_hub_download
 
-REPO_ID = "anirudh0410/WSAttention-Prostate" # <--- UPDATE THIS
-FILENAME = ["pirads.pt", "prostate_segmentation_model.pt", "cspca_model.pth"] # The name of the file inside Hugging Face
-
-import os
-import shutil
-import streamlit as st
-from huggingface_hub import hf_hub_download
-
 REPO_ID = "anirudh0410/WSAttention-Prostate"
 FILENAMES = ["pirads.pt", "prostate_segmentation_model.pt", "cspca_model.pth"]
 
@@ -55,6 +47,8 @@ ADC_DIR = os.path.join(INPUT_BASE, "adc")
 DWI_DIR = os.path.join(INPUT_BASE, "dwi")
 
 # Ensure all folders exist
+if os.path.exists(INPUT_BASE):
+    shutil.rmtree(INPUT_BASE)
 for path in [T2_DIR, ADC_DIR, DWI_DIR, OUTPUT_DIR]:
     os.makedirs(path, exist_ok=True)
 
