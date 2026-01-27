@@ -14,19 +14,52 @@ import torch.nn.functional as F
 from monai.config import KeysCollection
 from monai.metrics import Cumulative, CumulativeAverage
 from monai.networks.nets import milmodel, resnet, MILModel
-
+from monai.transforms import (
+    Compose,
+    GridPatchd,
+    LoadImaged,
+    MapTransform,
+    RandFlipd,
+    RandGridPatchd,
+    RandRotate90d,
+    ScaleIntensityRanged,
+    SplitDimd,
+    ToTensord,
+    ConcatItemsd, 
+    SelectItemsd,
+    EnsureChannelFirstd,
+    RepeatChanneld,
+    DeleteItemsd,
+    EnsureTyped,
+    ClipIntensityPercentilesd,
+    MaskIntensityd,
+    HistogramNormalized,
+    RandBiasFieldd,
+    RandCropByPosNegLabeld,
+    NormalizeIntensityd,
+    SqueezeDimd,
+    CropForegroundd,
+    ScaleIntensityd,
+    SpatialPadd,
+    CenterSpatialCropd,
+    ScaleIntensityd,
+    Transposed,
+    RandWeightedCropd,
+)
 from sklearn.metrics import cohen_kappa_score
 from torch.cuda.amp import GradScaler, autocast
 from torch.utils.data.dataloader import default_collate
 from torchvision.models.resnet import ResNet50_Weights
-
+from .data.custom_transforms import ClipMaskIntensityPercentilesd, NormalizeIntensity_customd
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.tensorboard import SummaryWriter
+import matplotlib.patches as patches
 
 import matplotlib.pyplot as plt
 
 import wandb
 import math
+from monai.data import Dataset, load_decathlon_datalist, ITKReader, NumpyReader, PersistentDataset
 
 from src.model.MIL import MILModel_3D
 from src.model.csPCa_model import csPCa_Model
@@ -97,3 +130,97 @@ def validate_steps(steps):
                     f"Given order: {steps}"
                 )
                 sys.exit(1)
+
+def get_patch_coordinate(patches_top_5, parent_image, args):
+
+    sample = np.array([i.transpose(1,2,0) for i in patches_top_5])
+    coords = []
+    rows, h, w, slices = sample.shape
+
+    for i in range(rows):
+        for j in range(slices):
+            if j == 0:
+                for k in range(parent_image.shape[2]):
+                    img_temp = parent_image[:, :, k]
+                    H, W = img_temp.shape
+                    h, w = sample[i, :, :, j].shape
+                    a,b = 0, 0  # Initialize a and b
+                    bool1 = False
+                    for l in range(H - h + 1):
+                        for m in range(W - w + 1):
+                            if np.array_equal(img_temp[l:l+h, m:m+w], sample[i, :, :, j]):
+                                a,b = l, m  # top-left corner
+                                coords.append((a,b,k))
+                                bool1 = True
+                                break
+                        if bool1:
+                            break
+                        
+                    if bool1:
+                        break
+
+    return coords
+
+
+def get_parent_image(args):
+    transform_image = Compose(
+        [
+            LoadImaged(keys=["image", "mask"], reader=ITKReader(), ensure_channel_first=True, dtype=np.float32),
+            ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+            NormalizeIntensity_customd(keys=["image"], mask_key="mask", channel_wise=True),
+            EnsureTyped(keys=["label"], dtype=torch.float32),
+            ToTensord(keys=["image", "label"]),
+        ]
+    )
+    dataset_image = Dataset(data=args.data_list, transform=transform_image)
+    return dataset_image[0]['image'][0].numpy()
+
+'''
+def visualise_patches():
+    sample = np.array([i.transpose(1,2,0) for i in patches_top_5])
+    rows = len(patches_top_5)
+    img = sample[0]
+    coords = []
+    rows, h, w, slices = sample.shape
+
+    fig, axes = plt.subplots(nrows=rows, ncols=slices, figsize=(slices * 3, rows * 3))
+
+    for i in range(rows):
+        for j in range(slices):
+            ax = axes[i, j]
+            
+            if j == 0:
+            
+                for k in range(parent_image.shape[2]):
+                    img_temp = parent_image[:, :, k]
+                    H, W = img_temp.shape
+                    h, w = sample[i, :, :, j].shape
+                    a,b = 0, 0  # Initialize a and b
+                    bool1 = False
+                    for l in range(H - h + 1):
+                        for m in range(W - w + 1):
+                            if np.array_equal(img_temp[l:l+h, m:m+w], sample[i, :, :, j]):
+                                a,b = l, m  # top-left corner
+                                coords.append((a,b,k))
+                                bool1 = True
+                                break
+                        if bool1:
+                            break
+                        
+                    if bool1:
+                        break
+
+                
+
+
+            ax.imshow(parent_image[:, :, k+j], cmap='gray')
+            rect = patches.Rectangle((b, a), args.tile_size, args.tile_size,
+                                    linewidth=2, edgecolor='red', facecolor='none')
+            ax.add_patch(rect)
+            ax.axis('off')
+        
+
+    plt.tight_layout()
+    plt.show()
+    a=1
+'''

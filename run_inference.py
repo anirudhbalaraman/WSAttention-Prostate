@@ -34,7 +34,7 @@ from pathlib import Path
 from src.model.MIL import MILModel_3D
 from src.model.csPCa_model import csPCa_Model
 from src.data.data_loader import get_dataloader
-from src.utils import save_cspca_checkpoint, get_metrics, setup_logging, save_pirads_checkpoint
+from src.utils import save_cspca_checkpoint, get_metrics, setup_logging, save_pirads_checkpoint, get_parent_image, get_patch_coordinate
 from src.train import train_cspca, train_pirads
 import SimpleITK as sitk 
 
@@ -57,6 +57,7 @@ import argparse
 import yaml 
 from src.data.data_loader import data_transform, list_data_collate
 from monai.data import Dataset, load_decathlon_datalist, ITKReader, NumpyReader, PersistentDataset
+import json
 
 def parse_args():
 
@@ -120,7 +121,7 @@ if __name__ == "__main__":
 
     transform = data_transform(args)
     files = os.listdir(args.t2_dir)
-    data_list = []
+    args.data_list = []
     for file in files:
         temp = {}
         temp['image'] = os.path.join(args.t2_dir, file)
@@ -129,9 +130,9 @@ if __name__ == "__main__":
         temp['heatmap'] = os.path.join(args.heatmapdir, file)
         temp['mask'] = os.path.join(args.seg_dir, file)
         temp['label'] = 0  # dummy label
-        data_list.append(temp)
+        args.data_list.append(temp)
 
-    dataset = Dataset(data=data_list, transform=transform)
+    dataset = Dataset(data=args.data_list, transform=transform)
     loader = torch.utils.data.DataLoader(
         dataset,
         batch_size=1,
@@ -147,6 +148,7 @@ if __name__ == "__main__":
     pirads_model.eval()
     cspca_risk_list = []
     cspca_model.eval()
+    top5_patches = []
     with torch.no_grad():
         for idx, batch_data in enumerate(loader):
             data = batch_data["image"].as_subclass(torch.Tensor).to(args.device)
@@ -158,5 +160,34 @@ if __name__ == "__main__":
             output = output.squeeze(1)
             cspca_risk_list.append(output.item())
 
+            sh = data.shape
+            x = data.reshape(sh[0] * sh[1], sh[2], sh[3], sh[4], sh[5])
+            x = cspca_model.backbone.net(x)
+            x = x.reshape(sh[0], sh[1], -1)
+            x = x.permute(1, 0, 2)
+            x = cspca_model.backbone.transformer(x)
+            x = x.permute(1, 0, 2)
+            a = cspca_model.backbone.attention(x)
+            a = torch.softmax(a, dim=1)
+            a = a.view(-1)
+            top5_values, top5_indices = torch.topk(a, 5)
+
+            patches_top_5 = []
+            for i in range(5):
+                patch_temp = data[0, top5_indices.cpu().numpy()[i]][0].cpu().numpy()
+                patches_top_5.append(patch_temp)
+
+    parent_image = get_parent_image(args)
+
+    coords = get_patch_coordinate(patches_top_5, parent_image, args)
+
     for i,j in enumerate(files):
         logging.info(f"File: {j}, PIRADS score: {pirads_list[i]}, csPCa risk score: {cspca_risk_list[i]:.4f}")
+
+    output_dict = {
+        'Predicted PIRAD Score': pirads_list[i] + 2.0,
+        'csPCa risk': cspca_risk_list[i],
+        'Top left coordinate of top 5 patches(x,y,z)': coords,
+    }
+    with open(os.path.join(args.output_dir, "results.json"), 'w') as f:
+        json.dump(output_dict, f, indent=4)
