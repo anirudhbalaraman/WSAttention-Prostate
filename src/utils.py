@@ -162,7 +162,7 @@ def get_patch_coordinate(patches_top_5, parent_image, args):
     return coords
 
 
-def get_parent_image(args):
+def get_parent_image(temp_data_list, args):
     transform_image = Compose(
         [
             LoadImaged(keys=["image", "mask"], reader=ITKReader(), ensure_channel_first=True, dtype=np.float32),
@@ -172,7 +172,7 @@ def get_parent_image(args):
             ToTensord(keys=["image", "label"]),
         ]
     )
-    dataset_image = Dataset(data=args.data_list, transform=transform_image)
+    dataset_image = Dataset(data=temp_data_list, transform=transform_image)
     return dataset_image[0]['image'][0].numpy()
 
 '''

@@ -148,7 +148,7 @@ if __name__ == "__main__":
     pirads_model.eval()
     cspca_risk_list = []
     cspca_model.eval()
-    top5_patches = []
+    patches_top_5_list = []
     with torch.no_grad():
         for idx, batch_data in enumerate(loader):
             data = batch_data["image"].as_subclass(torch.Tensor).to(args.device)
@@ -176,18 +176,22 @@ if __name__ == "__main__":
             for i in range(5):
                 patch_temp = data[0, top5_indices.cpu().numpy()[i]][0].cpu().numpy()
                 patches_top_5.append(patch_temp)
+            patches_top_5_list.append(patches_top_5)
+    coords_list = []
+    for i in args.data_list:
+        parent_image = get_parent_image([i], args)
 
-    parent_image = get_parent_image(args)
-
-    coords = get_patch_coordinate(patches_top_5, parent_image, args)
+        coords = get_patch_coordinate(patches_top_5, parent_image, args)
+        coords_list.append(coords)
+    output_dict = {}
 
     for i,j in enumerate(files):
         logging.info(f"File: {j}, PIRADS score: {pirads_list[i]}, csPCa risk score: {cspca_risk_list[i]:.4f}")
 
-    output_dict = {
-        'Predicted PIRAD Score': pirads_list[i] + 2.0,
-        'csPCa risk': cspca_risk_list[i],
-        'Top left coordinate of top 5 patches(x,y,z)': coords,
-    }
+        output_dict[j] = {
+            'Predicted PIRAD Score': pirads_list[i] + 2.0,
+            'csPCa risk': cspca_risk_list[i],
+            'Top left coordinate of top 5 patches(x,y,z)': coords_list[i],
+        }
     with open(os.path.join(args.output_dir, "results.json"), 'w') as f:
         json.dump(output_dict, f, indent=4)
