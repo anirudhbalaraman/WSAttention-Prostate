@@ -1,5 +1,8 @@
 logs/
 models/
 datatemp/
-__pycache__/
 temp_data/
+temp.ipynb
+__pycache__/
+**/__pycache__/
+*.pyc
