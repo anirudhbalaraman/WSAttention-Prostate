@@ -8,10 +8,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#python scripts/center_crop.py --file_name path/to/t2_image --out_name cropped_t2
+# python scripts/center_crop.py --file_name path/to/t2_image --out_name cropped_t2
 
 
-#import argparse
+# import argparse
 from typing import Union
 
 import SimpleITK as sitk  # noqa N813
@@ -41,7 +41,9 @@ def crop(image: sitk.Image, margin: Union[int, float], interpolator=sitk.sitkLin
 
     # calculate new origin and new image size
     if all([isinstance(m, float) for m in _flatten(margin)]):
-        assert all([m >= 0 and m < 0.5 for m in _flatten(margin)]), "margins must be between 0 and 0.5"
+        assert all([m >= 0 and m < 0.5 for m in _flatten(margin)]), (
+            "margins must be between 0 and 0.5"
+        )
         to_crop = [[int(sz * _m) for _m in m] for sz, m in zip(old_size, margin)]
     elif all([isinstance(m, int) for m in _flatten(margin)]):
         to_crop = margin
@@ -61,4 +63,3 @@ def crop(image: sitk.Image, margin: Union[int, float], interpolator=sitk.sitkLin
     ref_image.SetDirection(image.GetDirection())
 
     return sitk.Resample(image, ref_image, interpolator=interpolator)
-
