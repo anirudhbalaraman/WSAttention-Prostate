@@ -1,13 +1,10 @@
-
 from __future__ import annotations
-
 from typing import cast
-
 import torch
 import torch.nn as nn
-
 from monai.utils.module import optional_import
 from monai.networks.nets import resnet
+
 models, _ = optional_import("torchvision.models")
 
 
@@ -16,8 +13,7 @@ class MILModel_3D(nn.Module):
     Multiple Instance Learning (MIL) model, with a backbone classification model.
     Adapted from MONAI, modified for 3D images. The expected shape of input data is `[B, N, C, D, H, W]`,
     where `B` is the batch_size of PyTorch Dataloader and `N` is the number of instances
-    extracted from every original image in the batch. A tutorial example is available at:
-    https://github.com/Project-MONAI/tutorials/tree/master/pathology/multiple_instance_learning.
+    extracted from every original image in the batch.
 
     Args:
         num_classes: number of output classes.
@@ -29,10 +25,9 @@ class MILModel_3D(nn.Module):
             - ``"att_trans"`` - transformer MIL https://arxiv.org/abs/2111.01556.
             - ``"att_trans_pyramid"`` - transformer pyramid MIL https://arxiv.org/abs/2111.01556.
 
-        pretrained: init backbone with pretrained weights, defaults to ``True``.
         backbone: Backbone classifier CNN (either ``None``, a ``nn.Module`` that returns features,
             or a string name of a torchvision model).
-            Defaults to ``None``, in which case ResNet50 is used.
+            Defaults to ``None``, in which case ResNet18 is used.
         backbone_num_features: Number of output features of the backbone CNN
             Defaults to ``None`` (necessary only when using a custom backbone)
         trans_blocks: number of the blocks in `TransformEncoder` layer.
@@ -63,7 +58,11 @@ class MILModel_3D(nn.Module):
         self.transformer: nn.Module | None = None
 
         if backbone is None:
-            net = resnet.resnet18(spatial_dims=3, n_input_channels=3, num_classes=5, )
+            net = resnet.resnet18(
+                spatial_dims=3,
+                n_input_channels=3,
+                num_classes=5,
+            )
             nfc = net.fc.in_features  # save the number of final features
             net.fc = torch.nn.Identity()  # remove final linear layer
 
@@ -72,7 +71,6 @@ class MILModel_3D(nn.Module):
             if mil_mode == "att_trans_pyramid":
                 # register hooks to capture outputs of intermediate layers
                 def forward_hook(layer_name):
-
                     def hook(module, input, output):
                         self.extra_outputs[layer_name] = output
 
@@ -105,31 +103,23 @@ class MILModel_3D(nn.Module):
             nfc = backbone_num_features
             net.fc = torch.nn.Identity()  # remove final linear layer
 
-            self.extra_outputs: dict[str, torch.Tensor] = {}
-
             if mil_mode == "att_trans_pyramid":
                 # register hooks to capture outputs of intermediate layers
-                def forward_hook(layer_name):
-
-                    def hook(module, input, output):
-                        self.extra_outputs[layer_name] = output
-
-                    return hook
-
-                net.layer1.register_forward_hook(forward_hook("layer1"))
-                net.layer2.register_forward_hook(forward_hook("layer2"))
-                net.layer3.register_forward_hook(forward_hook("layer3"))
-                net.layer4.register_forward_hook(forward_hook("layer4"))
+                raise ValueError(
+                    "Cannot use att_trans_pyramid with custom backbone. Have to use the default ResNet 18 backbone."
+                )
 
             if backbone_num_features is None:
-                raise ValueError("Number of endencoder features must be provided for a custom backbone model")
+                raise ValueError(
+                    "Number of endencoder features must be provided for a custom backbone model"
+                )
 
         else:
             raise ValueError("Unsupported backbone")
-        
+
         if backbone is not None and mil_mode not in ["mean", "max", "att", "att_trans"]:
             raise ValueError("Custom backbone is not supported for the mode:" + str(mil_mode))
-        
+
         if self.mil_mode in ["mean", "max"]:
             pass
         elif self.mil_mode == "att":
@@ -144,7 +134,8 @@ class MILModel_3D(nn.Module):
             transformer_list = nn.ModuleList(
                 [
                     nn.TransformerEncoder(
-                        nn.TransformerEncoderLayer(d_model=64, nhead=8, dropout=trans_dropout), num_layers=trans_blocks
+                        nn.TransformerEncoderLayer(d_model=64, nhead=8, dropout=trans_dropout),
+                        num_layers=trans_blocks,
                     ),
                     nn.Sequential(
                         nn.Linear(192, 64),
@@ -206,10 +197,26 @@ class MILModel_3D(nn.Module):
             x = self.myfc(x)
 
         elif self.mil_mode == "att_trans_pyramid" and self.transformer is not None:
-            l1 = torch.mean(self.extra_outputs["layer1"], dim=(2, 3, 4)).reshape(sh[0], sh[1], -1).permute(1, 0, 2)
-            l2 = torch.mean(self.extra_outputs["layer2"], dim=(2, 3, 4)).reshape(sh[0], sh[1], -1).permute(1, 0, 2)
-            l3 = torch.mean(self.extra_outputs["layer3"], dim=(2, 3, 4)).reshape(sh[0], sh[1], -1).permute(1, 0, 2)
-            l4 = torch.mean(self.extra_outputs["layer4"], dim=(2, 3, 4)).reshape(sh[0], sh[1], -1).permute(1, 0, 2)
+            l1 = (
+                torch.mean(self.extra_outputs["layer1"], dim=(2, 3, 4))
+                .reshape(sh[0], sh[1], -1)
+                .permute(1, 0, 2)
+            )
+            l2 = (
+                torch.mean(self.extra_outputs["layer2"], dim=(2, 3, 4))
+                .reshape(sh[0], sh[1], -1)
+                .permute(1, 0, 2)
+            )
+            l3 = (
+                torch.mean(self.extra_outputs["layer3"], dim=(2, 3, 4))
+                .reshape(sh[0], sh[1], -1)
+                .permute(1, 0, 2)
+            )
+            l4 = (
+                torch.mean(self.extra_outputs["layer4"], dim=(2, 3, 4))
+                .reshape(sh[0], sh[1], -1)
+                .permute(1, 0, 2)
+            )
 
             transformer_list = cast(nn.ModuleList, self.transformer)
 
@@ -242,7 +249,3 @@ class MILModel_3D(nn.Module):
             x = self.calc_head(x)
 
         return x
-
-
-
-
