@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <!-- Gradient for prostate gland -->
+    <radialGradient id="prostate-grad" cx="50%" cy="52%" r="40%">
+      <stop offset="0%" stop-color="#7986CB" stop-opacity="0.3"/>
+      <stop offset="70%" stop-color="#3F51B5" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#1A237E" stop-opacity="0.05"/>
+    </radialGradient>
+    <!-- Attention heatmap gradient -->
+    <radialGradient id="heat-grad" cx="45%" cy="48%" r="25%">
+      <stop offset="0%" stop-color="#009688" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#009688" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#009688" stop-opacity="0.0"/>
+    </radialGradient>
+    <!-- Grid patch highlight -->
+    <linearGradient id="patch-active" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00BCD4" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#009688" stop-opacity="0.3"/>
+    </linearGradient>
+    <!-- Connector gradient -->
+    <linearGradient id="connector-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3F51B5" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#009688" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="190" fill="none" stroke="#3F51B5" stroke-width="2" stroke-opacity="0.15"/>
+  <circle cx="200" cy="200" r="185" fill="none" stroke="#3F51B5" stroke-width="0.5" stroke-opacity="0.1"/>
+
+  <!-- Prostate shape (stylized walnut/chestnut shape) -->
+  <path d="M200,120 C245,120 285,145 290,185 C295,225 270,265 240,275 C220,282 210,290 200,290 C190,290 180,282 160,275 C130,265 105,225 110,185 C115,145 155,120 200,120 Z"
+        fill="url(#prostate-grad)" stroke="#3F51B5" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- Urethra line (subtle anatomical reference) -->
+  <line x1="200" y1="130" x2="200" y2="280" stroke="#3F51B5" stroke-width="0.8" stroke-opacity="0.15" stroke-dasharray="4,4"/>
+
+  <!-- Attention heatmap overlay -->
+  <ellipse cx="185" cy="195" rx="50" ry="45" fill="url(#heat-grad)"/>
+
+  <!-- MIL Grid: 5x5 patch grid over prostate region -->
+  <g stroke="#3F51B5" stroke-width="0.6" stroke-opacity="0.3" fill="none">
+    <!-- Grid lines - horizontal -->
+    <line x1="135" y1="155" x2="265" y2="155"/>
+    <line x1="130" y1="181" x2="270" y2="181"/>
+    <line x1="128" y1="207" x2="272" y2="207"/>
+    <line x1="130" y1="233" x2="270" y2="233"/>
+    <line x1="140" y1="259" x2="260" y2="259"/>
+    <!-- Grid lines - vertical -->
+    <line x1="155" y1="135" x2="150" y2="270"/>
+    <line x1="181" y1="125" x2="178" y2="285"/>
+    <line x1="207" y1="122" x2="210" y2="288"/>
+    <line x1="233" y1="125" x2="236" y2="280"/>
+    <line x1="256" y1="140" x2="258" y2="265"/>
+  </g>
+
+  <!-- Highlighted patches (high attention areas) -->
+  <rect x="155" y="181" width="26" height="26" rx="2" fill="url(#patch-active)" stroke="#009688" stroke-width="1.2"/>
+  <rect x="181" y="181" width="26" height="26" rx="2" fill="url(#patch-active)" stroke="#009688" stroke-width="1.2"/>
+  <rect x="155" y="155" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.2" stroke="#009688" stroke-width="0.8"/>
+  <rect x="181" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.2" stroke="#009688" stroke-width="0.8"/>
+  <rect x="155" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.15" stroke="#009688" stroke-width="0.6"/>
+
+  <!-- Attention arrows from patches to aggregation point -->
+  <g stroke="url(#connector-grad)" stroke-width="1.2" fill="none" marker-end="none">
+    <!-- Lines from highlighted patches converging to a point -->
+    <path d="M181,194 Q280,170 320,155" stroke-opacity="0.5"/>
+    <path d="M207,194 Q290,180 320,155" stroke-opacity="0.4"/>
+    <path d="M181,168 Q275,150 320,155" stroke-opacity="0.3"/>
+    <path d="M181,220 Q285,200 320,155" stroke-opacity="0.3"/>
+    <path d="M168,220 Q280,210 320,155" stroke-opacity="0.2"/>
+  </g>
+
+  <!-- Aggregation node (attention pooling) -->
+  <circle cx="320" cy="155" r="12" fill="#3F51B5" fill-opacity="0.15" stroke="#3F51B5" stroke-width="1.5"/>
+  <circle cx="320" cy="155" r="4" fill="#009688" fill-opacity="0.7"/>
+
+  <!-- Output arrow -->
+  <line x1="332" y1="155" x2="365" y2="155" stroke="#3F51B5" stroke-width="1.5" stroke-opacity="0.5" marker-end="none"/>
+  <polygon points="365,150 375,155 365,160" fill="#3F51B5" fill-opacity="0.5"/>
+
+  <!-- Attention weight labels (alpha values near arrows) -->
+  <text x="295" y="148" font-family="Inter, sans-serif" font-size="9" fill="#3F51B5" fill-opacity="0.6" font-style="italic">α₁</text>
+  <text x="300" y="168" font-family="Inter, sans-serif" font-size="9" fill="#3F51B5" fill-opacity="0.5" font-style="italic">α₂</text>
+  <text x="288" y="135" font-family="Inter, sans-serif" font-size="8" fill="#3F51B5" fill-opacity="0.4" font-style="italic">α₃</text>
+
+  <!-- "MIL" label -->
+  <text x="330" y="185" font-family="JetBrains Mono, monospace" font-size="10" fill="#3F51B5" fill-opacity="0.6" text-anchor="middle">Σ(αᵢ·xᵢ)</text>
+
+  <!-- Decorative: small dots representing 3D depth slices -->
+  <g fill="#3F51B5" fill-opacity="0.15">
+    <circle cx="120" cy="310" r="2"/>
+    <circle cx="130" cy="315" r="2"/>
+    <circle cx="140" cy="310" r="2"/>
+    <text x="120" y="330" font-family="Inter, sans-serif" font-size="8" fill="#3F51B5" fill-opacity="0.4">3D patches</text>
+  </g>
+
+  <!-- Three small stacked rectangles representing 3 channels (T2+DWI+ADC) -->
+  <g transform="translate(260, 295)">
+    <rect x="0" y="6" width="18" height="12" rx="1" fill="#E8EAF6" stroke="#3F51B5" stroke-width="0.6" stroke-opacity="0.3"/>
+    <rect x="3" y="3" width="18" height="12" rx="1" fill="#C5CAE9" stroke="#3F51B5" stroke-width="0.6" stroke-opacity="0.3"/>
+    <rect x="6" y="0" width="18" height="12" rx="1" fill="#9FA8DA" stroke="#3F51B5" stroke-width="0.8" stroke-opacity="0.4"/>
+    <text x="0" y="30" font-family="Inter, sans-serif" font-size="7" fill="#3F51B5" fill-opacity="0.4">T2 DWI ADC</text>
+  </g>
+
+  <!-- Title text -->
+  <text x="200" y="370" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1A237E" fill-opacity="0.7" text-anchor="middle" letter-spacing="2">WSAttention</text>
+  <text x="200" y="388" font-family="Inter, sans-serif" font-size="10" fill="#009688" fill-opacity="0.6" text-anchor="middle" letter-spacing="1">PROSTATE</text>
+</svg>
