@@ -61,29 +61,6 @@
   <rect x="181" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.2" stroke="#009688" stroke-width="0.8"/>
   <rect x="155" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.15" stroke="#009688" stroke-width="0.6"/>
 
-  <!-- Attention arrows from patches to aggregation point -->
-  <g stroke="url(#connector-grad)" stroke-width="1.2" fill="none" marker-end="none">
-    <!-- Lines from highlighted patches converging to a point -->
-    <path d="M181,194 Q280,170 320,155" stroke-opacity="0.5"/>
-    <path d="M207,194 Q290,180 320,155" stroke-opacity="0.4"/>
-    <path d="M181,168 Q275,150 320,155" stroke-opacity="0.3"/>
-    <path d="M181,220 Q285,200 320,155" stroke-opacity="0.3"/>
-    <path d="M168,220 Q280,210 320,155" stroke-opacity="0.2"/>
-  </g>
-
-  <!-- Aggregation node (attention pooling) -->
-  <circle cx="320" cy="155" r="12" fill="#3F51B5" fill-opacity="0.15" stroke="#3F51B5" stroke-width="1.5"/>
-  <circle cx="320" cy="155" r="4" fill="#009688" fill-opacity="0.7"/>
-
-  <!-- Output arrow -->
-  <line x1="332" y1="155" x2="365" y2="155" stroke="#3F51B5" stroke-width="1.5" stroke-opacity="0.5" marker-end="none"/>
-  <polygon points="365,150 375,155 365,160" fill="#3F51B5" fill-opacity="0.5"/>
-
-  <!-- Attention weight labels (alpha values near arrows) -->
-  <text x="295" y="148" font-family="Inter, sans-serif" font-size="9" fill="#3F51B5" fill-opacity="0.6" font-style="italic">α₁</text>
-  <text x="300" y="168" font-family="Inter, sans-serif" font-size="9" fill="#3F51B5" fill-opacity="0.5" font-style="italic">α₂</text>
-  <text x="288" y="135" font-family="Inter, sans-serif" font-size="8" fill="#3F51B5" fill-opacity="0.4" font-style="italic">α₃</text>
-
   <!-- Title text -->
   <text x="200" y="360" font-family="Inter, sans-serif" font-size="32" font-weight="600" fill="#1A237E" fill-opacity="0.7" text-anchor="middle" letter-spacing="2">WSAttention</text>
   <text x="200" y="390" font-family="Inter, sans-serif" font-size="22" fill="#009688" fill-opacity="0.6" text-anchor="middle" letter-spacing="1.5">PROSTATE</text>
