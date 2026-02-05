@@ -14,6 +14,7 @@ triton==3.1.0
 
 # ---- MONAI / medical imaging ----
 monai==1.4.0
+itk>=5.3.0
 SimpleITK==2.4.0
 pynrrd==1.1.1
 nibabel==5.3.2
@@ -35,7 +36,6 @@ tensorboard==2.18.0
 
 # ---- Utilities ----
 tqdm==4.67.1
-gdown==5.2.0
 requests
 filelock
 packaging
@@ -45,6 +45,3 @@ streamlit==1.50.0
 
 # ---- Grad-CAM ----
 grad-cam @ git+https://github.com/jacobgil/pytorch-grad-cam.git@781dbc0d16ffa95b6d18b96b7b829840a82d93d1
-
-# ---- Your external dependency ----
--e git+https://github.com/ai-assisted-healthcare/AIAH_utility.git@368233822b057b6bfef88f9e4b23c2967ae7bb35#egg=AIAH_utility

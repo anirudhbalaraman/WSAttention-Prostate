@@ -35,7 +35,6 @@ def save_cspca_checkpoint(model, val_metric, model_dir):
         "auc": val_metric["auc"],
         "sensitivity": val_metric["sensitivity"],
         "specificity": val_metric["specificity"],
-        "state": val_metric["state"],
         "state_dict": state_dict,
     }
     torch.save(save_dict, os.path.join(model_dir, "cspca_model.pth"))
