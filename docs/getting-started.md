@@ -9,7 +9,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/ai-assisted-healthcare/WSAttention-Prostate.git
+git clone https://github.com/anirudhbalaraman/WSAttention-Prostate.git
 cd WSAttention-Prostate
 pip install -r requirements.txt
 ```
