@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import torch
 import torch.nn as nn
 from monai.utils.module import optional_import
@@ -17,8 +18,8 @@ class SimpleNN(nn.Module):
         input_dim (int): The number of input features.
     """
 
-    def __init__(self, input_dim):
-        super(SimpleNN, self).__init__()
+    def __init__(self, input_dim: int) -> None:
+        super().__init__()
         self.net = nn.Sequential(
             nn.Linear(input_dim, 256),
             nn.ReLU(),
@@ -42,7 +43,7 @@ class SimpleNN(nn.Module):
         return self.net(x)
 
 
-class csPCa_Model(nn.Module):
+class CSPCAModel(nn.Module):
     """
     Clinically Significant Prostate Cancer (csPCa) risk prediction model using a MIL backbone.
 
@@ -67,7 +68,7 @@ class csPCa_Model(nn.Module):
         backbone: The MIL based PI-RADS classifier.
     """
 
-    def __init__(self, backbone):
+    def __init__(self, backbone: nn.Module) -> None:
         super().__init__()
         self.backbone = backbone
         self.fc_dim = backbone.myfc.in_features

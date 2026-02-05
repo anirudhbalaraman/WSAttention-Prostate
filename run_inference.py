@@ -1,18 +1,20 @@
 import argparse
-import os
-import yaml
-import torch
-import logging
-from src.model.MIL import MILModel_3D
-from src.model.csPCa_model import csPCa_Model
-from src.utils import setup_logging, get_parent_image, get_patch_coordinate
-from src.preprocessing.register_and_crop import register_files
-from src.preprocessing.prostate_mask import get_segmask
-from src.preprocessing.histogram_match import histmatch
-from src.preprocessing.generate_heatmap import get_heatmap
-from src.data.data_loader import data_transform, list_data_collate
-from monai.data import Dataset
 import json
+import logging
+import os
+
+import torch
+import yaml
+from monai.data import Dataset
+
+from src.data.data_loader import data_transform, list_data_collate
+from src.model.cspca_model import CSPCAModel
+from src.model.mil import MILModel3D
+from src.preprocessing.generate_heatmap import get_heatmap
+from src.preprocessing.histogram_match import histmatch
+from src.preprocessing.prostate_mask import get_segmask
+from src.preprocessing.register_and_crop import register_files
+from src.utils import get_parent_image, get_patch_coordinate, setup_logging
 
 
 def parse_args():
@@ -36,7 +38,7 @@ def parse_args():
 
     args = parser.parse_args()
     if args.config:
-        with open(args.config, "r") as config_file:
+        with open(args.config) as config_file:
             config = yaml.safe_load(config_file)
             args.__dict__.update(config)
     return args
@@ -64,14 +66,14 @@ if __name__ == "__main__":
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     logging.info("Loading PIRADS model")
-    pirads_model = MILModel_3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
+    pirads_model = MILModel3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
     pirads_checkpoint = torch.load(
         os.path.join(args.project_dir, "models", "pirads.pt"), map_location="cpu"
     )
     pirads_model.load_state_dict(pirads_checkpoint["state_dict"])
     pirads_model.to(args.device)
     logging.info("Loading csPCa model")
-    cspca_model = csPCa_Model(backbone=pirads_model).to(args.device)
+    cspca_model = CSPCAModel(backbone=pirads_model).to(args.device)
     checkpt = torch.load(
         os.path.join(args.project_dir, "models", "cspca_model.pth"), map_location="cpu"
     )
@@ -109,7 +111,7 @@ if __name__ == "__main__":
     cspca_model.eval()
     patches_top_5_list = []
     with torch.no_grad():
-        for idx, batch_data in enumerate(loader):
+        for _, batch_data in enumerate(loader):
             data = batch_data["image"].as_subclass(torch.Tensor).to(args.device)
             logits = pirads_model(data)
             pirads_score = torch.argmax(logits, dim=1)
@@ -137,10 +139,10 @@ if __name__ == "__main__":
                 patches_top_5.append(patch_temp)
             patches_top_5_list.append(patches_top_5)
     coords_list = []
-    for i in args.data_list:
+    for j, i in enumerate(args.data_list):
         parent_image = get_parent_image([i], args)
 
-        coords = get_patch_coordinate(patches_top_5, parent_image)
+        coords = get_patch_coordinate(patches_top_5_list[j], parent_image)
         coords_list.append(coords)
     output_dict = {}
 

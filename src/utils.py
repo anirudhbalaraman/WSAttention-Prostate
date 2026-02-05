@@ -1,21 +1,31 @@
+import argparse
+import logging
 import os
 import sys
+from pathlib import Path
+from typing import Any, Union
+
+import cv2
 import numpy as np
 import torch
+from monai.data import Dataset
 from monai.transforms import (
     Compose,
+    EnsureTyped,
     LoadImaged,
     ToTensord,
-    EnsureTyped,
 )
+
 from .data.custom_transforms import ClipMaskIntensityPercentilesd, NormalizeIntensity_customd
-from monai.data import Dataset, ITKReader
-import logging
-from pathlib import Path
-import cv2
 
 
-def save_pirads_checkpoint(model, epoch, args, filename="model.pth", best_acc=0):
+def save_pirads_checkpoint(
+    model: torch.nn.Module,
+    epoch: int,
+    args: argparse.Namespace,
+    filename: str = "model.pth",
+    best_acc: float = 0,
+) -> None:
     """Save checkpoint for the PI-RADS model"""
 
     state_dict = model.state_dict()
@@ -25,7 +35,11 @@ def save_pirads_checkpoint(model, epoch, args, filename="model.pth", best_acc=0)
     logging.info(f"Saving checkpoint {filename}")
 
 
-def save_cspca_checkpoint(model, val_metric, model_dir):
+def save_cspca_checkpoint(
+    model: torch.nn.Module,
+    val_metric: dict[str, Any],
+    model_dir: str,
+) -> None:
     """Save checkpoint for the csPCa model"""
 
     state_dict = model.state_dict()
@@ -41,7 +55,7 @@ def save_cspca_checkpoint(model, val_metric, model_dir):
     logging.info(f"Saving model with auc: {val_metric['auc']}")
 
 
-def get_metrics(metric_dict: dict):
+def get_metrics(metric_dict: dict) -> None:
     for metric_name, metric_list in metric_dict.items():
         metric_list = np.array(metric_list)
         lower = np.percentile(metric_list, 2.5)
@@ -51,7 +65,7 @@ def get_metrics(metric_dict: dict):
         logging.info(f"95% CI: ({lower:.3f}, {upper:.3f})")
 
 
-def setup_logging(log_file):
+def setup_logging(log_file: Union[str, Path]) -> None:
     log_file = Path(log_file)
     log_file.parent.mkdir(parents=True, exist_ok=True)
     if log_file.exists():
@@ -66,13 +80,13 @@ def setup_logging(log_file):
 
 
 def validate_steps(steps):
-    REQUIRES = {
+    requires = {
         "get_segmentation_mask": ["register_and_crop"],
         "histogram_match": ["get_segmentation_mask", "register_and_crop"],
         "get_heatmap": ["get_segmentation_mask", "histogram_match", "register_and_crop"],
     }
     for i, step in enumerate(steps):
-        required = REQUIRES.get(step, [])
+        required = requires.get(step, [])
         for req in required:
             if req not in steps[:i]:
                 logging.error(
@@ -81,7 +95,10 @@ def validate_steps(steps):
                 sys.exit(1)
 
 
-def get_patch_coordinate(patches_top_5, parent_image):
+def get_patch_coordinate(
+    patches_top_5: list[np.ndarray],
+    parent_image: np.ndarray,
+) -> list[tuple[int, int, int]]:
     """
     Locate the coordinates of top-5 patches within a parent image.
 
@@ -90,7 +107,7 @@ def get_patch_coordinate(patches_top_5, parent_image):
     coordinates (row, column) and the slice index where each patch is found.
 
     Args:
-        patches_top_5 (list): List of top-5 patch tensors, each with shape (C, H, W)
+        patches_top_5 (list): List of top-5 patches as np arrays, each with shape (C, H, W)
                              where C is channels, H is height, W is width.
         parent_image (np.ndarray): 3D image volume with shape (height, width, slices)
                                    to search within.
@@ -137,12 +154,12 @@ def get_patch_coordinate(patches_top_5, parent_image):
     return coords
 
 
-def get_parent_image(temp_data_list, args):
+def get_parent_image(temp_data_list, args: argparse.Namespace) -> np.ndarray:
     transform_image = Compose(
         [
             LoadImaged(
                 keys=["image", "mask"],
-                reader=ITKReader(),
+                reader="ITKReader",
                 ensure_channel_first=True,
                 dtype=np.float32,
             ),
@@ -169,9 +186,9 @@ def visualise_patches():
     for i in range(rows):
         for j in range(slices):
             ax = axes[i, j]
-            
+
             if j == 0:
-            
+
                 for k in range(parent_image.shape[2]):
                     img_temp = parent_image[:, :, k]
                     H, W = img_temp.shape
@@ -187,11 +204,11 @@ def visualise_patches():
                                 break
                         if bool1:
                             break
-                        
+
                     if bool1:
                         break
 
-                
+
 
 
             ax.imshow(parent_image[:, :, k+j], cmap='gray')
@@ -199,7 +216,7 @@ def visualise_patches():
                                     linewidth=2, edgecolor='red', facecolor='none')
             ax.add_patch(rect)
             ax.axis('off')
-        
+
 
     plt.tight_layout()
     plt.show()

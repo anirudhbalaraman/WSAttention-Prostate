@@ -1,8 +1,10 @@
-import os
-import nrrd
-from skimage import exposure
+import argparse
 import logging
+import os
+
+import nrrd
 import numpy as np
+from skimage import exposure
 from tqdm import tqdm
 
 
@@ -34,7 +36,7 @@ def get_histmatched(
     return matched_img
 
 
-def histmatch(args):
+def histmatch(args: argparse.Namespace) -> argparse.Namespace:
     files = os.listdir(args.t2_dir)
 
     t2_histmatched_dir = os.path.join(args.output_dir, "t2_histmatched")

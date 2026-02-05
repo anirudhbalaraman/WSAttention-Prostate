@@ -1,14 +1,16 @@
 from __future__ import annotations
+
 from typing import cast
+
 import torch
 import torch.nn as nn
-from monai.utils.module import optional_import
 from monai.networks.nets import resnet
+from monai.utils.module import optional_import
 
 models, _ = optional_import("torchvision.models")
 
 
-class MILModel_3D(nn.Module):
+class MILModel3D(nn.Module):
     """
     Multiple Instance Learning (MIL) model, with a backbone classification model.
     Adapted from MONAI, modified for 3D images. The expected shape of input data is `[B, N, C, D, H, W]`,
@@ -56,6 +58,7 @@ class MILModel_3D(nn.Module):
         self.mil_mode = mil_mode.lower()
         self.attention = nn.Sequential()
         self.transformer: nn.Module | None = None
+        net: nn.Module
 
         if backbone is None:
             net = resnet.resnet18(
@@ -63,8 +66,9 @@ class MILModel_3D(nn.Module):
                 n_input_channels=3,
                 num_classes=5,
             )
+            assert net.fc is not None
             nfc = net.fc.in_features  # save the number of final features
-            net.fc = torch.nn.Identity()  # remove final linear layer
+            net.fc = torch.nn.Identity()  # type: ignore[assignment]
 
             self.extra_outputs: dict[str, torch.Tensor] = {}
 
@@ -90,7 +94,7 @@ class MILModel_3D(nn.Module):
 
             if getattr(net, "fc", None) is not None:
                 nfc = net.fc.in_features  # save the number of final features
-                net.fc = torch.nn.Identity()  # remove final linear layer
+                net.fc = torch.nn.Identity()  # type: ignore[assignment]
             else:
                 raise ValueError(
                     "Unable to detect FC layer for the torchvision model " + str(backbone),
@@ -100,18 +104,18 @@ class MILModel_3D(nn.Module):
         elif isinstance(backbone, nn.Module):
             # use a custom backbone
             net = backbone
+
+            if backbone_num_features is None:
+                raise ValueError(
+                    "Number of endencoder features must be provided for a custom backbone model"
+                )
             nfc = backbone_num_features
-            net.fc = torch.nn.Identity()  # remove final linear layer
+            net.fc = torch.nn.Identity()  # type: ignore[assignment]
 
             if mil_mode == "att_trans_pyramid":
                 # register hooks to capture outputs of intermediate layers
                 raise ValueError(
                     "Cannot use att_trans_pyramid with custom backbone. Have to use the default ResNet 18 backbone."
-                )
-
-            if backbone_num_features is None:
-                raise ValueError(
-                    "Number of endencoder features must be provided for a custom backbone model"
                 )
 
         else:

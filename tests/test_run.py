@@ -20,13 +20,22 @@ def test_run_pirads_training():
 
     # Run the script with the config
     result = subprocess.run(
-        [sys.executable, str(script_path), "--mode", "train", "--config", str(config_path), "--dry_run", "True" ],
+        [
+            sys.executable,
+            str(script_path),
+            "--mode",
+            "train",
+            "--config",
+            str(config_path),
+            "--dry_run",
+        ],
         capture_output=True,
         text=True,
     )
 
     # Check that it ran without errors
     assert result.returncode == 0, f"Script failed with:\n{result.stderr}"
+
 
 def test_run_pirads_inference():
     """
@@ -45,14 +54,23 @@ def test_run_pirads_inference():
 
     # Run the script with the config
     result = subprocess.run(
-        [sys.executable, str(script_path), "--mode", "test", "--config", str(config_path), "--dry_run", "True" ],
+        [
+            sys.executable,
+            str(script_path),
+            "--mode",
+            "test",
+            "--config",
+            str(config_path),
+            "--dry_run",
+        ],
         capture_output=True,
         text=True,
     )
 
     # Check that it ran without errors
     assert result.returncode == 0, f"Script failed with:\n{result.stderr}"
-    
+
+
 def test_run_cspca_training():
     """
     Test that run_cspca.py runs without crashing using an existing YAML config.
@@ -70,14 +88,23 @@ def test_run_cspca_training():
 
     # Run the script with the config
     result = subprocess.run(
-        [sys.executable, str(script_path), "--mode", "train", "--config", str(config_path), "--dry_run", "True" ],
+        [
+            sys.executable,
+            str(script_path),
+            "--mode",
+            "train",
+            "--config",
+            str(config_path),
+            "--dry_run",
+        ],
         capture_output=True,
         text=True,
     )
 
     # Check that it ran without errors
     assert result.returncode == 0, f"Script failed with:\n{result.stderr}"
-    
+
+
 def test_run_cspca_inference():
     """
     Test that run_cspca.py runs without crashing using an existing YAML config.
@@ -95,12 +122,18 @@ def test_run_cspca_inference():
 
     # Run the script with the config
     result = subprocess.run(
-        [sys.executable, str(script_path), "--mode", "test", "--config", str(config_path), "--dry_run", "True" ],
+        [
+            sys.executable,
+            str(script_path),
+            "--mode",
+            "test",
+            "--config",
+            str(config_path),
+            "--dry_run",
+        ],
         capture_output=True,
         text=True,
     )
 
     # Check that it ran without errors
     assert result.returncode == 0, f"Script failed with:\n{result.stderr}"
-
-

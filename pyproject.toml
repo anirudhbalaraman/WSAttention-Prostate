@@ -1,9 +1,51 @@
 [tool.ruff]
 line-length = 100
+target-version = "py39" # Ensures ruff uses 3.9 compatible syntax
 
 [tool.ruff.lint]
-select = ["E", "W"]
+select = ["E", "W", "F", "I", "B", "N", "UP"]
 ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+# This makes your imports look like a professional library
+combine-as-imports = true
+force-wrap-aliases = true
+known-first-party = ["src"] # Treats your 'src' folder as a local package
 
 [tool.ruff.format]
 quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint.pep8-naming]
+# Add your custom class name here
+ignore-names = ["sitk", "NormalizeIntensity_custom", "NormalizeIntensity_customd"]
+
+[tool.mypy]
+ignore_missing_imports = true
+disable_error_code = ["override", "import-untyped"]
+mypy_path = "."
+pretty = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+# These settings apply specifically to these external libraries
+module = [
+    "yaml.*",
+    "nrrd.*",
+    "nibabel.*",
+    "scipy.*",
+    "sklearn.*"
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+# Automatically adds these flags every time you run 'pytest'
+addopts = "-v --showlocals --durations=5"
+
+# Where pytest should look for tests
+testpaths = ["tests"]
+
+# Patterns to identify test files
+python_files = "test_*.py"
+python_functions = "test_*"

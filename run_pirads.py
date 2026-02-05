@@ -1,19 +1,21 @@
 import argparse
+import logging
 import os
 import shutil
-import time
-import yaml
 import sys
+import time
+from pathlib import Path
+
 import numpy as np
 import torch
-from torch.utils.tensorboard import SummaryWriter
-from monai.utils import set_determinism
 import wandb
-import logging
-from pathlib import Path
+import yaml
+from monai.utils import set_determinism
+from torch.utils.tensorboard import SummaryWriter
+
 from src.data.data_loader import get_dataloader
+from src.model.mil import MILModel3D
 from src.train.train_pirads import train_epoch, val_epoch
-from src.model.MIL import MILModel_3D
 from src.utils import save_pirads_checkpoint, setup_logging
 
 
@@ -21,7 +23,7 @@ def main_worker(args):
     if args.device == torch.device("cuda"):
         torch.backends.cudnn.benchmark = True
 
-    model = MILModel_3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
+    model = MILModel3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
     start_epoch = 0
     best_acc = 0.0
     if args.checkpoint is not None:
@@ -250,19 +252,20 @@ def parse_args():
     )
     args = parser.parse_args()
     if args.config:
-        with open(args.config, "r") as config_file:
+        with open(args.config) as config_file:
             config = yaml.safe_load(config_file)
             args.__dict__.update(config)
     return args
 
 
 if __name__ == "__main__":
-
     args = parse_args()
     if args.project_dir is None:
-        args.project_dir = Path(__file__).resolve().parent # Set project directory
+        args.project_dir = Path(__file__).resolve().parent  # Set project directory
 
-    slurm_job_name = os.getenv('SLURM_JOB_NAME') # If the script is submitted via slurm, job name is the run name
+    slurm_job_name = os.getenv(
+        "SLURM_JOB_NAME"
+    )  # If the script is submitted via slurm, job name is the run name
     if slurm_job_name:
         args.run_name = slurm_job_name
 
@@ -288,11 +291,13 @@ if __name__ == "__main__":
 
     if args.dry_run:
         logging.info("Dry run mode enabled.")
-        args.epochs = 2
+        args.epochs = 1
         args.batch_size = 2
         args.workers = 0
-        args.num_seeds = 2
+        args.num_seeds = 1
         args.wandb = False
+        args.tile_size = 10
+        args.tile_count = 5
 
     mode_wandb = "online" if args.wandb and args.mode != "test" else "disabled"
 
@@ -314,3 +319,6 @@ if __name__ == "__main__":
     main_worker(args)
 
     wandb.finish()
+
+    if args.dry_run:
+        shutil.rmtree(args.logdir)

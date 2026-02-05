@@ -1,11 +1,13 @@
-import os
-import numpy as np
-import nrrd
-from tqdm import tqdm
+import argparse
 import logging
+import os
+
+import nrrd
+import numpy as np
+from tqdm import tqdm
 
 
-def get_heatmap(args):
+def get_heatmap(args: argparse.Namespace) -> argparse.Namespace:
     """
     Generate heatmaps from DWI (Diffusion Weighted Imaging) and ADC (Apparent Diffusion Coefficient) medical imaging data.
     This function processes medical imaging files (DWI and ADC) along with their corresponding

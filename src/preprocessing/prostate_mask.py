@@ -1,31 +1,29 @@
+import argparse
+import logging
 import os
-import numpy as np
+
 import nrrd
-from tqdm import tqdm
-from monai.bundle import ConfigParser
+import numpy as np
 import torch
-
-
+from monai.bundle import ConfigParser
+from monai.data import MetaTensor
 from monai.transforms import (
     Compose,
+    EnsureChannelFirstd,
+    EnsureTyped,
     LoadImaged,
-    ScaleIntensityd,
     NormalizeIntensityd,
+    Orientationd,
+    ScaleIntensityd,
+    Spacingd,
 )
 from monai.utils import set_determinism
-from monai.transforms import (
-    EnsureChannelFirstd,
-    Orientationd,
-    Spacingd,
-    EnsureTyped,
-)
-from monai.data import MetaTensor
-import logging
+from tqdm import tqdm
 
 set_determinism(43)
 
 
-def get_segmask(args):
+def get_segmask(args: argparse.Namespace) -> argparse.Namespace:
     """
     Generate prostate segmentation masks using a pre-trained deep learning model.
     This function performs inference on T2-weighted MRI images to segment the prostate gland.

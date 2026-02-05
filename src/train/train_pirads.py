@@ -1,20 +1,27 @@
+import argparse
+import logging
 import time
+
 import numpy as np
 import torch
 import torch.nn as nn
 from monai.metrics import Cumulative, CumulativeAverage
 from sklearn.metrics import cohen_kappa_score
-import logging
 
 
-def get_lambda_att(epoch, max_lambda=2.0, warmup_epochs=10):
+def get_lambda_att(epoch: int, max_lambda: float = 2.0, warmup_epochs: int = 10) -> float:
     if epoch < warmup_epochs:
         return (epoch / warmup_epochs) * max_lambda
     else:
         return max_lambda
 
 
-def get_attention_scores(data, target, heatmap, args):
+def get_attention_scores(
+    data: torch.Tensor,
+    target: torch.Tensor,
+    heatmap: torch.Tensor,
+    args: argparse.Namespace,
+) -> tuple[torch.Tensor, torch.Tensor]:
     """
     Compute attention scores from heatmaps and shuffle data accordingly.
     This function generates attention scores based on spatial heatmaps, applies
@@ -136,17 +143,7 @@ def train_epoch(model, loader, optimizer, scaler, epoch, args):
             run_loss.append(loss.detach().cpu())
             run_acc.append(acc.detach().cpu())
             logging.info(
-                "Epoch {}/{} {}/{} loss: {:.4f} attention loss: {:.4f} acc: {:.4f} grad norm: {:.4f} time {:.2f}s".format(
-                    epoch,
-                    args.epochs,
-                    idx,
-                    len(loader),
-                    loss.item(),
-                    attn_loss.item(),
-                    acc,
-                    total_norm,
-                    time.time() - start_time,
-                )
+                f"Epoch {epoch}/{args.epochs} {idx}/{len(loader)} loss: {loss.item():.4f} attention loss: {attn_loss.item():.4f} acc: {acc:.4f} grad norm: {total_norm:.4f} time {time.time() - start_time:.2f}s"
             )
             start_time = time.time()
 
@@ -164,8 +161,8 @@ def val_epoch(model, loader, epoch, args):
 
     run_loss = CumulativeAverage()
     run_acc = CumulativeAverage()
-    PREDS = Cumulative()
-    TARGETS = Cumulative()
+    preds_cumulative = Cumulative()
+    targets_cumulative = Cumulative()
 
     start_time = time.time()
     loss, acc = 0.0, 0.0
@@ -188,12 +185,10 @@ def val_epoch(model, loader, epoch, args):
 
             run_loss.append(loss.detach().cpu())
             run_acc.append(acc.detach().cpu())
-            PREDS.extend(pred.detach().cpu())
-            TARGETS.extend(target.detach().cpu())
+            preds_cumulative.extend(pred.detach().cpu())
+            targets_cumulative.extend(target.detach().cpu())
             logging.info(
-                "Val epoch {}/{} {}/{} loss: {:.4f} acc: {:.4f} time {:.2f}s".format(
-                    epoch, args.epochs, idx, len(loader), loss, acc, time.time() - start_time
-                )
+                f"Val epoch {epoch}/{args.epochs} {idx}/{len(loader)} loss: {loss:.4f} acc: {acc:.4f} time {time.time() - start_time:.2f}s"
             )
             start_time = time.time()
 
@@ -201,9 +196,11 @@ def val_epoch(model, loader, epoch, args):
             torch.cuda.empty_cache()
 
         # Calculate QWK metric (Quadratic Weigted Kappa) https://en.wikipedia.org/wiki/Cohen%27s_kappa
-        PREDS = PREDS.get_buffer().cpu().numpy()
-        TARGETS = TARGETS.get_buffer().cpu().numpy()
+        preds_cumulative = preds_cumulative.get_buffer().cpu().numpy()
+        targets_cumulative = targets_cumulative.get_buffer().cpu().numpy()
         loss_epoch = run_loss.aggregate()
         acc_epoch = run_acc.aggregate()
-        qwk = cohen_kappa_score(TARGETS.astype(np.float64), PREDS.astype(np.float64))
+        qwk = cohen_kappa_score(
+            targets_cumulative.astype(np.float64), preds_cumulative.astype(np.float64)
+        )
     return loss_epoch, acc_epoch, qwk
