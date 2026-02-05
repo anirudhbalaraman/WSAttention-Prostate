@@ -27,81 +27,73 @@ def main_worker(args):
         model_dir = os.path.join(args.logdir, "models")
         os.makedirs(model_dir, exist_ok=True)
 
-        metrics_dict = {"auc": [], "sensitivity": [], "specificity": []}
-        for st in list(range(args.num_seeds)):
-            set_determinism(seed=st)
+        set_determinism(seed=42)
 
-            train_loader = get_dataloader(args, split="train")
-            valid_loader = get_dataloader(args, split="test")
-            cspca_model = csPCa_Model(backbone=mil_model).to(args.device)
-            for submodule in [
-                cspca_model.backbone.net,
-                cspca_model.backbone.myfc,
-                cspca_model.backbone.transformer,
-            ]:
-                for param in submodule.parameters():
-                    param.requires_grad = False
-
-            optimizer = torch.optim.AdamW(
-                filter(lambda p: p.requires_grad, cspca_model.parameters()), lr=args.optim_lr
-            )
-
-            old_loss = float("inf")
-            old_auc = 0.0
-            for epoch in range(args.epochs):
-                train_loss, train_auc = train_epoch(
-                    cspca_model, train_loader, optimizer, epoch=epoch, args=args
-                )
-                logging.info(
-                    f"STATE {st} EPOCH {epoch} TRAIN loss: {train_loss:.4f} AUC: {train_auc:.4f}"
-                )
-                val_metric = val_epoch(cspca_model, valid_loader, epoch=epoch, args=args)
-                logging.info(
-                    f"STATE {st} EPOCH {epoch} VAL loss: {val_metric['loss']:.4f} AUC: {val_metric['auc']:.4f}"
-                )
-                val_metric["state"] = st
-                if val_metric["loss"] < old_loss:
-                    old_loss = val_metric["loss"]
-                    old_auc = val_metric["auc"]
-                    sensitivity = val_metric["sensitivity"]
-                    specificity = val_metric["specificity"]
-                    if not metrics_dict["auc"] or val_metric["auc"] >= max(metrics_dict["auc"]):
-                        save_cspca_checkpoint(cspca_model, val_metric, model_dir)
-
-            metrics_dict["auc"].append(old_auc)
-            metrics_dict["sensitivity"].append(sensitivity)
-            metrics_dict["specificity"].append(specificity)
-            if cache_dir_path.exists() and cache_dir_path.is_dir():
-                shutil.rmtree(cache_dir_path)
-
-        get_metrics(metrics_dict)
-
-    elif args.mode == "test":
+        train_loader = get_dataloader(args, split="train")
+        valid_loader = get_dataloader(args, split="test")
         cspca_model = csPCa_Model(backbone=mil_model).to(args.device)
-        checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
-        cspca_model.load_state_dict(checkpt["state_dict"])
-        cspca_model = cspca_model.to(args.device)
-        if "auc" in checkpt and "sensitivity" in checkpt and "specificity" in checkpt:
-            auc, sens, spec = checkpt["auc"], checkpt["sensitivity"], checkpt["specificity"]
-            logging.info(
-                f"csPCa Model loaded from {args.checkpoint_cspca} with AUC: {auc}, Sensitivity: {sens}, Specificity: {spec} on the test set."
+        for submodule in [
+            cspca_model.backbone.net,
+            cspca_model.backbone.myfc,
+            cspca_model.backbone.transformer,
+        ]:
+            for param in submodule.parameters():
+                param.requires_grad = False
+
+        optimizer = torch.optim.AdamW(
+            filter(lambda p: p.requires_grad, cspca_model.parameters()), lr=args.optim_lr
+        )
+
+        old_loss = float("inf")
+        old_auc = 0.0
+        for epoch in range(args.epochs):
+            train_loss, train_auc = train_epoch(
+                cspca_model, train_loader, optimizer, epoch=epoch, args=args
             )
-        else:
-            logging.info(f"csPCa Model loaded from {args.checkpoint_cspca}.")
+            logging.info(
+                f"STATE {st} EPOCH {epoch} TRAIN loss: {train_loss:.4f} AUC: {train_auc:.4f}"
+            )
+            val_metric = val_epoch(cspca_model, valid_loader, epoch=epoch, args=args)
+            logging.info(
+                f"STATE {st} EPOCH {epoch} VAL loss: {val_metric['loss']:.4f} AUC: {val_metric['auc']:.4f}"
+            )
+            if val_metric["loss"] < old_loss:
+                old_loss = val_metric["loss"]
+                old_auc = val_metric["auc"]
+                sensitivity = val_metric["sensitivity"]
+                specificity = val_metric["specificity"]
+                save_cspca_checkpoint(cspca_model, val_metric, model_dir)
 
-        metrics_dict = {"auc": [], "sensitivity": [], "specificity": []}
-        for st in list(range(args.num_seeds)):
-            set_determinism(seed=st)
-            test_loader = get_dataloader(args, split="test")
-            test_metric = val_epoch(cspca_model, test_loader, epoch=0, args=args)
-            metrics_dict["auc"].append(test_metric["auc"])
-            metrics_dict["sensitivity"].append(test_metric["sensitivity"])
-            metrics_dict["specificity"].append(test_metric["specificity"])
+        args.checkpoint_cspca = os.path.join(model_dir, "cspca_model.pth")
+        if cache_dir_path.exists() and cache_dir_path.is_dir():
+            shutil.rmtree(cache_dir_path)
 
-            if cache_dir_path.exists() and cache_dir_path.is_dir():
-                shutil.rmtree(cache_dir_path)
 
-        get_metrics(metrics_dict)
+    cspca_model = csPCa_Model(backbone=mil_model).to(args.device)
+    checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
+    cspca_model.load_state_dict(checkpt["state_dict"])
+    cspca_model = cspca_model.to(args.device)
+    if "auc" in checkpt and "sensitivity" in checkpt and "specificity" in checkpt:
+        auc, sens, spec = checkpt["auc"], checkpt["sensitivity"], checkpt["specificity"]
+        logging.info(
+            f"csPCa Model loaded from {args.checkpoint_cspca} with AUC: {auc}, Sensitivity: {sens}, Specificity: {spec} on the test set."
+        )
+    else:
+        logging.info(f"csPCa Model loaded from {args.checkpoint_cspca}.")
+
+    metrics_dict = {"auc": [], "sensitivity": [], "specificity": []}
+    for st in list(range(args.num_seeds)):
+        set_determinism(seed=st)
+        test_loader = get_dataloader(args, split="test")
+        test_metric = val_epoch(cspca_model, test_loader, epoch=0, args=args)
+        metrics_dict["auc"].append(test_metric["auc"])
+        metrics_dict["sensitivity"].append(test_metric["sensitivity"])
+        metrics_dict["specificity"].append(test_metric["specificity"])
+
+        if cache_dir_path.exists() and cache_dir_path.is_dir():
+            shutil.rmtree(cache_dir_path)
+
+    get_metrics(metrics_dict)
 
 
 def parse_args():
