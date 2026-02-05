@@ -26,7 +26,7 @@ def main_worker(args):
     model = MILModel3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
     start_epoch = 0
     best_acc = 0.0
-    if args.checkpoint is not None:
+    if args.checkpoint is not None and not args.dry_run:
         checkpoint = torch.load(args.checkpoint, map_location="cpu")
         model.load_state_dict(checkpoint["state_dict"])
 
@@ -285,9 +285,10 @@ if __name__ == "__main__":
     if args.dataset_json is None:
         logging.error("Dataset JSON file not provided. Quitting.")
         sys.exit(1)
-    if args.checkpoint is None and args.mode == "test":
-        logging.error("Model checkpoint path not provided. Quitting.")
-        sys.exit(1)
+    if not args.dry_run:
+        if args.checkpoint is None and args.mode == "test":
+            logging.error("Model checkpoint path not provided. Quitting.")
+            sys.exit(1)
 
     if args.dry_run:
         logging.info("Dry run mode enabled.")
