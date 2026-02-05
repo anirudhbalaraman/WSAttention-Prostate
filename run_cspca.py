@@ -51,11 +51,11 @@ def main_worker(args):
                 cspca_model, train_loader, optimizer, epoch=epoch, args=args
             )
             logging.info(
-                f"STATE {st} EPOCH {epoch} TRAIN loss: {train_loss:.4f} AUC: {train_auc:.4f}"
+                f"EPOCH {epoch} TRAIN loss: {train_loss:.4f} AUC: {train_auc:.4f}"
             )
             val_metric = val_epoch(cspca_model, valid_loader, epoch=epoch, args=args)
             logging.info(
-                f"STATE {st} EPOCH {epoch} VAL loss: {val_metric['loss']:.4f} AUC: {val_metric['auc']:.4f}"
+                f"EPOCH {epoch} VAL loss: {val_metric['loss']:.4f} AUC: {val_metric['auc']:.4f}"
             )
             if val_metric["loss"] < old_loss:
                 old_loss = val_metric["loss"]
