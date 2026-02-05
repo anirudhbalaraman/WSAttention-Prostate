@@ -1,30 +1,33 @@
+import argparse
 import os
+from typing import Literal
+
 import numpy as np
-from monai.data import load_decathlon_datalist, ITKReader, PersistentDataset
+import torch
+from monai.data import PersistentDataset, load_decathlon_datalist
 from monai.transforms import (
     Compose,
-    LoadImaged,
-    ToTensord,
     ConcatItemsd,
     DeleteItemsd,
     EnsureTyped,
-    RandCropByPosNegLabeld,
+    LoadImaged,
     NormalizeIntensityd,
-    Transposed,
+    RandCropByPosNegLabeld,
     RandWeightedCropd,
+    ToTensord,
+    Transform,
+    Transposed,
 )
+from torch.utils.data.dataloader import default_collate
+
 from .custom_transforms import (
-    NormalizeIntensity_customd,
     ClipMaskIntensityPercentilesd,
     ElementwiseProductd,
+    NormalizeIntensity_customd,
 )
-import torch
-from torch.utils.data.dataloader import default_collate
-from typing import Literal
-import collections.abc
 
 
-def list_data_collate(batch: collections.abc.Sequence):
+def list_data_collate(batch: list):
     """
     Combine instances from a list of dicts into a single dict, by stacking them along first dim
     [{'image' : 3xHxW}, {'image' : 3xHxW}, {'image' : 3xHxW}...] - > {'image' : Nx3xHxW}
@@ -42,13 +45,13 @@ def list_data_collate(batch: collections.abc.Sequence):
     return default_collate(batch)
 
 
-def data_transform(args):
+def data_transform(args: argparse.Namespace) -> Transform:
     if args.use_heatmap:
         transform = Compose(
             [
                 LoadImaged(
                     keys=["image", "mask", "dwi", "adc", "heatmap"],
-                    reader=ITKReader(),
+                    reader="ITKReader",
                     ensure_channel_first=True,
                     dtype=np.float32,
                 ),
@@ -75,7 +78,7 @@ def data_transform(args):
             [
                 LoadImaged(
                     keys=["image", "mask", "dwi", "adc"],
-                    reader=ITKReader(),
+                    reader="ITKReader",
                     ensure_channel_first=True,
                     dtype=np.float32,
                 ),
@@ -101,14 +104,16 @@ def data_transform(args):
     return transform
 
 
-def get_dataloader(args, split: Literal["train", "test"]):
+def get_dataloader(
+    args: argparse.Namespace, split: Literal["train", "test"]
+) -> torch.utils.data.DataLoader:
     data_list = load_decathlon_datalist(
         data_list_file_path=args.dataset_json,
         data_list_key=split,
         base_dir=args.data_root,
     )
     if args.dry_run:
-        data_list = data_list[:8]  # Use only 8 samples for dry run
+        data_list = data_list[:2]  # Use only 8 samples for dry run
     cache_dir_ = os.path.join(args.logdir, "cache")
     os.makedirs(os.path.join(cache_dir_, split), exist_ok=True)
     transform = data_transform(args)

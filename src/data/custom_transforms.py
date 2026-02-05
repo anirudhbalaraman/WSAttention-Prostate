@@ -1,18 +1,19 @@
+from collections.abc import Hashable, Mapping, Sequence
+from typing import Union
+
+import cv2
 import numpy as np
 import torch
-from typing import Union
-from monai.transforms import MapTransform
 from monai.config import DtypeLike, KeysCollection
 from monai.config.type_definitions import NdarrayOrTensor
 from monai.data.meta_obj import get_track_meta
+from monai.transforms import MapTransform
 from monai.transforms.transform import Transform
 from monai.transforms.utils import soft_clip
 from monai.transforms.utils_pytorch_numpy_unification import clip, percentile
 from monai.utils.enums import TransformBackends
 from monai.utils.type_conversion import convert_data_type, convert_to_dst_type, convert_to_tensor
 from scipy.ndimage import binary_dilation
-import cv2
-from collections.abc import Hashable, Mapping, Sequence
 
 
 class DilateAndSaveMaskd(MapTransform):
@@ -100,7 +101,7 @@ class ClipMaskIntensityPercentiles(Transform):
         self.channel_wise = channel_wise
         self.dtype = dtype
 
-    def _clip(self, img: NdarrayOrTensor, mask_data: NdarrayOrTensor) -> NdarrayOrTensor:
+    def _clip(self, img: NdarrayOrTensor, mask_data: NdarrayOrTensor) -> torch.Tensor:
         masked_img = img * (mask_data > 0)
         if self.sharpness_factor is not None:
             lower_percentile = (
@@ -125,8 +126,8 @@ class ClipMaskIntensityPercentiles(Transform):
             )
             img = clip(img, lower_percentile, upper_percentile)
 
-        img = convert_to_tensor(img, track_meta=False)
-        return img
+        img_tensor = convert_to_tensor(img, track_meta=False)
+        return img_tensor
 
     def __call__(self, img: NdarrayOrTensor, mask_data: NdarrayOrTensor) -> NdarrayOrTensor:
         """

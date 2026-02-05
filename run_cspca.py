@@ -1,22 +1,23 @@
 import argparse
+import logging
 import os
 import shutil
-import yaml
 import sys
-import torch
 from pathlib import Path
+
+import torch
+import yaml
 from monai.utils import set_determinism
-import logging
-from src.model.MIL import MILModel_3D
-from src.model.csPCa_model import csPCa_Model
+
 from src.data.data_loader import get_dataloader
-from src.utils import save_cspca_checkpoint, get_metrics, setup_logging
+from src.model.cspca_model import CSPCAModel
+from src.model.mil import MILModel3D
 from src.train.train_cspca import train_epoch, val_epoch
-import random
+from src.utils import get_metrics, save_cspca_checkpoint, setup_logging
 
 
 def main_worker(args):
-    mil_model = MILModel_3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
+    mil_model = MILModel3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
     cache_dir_path = Path(os.path.join(args.logdir, "cache"))
 
     if args.mode == "train":
@@ -31,7 +32,7 @@ def main_worker(args):
 
         train_loader = get_dataloader(args, split="train")
         valid_loader = get_dataloader(args, split="test")
-        cspca_model = csPCa_Model(backbone=mil_model).to(args.device)
+        cspca_model = CSPCAModel(backbone=mil_model).to(args.device)
         for submodule in [
             cspca_model.backbone.net,
             cspca_model.backbone.myfc,
@@ -45,23 +46,17 @@ def main_worker(args):
         )
 
         old_loss = float("inf")
-        old_auc = 0.0
         for epoch in range(args.epochs):
             train_loss, train_auc = train_epoch(
                 cspca_model, train_loader, optimizer, epoch=epoch, args=args
             )
-            logging.info(
-                f"EPOCH {epoch} TRAIN loss: {train_loss:.4f} AUC: {train_auc:.4f}"
-            )
+            logging.info(f"EPOCH {epoch} TRAIN loss: {train_loss:.4f} AUC: {train_auc:.4f}")
             val_metric = val_epoch(cspca_model, valid_loader, epoch=epoch, args=args)
             logging.info(
                 f"EPOCH {epoch} VAL loss: {val_metric['loss']:.4f} AUC: {val_metric['auc']:.4f}"
             )
             if val_metric["loss"] < old_loss:
                 old_loss = val_metric["loss"]
-                old_auc = val_metric["auc"]
-                sensitivity = val_metric["sensitivity"]
-                specificity = val_metric["specificity"]
                 save_cspca_checkpoint(cspca_model, val_metric, model_dir)
 
         args.checkpoint_cspca = os.path.join(model_dir, "cspca_model.pth")
@@ -69,7 +64,7 @@ def main_worker(args):
             shutil.rmtree(cache_dir_path)
 
 
-    cspca_model = csPCa_Model(backbone=mil_model).to(args.device)
+    cspca_model = CSPCAModel(backbone=mil_model).to(args.device)
     checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
     cspca_model.load_state_dict(checkpt["state_dict"])
     cspca_model = cspca_model.to(args.device)
@@ -94,6 +89,7 @@ def main_worker(args):
             shutil.rmtree(cache_dir_path)
 
     get_metrics(metrics_dict)
+
 
 
 def parse_args():
@@ -164,7 +160,7 @@ def parse_args():
     )
     args = parser.parse_args()
     if args.config:
-        with open(args.config, "r") as config_file:
+        with open(args.config) as config_file:
             config = yaml.safe_load(config_file)
             args.__dict__.update(config)
 
@@ -172,12 +168,13 @@ def parse_args():
 
 
 if __name__ == "__main__":
-
     args = parse_args()
     if args.project_dir is None:
-        args.project_dir = Path(__file__).resolve().parent # Set project directory
+        args.project_dir = Path(__file__).resolve().parent  # Set project directory
 
-    slurm_job_name = os.getenv('SLURM_JOB_NAME') # If the script is submitted via slurm, job name is the run name
+    slurm_job_name = os.getenv(
+        "SLURM_JOB_NAME"
+    )  # If the script is submitted via slurm, job name is the run name
     if slurm_job_name:
         args.run_name = slurm_job_name
 
@@ -207,10 +204,15 @@ if __name__ == "__main__":
 
     if args.dry_run:
         logging.info("Dry run mode enabled.")
-        args.epochs = 2
+        args.epochs = 1
         args.batch_size = 2
         args.workers = 0
-        args.num_seeds = 2
+        args.num_seeds = 1
         args.wandb = False
+        args.tile_size = 10
+        args.tile_count = 5
 
     main_worker(args)
+
+    if args.dry_run:
+        shutil.rmtree(args.logdir)

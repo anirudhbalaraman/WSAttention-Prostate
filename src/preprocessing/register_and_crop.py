@@ -1,12 +1,15 @@
-import SimpleITK as sitk
-import os
-from tqdm import tqdm
-from picai_prep.preprocessing import PreprocessingSettings, Sample
-from .center_crop import crop
+import argparse
 import logging
+import os
+
+import SimpleITK as sitk
+from picai_prep.preprocessing import PreprocessingSettings, Sample
+from tqdm import tqdm
+
+from .center_crop import crop
 
 
-def register_files(args):
+def register_files(args: argparse.Namespace) -> argparse.Namespace:
     """
     Register and crop medical images (T2, DWI, and ADC) to a standardized spacing and size.
     This function reads medical images from specified directories, resamples them to a
@@ -55,9 +58,9 @@ def register_files(args):
 
         pat_case = Sample(
             scans=[
-                images_to_preprocess.get("t2"),
-                images_to_preprocess.get("hbv"),
-                images_to_preprocess.get("adc"),
+                images_to_preprocess["t2"],
+                images_to_preprocess["hbv"],
+                images_to_preprocess["adc"],
             ],
             settings=PreprocessingSettings(
                 spacing=[3.0, 0.4, 0.4], matrix_size=[new_size[2], new_size[1], new_size[0]]

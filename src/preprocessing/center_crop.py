@@ -12,7 +12,7 @@
 
 
 # import argparse
-from typing import Union
+from typing import Union, cast
 
 import SimpleITK as sitk  # noqa N813
 
@@ -21,7 +21,11 @@ def _flatten(t):
     return [item for sublist in t for item in sublist]
 
 
-def crop(image: sitk.Image, margin: Union[int, float], interpolator=sitk.sitkLinear):
+def crop(
+    image: sitk.Image,
+    margin_: Union[int, float, list[Union[int, float]]],
+    interpolator=sitk.sitkLinear,
+):
     """
     Crops a sitk.Image while retaining correct spacing. Negative margins will lead to zero padding
 
@@ -30,13 +34,14 @@ def crop(image: sitk.Image, margin: Union[int, float], interpolator=sitk.sitkLin
         margin: margins to crop. Single integer or float (percentage crop),
                 lists of int/float or nestes lists are supported.
     """
-    if isinstance(margin, (list, tuple)):
-        assert len(margin) == 3, "expected margin to be of length 3"
+    if isinstance(margin_, (list, tuple)):
+        margin_temp = margin_
+        assert len(margin_) == 3, "expected margin to be of length 3"
     else:
-        assert isinstance(margin, (int, float)), "expected margin to be a float value"
-        margin = [margin, margin, margin]
+        assert isinstance(margin_, (int, float)), "expected margin to be a float value"
+        margin_temp = [margin_, margin_, margin_]
 
-    margin = [m if isinstance(m, (tuple, list)) else [m, m] for m in margin]
+    margin = [m if isinstance(m, (tuple, list)) else [m, m] for m in margin_temp]
     old_size = image.GetSize()
 
     # calculate new origin and new image size
@@ -46,7 +51,7 @@ def crop(image: sitk.Image, margin: Union[int, float], interpolator=sitk.sitkLin
         )
         to_crop = [[int(sz * _m) for _m in m] for sz, m in zip(old_size, margin)]
     elif all([isinstance(m, int) for m in _flatten(margin)]):
-        to_crop = margin
+        to_crop = cast(list[list[int]], margin)
     else:
         raise ValueError("Wrong format of margins.")
 

@@ -1,13 +1,14 @@
-import os
-from src.preprocessing.register_and_crop import register_files
-from src.preprocessing.prostate_mask import get_segmask
-from src.preprocessing.histogram_match import histmatch
-from src.preprocessing.generate_heatmap import get_heatmap
-import logging
-from src.utils import setup_logging
-from src.utils import validate_steps
 import argparse
+import logging
+import os
+
 import yaml
+
+from src.preprocessing.generate_heatmap import get_heatmap
+from src.preprocessing.histogram_match import histmatch
+from src.preprocessing.prostate_mask import get_segmask
+from src.preprocessing.register_and_crop import register_files
+from src.utils import setup_logging, validate_steps
 
 
 def parse_args():
@@ -37,7 +38,7 @@ def parse_args():
 
     args = parser.parse_args()
     if args.config:
-        with open(args.config, "r") as config_file:
+        with open(args.config) as config_file:
             config = yaml.safe_load(config_file)
             args.__dict__.update(config)
     return args
