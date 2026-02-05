@@ -1,5 +1,5 @@
 <div style="text-align: center; margin-bottom: 2em;">
-  <img src="assets/logo.svg" alt="WSAttention-Prostate Logo" width="240">
+  <img src="assets/logo.svg" alt="WSAttention-Prostate Logo" width="560">
 </div>
 
 # WSAttention-Prostate

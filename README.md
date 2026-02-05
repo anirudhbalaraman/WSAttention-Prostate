@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.svg" alt="WSAttention-Prostate Logo" width="240">
+  <img src="docs/assets/logo.svg" alt="WSAttention-Prostate Logo" width="560">
 </p>
 
 <p align="center">
@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/pytorch-2.5-ee4c2c?logo=pytorch&logoColor=white" alt="PyTorch 2.5">
   <img src="https://img.shields.io/badge/MONAI-1.4-3ddc84" alt="MONAI 1.4">
   <img src="https://img.shields.io/badge/license-Apache%202.0-green" alt="License">
-  <a href="https://ai-assisted-healthcare.github.io/WSAttention-Prostate/"><img src="https://img.shields.io/badge/docs-mkdocs-blue" alt="Docs"></a>
+  <a href="https://anirudhbalaraman.github.io/WSAttention-Prostate/"><img src="https://img.shields.io/badge/docs-mkdocs-blue" alt="Docs"></a>
 </p>
 
 # WSAttention-Prostate
@@ -37,7 +37,7 @@ flowchart LR
 ## Quick Start
 
 ```bash
-git clone https://github.com/ai-assisted-healthcare/WSAttention-Prostate.git
+git clone https://github.com/anirudhbalaraman/WSAttention-Prostate.git
 cd WSAttention-Prostate
 pip install -r requirements.txt
 pytest tests/
@@ -72,7 +72,7 @@ python run_cspca.py --mode test --config config/config_cspca_test.yaml --checkpo
 python run_inference.py --config config/config_preprocess.yaml
 ```
 
-See the [full documentation](https://ai-assisted-healthcare.github.io/WSAttention-Prostate/) for detailed configuration options and data format requirements.
+See the [full documentation](https://anirudhbalaraman.github.io/WSAttention-Prostate/) for detailed configuration options and data format requirements.
 
 ## Project Structure
 

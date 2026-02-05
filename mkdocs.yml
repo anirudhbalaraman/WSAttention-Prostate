@@ -1,6 +1,6 @@
 site_name: WSAttention-Prostate
 site_description: Weakly-supervised attention-based 3D MIL for prostate cancer risk prediction on multiparametric MRI
-repo_url: https://github.com/ai-assisted-healthcare/WSAttention-Prostate
+repo_url: https://github.com/anirudhbalaraman/WSAttention-Prostate
 repo_name: WSAttention-Prostate
 
 theme:
