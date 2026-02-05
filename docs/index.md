@@ -32,4 +32,3 @@ flowchart LR
 - [Pipeline](pipeline.md) — Full walkthrough of preprocessing, training, and evaluation
 - [Architecture](architecture.md) — Model design and tensor shapes
 - [Configuration](configuration.md) — YAML config reference
-- [Inference](inference.md) — Running predictions on new data

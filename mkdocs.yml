@@ -59,9 +59,7 @@ nav:
   - Pipeline: pipeline.md
   - Architecture: architecture.md
   - Configuration: configuration.md
-  - Inference: inference.md
   - API Reference:
       - Models: api/models.md
       - Preprocessing: api/preprocessing.md
       - Data Loading: api/data.md
-  - Contributing: contributing.md

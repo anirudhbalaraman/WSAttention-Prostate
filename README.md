@@ -117,6 +117,3 @@ flowchart TD
 
 For csPCa prediction, the backbone is frozen and a 3-layer MLP (`512 → 256 → 128 → 1`) replaces the classification head.
 
-## License
-
-Apache-2.0 — see [LICENSE](LICENSE).
