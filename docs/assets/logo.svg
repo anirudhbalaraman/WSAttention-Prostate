@@ -1,67 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300">
   <defs>
-    <!-- Gradient for prostate gland -->
     <radialGradient id="prostate-grad" cx="50%" cy="52%" r="40%">
       <stop offset="0%" stop-color="#7986CB" stop-opacity="0.3"/>
       <stop offset="70%" stop-color="#3F51B5" stop-opacity="0.15"/>
       <stop offset="100%" stop-color="#1A237E" stop-opacity="0.05"/>
     </radialGradient>
-    <!-- Attention heatmap gradient -->
     <radialGradient id="heat-grad" cx="45%" cy="48%" r="25%">
       <stop offset="0%" stop-color="#009688" stop-opacity="0.6"/>
       <stop offset="50%" stop-color="#009688" stop-opacity="0.25"/>
       <stop offset="100%" stop-color="#009688" stop-opacity="0.0"/>
     </radialGradient>
-    <!-- Grid patch highlight -->
     <linearGradient id="patch-active" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#00BCD4" stop-opacity="0.5"/>
       <stop offset="100%" stop-color="#009688" stop-opacity="0.3"/>
     </linearGradient>
-    <!-- Connector gradient -->
-    <linearGradient id="connector-grad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#3F51B5" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#009688" stop-opacity="0.6"/>
-    </linearGradient>
   </defs>
 
-  <!-- Background circle -->
-  <circle cx="200" cy="200" r="190" fill="none" stroke="#3F51B5" stroke-width="2" stroke-opacity="0.15"/>
-  <circle cx="200" cy="200" r="185" fill="none" stroke="#3F51B5" stroke-width="0.5" stroke-opacity="0.1"/>
+  <!-- Prostate shape + grid, shifted left -->
+  <g transform="translate(-50, -55)">
+    <!-- Prostate shape -->
+    <path d="M200,120 C245,120 285,145 290,185 C295,225 270,265 240,275 C220,282 210,290 200,290 C190,290 180,282 160,275 C130,265 105,225 110,185 C115,145 155,120 200,120 Z"
+          fill="url(#prostate-grad)" stroke="#3F51B5" stroke-width="1.5" stroke-opacity="0.4"/>
 
-  <!-- Prostate shape (stylized walnut/chestnut shape) -->
-  <path d="M200,120 C245,120 285,145 290,185 C295,225 270,265 240,275 C220,282 210,290 200,290 C190,290 180,282 160,275 C130,265 105,225 110,185 C115,145 155,120 200,120 Z"
-        fill="url(#prostate-grad)" stroke="#3F51B5" stroke-width="1.5" stroke-opacity="0.4"/>
+    <!-- Urethra line -->
+    <line x1="200" y1="130" x2="200" y2="280" stroke="#3F51B5" stroke-width="0.8" stroke-opacity="0.15" stroke-dasharray="4,4"/>
 
-  <!-- Urethra line (subtle anatomical reference) -->
-  <line x1="200" y1="130" x2="200" y2="280" stroke="#3F51B5" stroke-width="0.8" stroke-opacity="0.15" stroke-dasharray="4,4"/>
+    <!-- Attention heatmap overlay -->
+    <ellipse cx="185" cy="195" rx="50" ry="45" fill="url(#heat-grad)"/>
 
-  <!-- Attention heatmap overlay -->
-  <ellipse cx="185" cy="195" rx="50" ry="45" fill="url(#heat-grad)"/>
+    <!-- Grid lines -->
+    <g stroke="#3F51B5" stroke-width="0.6" stroke-opacity="0.3" fill="none">
+      <line x1="135" y1="155" x2="265" y2="155"/>
+      <line x1="130" y1="181" x2="270" y2="181"/>
+      <line x1="128" y1="207" x2="272" y2="207"/>
+      <line x1="130" y1="233" x2="270" y2="233"/>
+      <line x1="140" y1="259" x2="260" y2="259"/>
+      <line x1="155" y1="135" x2="150" y2="270"/>
+      <line x1="181" y1="125" x2="178" y2="285"/>
+      <line x1="207" y1="122" x2="210" y2="288"/>
+      <line x1="233" y1="125" x2="236" y2="280"/>
+      <line x1="256" y1="140" x2="258" y2="265"/>
+    </g>
 
-  <!-- MIL Grid: 5x5 patch grid over prostate region -->
-  <g stroke="#3F51B5" stroke-width="0.6" stroke-opacity="0.3" fill="none">
-    <!-- Grid lines - horizontal -->
-    <line x1="135" y1="155" x2="265" y2="155"/>
-    <line x1="130" y1="181" x2="270" y2="181"/>
-    <line x1="128" y1="207" x2="272" y2="207"/>
-    <line x1="130" y1="233" x2="270" y2="233"/>
-    <line x1="140" y1="259" x2="260" y2="259"/>
-    <!-- Grid lines - vertical -->
-    <line x1="155" y1="135" x2="150" y2="270"/>
-    <line x1="181" y1="125" x2="178" y2="285"/>
-    <line x1="207" y1="122" x2="210" y2="288"/>
-    <line x1="233" y1="125" x2="236" y2="280"/>
-    <line x1="256" y1="140" x2="258" y2="265"/>
+    <!-- Highlighted patches -->
+    <rect x="155" y="181" width="26" height="26" rx="2" fill="url(#patch-active)" stroke="#009688" stroke-width="1.2"/>
+    <rect x="181" y="181" width="26" height="26" rx="2" fill="url(#patch-active)" stroke="#009688" stroke-width="1.2"/>
+    <rect x="155" y="155" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.2" stroke="#009688" stroke-width="0.8"/>
+    <rect x="181" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.2" stroke="#009688" stroke-width="0.8"/>
+    <rect x="155" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.15" stroke="#009688" stroke-width="0.6"/>
   </g>
 
-  <!-- Highlighted patches (high attention areas) -->
-  <rect x="155" y="181" width="26" height="26" rx="2" fill="url(#patch-active)" stroke="#009688" stroke-width="1.2"/>
-  <rect x="181" y="181" width="26" height="26" rx="2" fill="url(#patch-active)" stroke="#009688" stroke-width="1.2"/>
-  <rect x="155" y="155" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.2" stroke="#009688" stroke-width="0.8"/>
-  <rect x="181" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.2" stroke="#009688" stroke-width="0.8"/>
-  <rect x="155" y="207" width="26" height="26" rx="2" fill="#009688" fill-opacity="0.15" stroke="#009688" stroke-width="0.6"/>
-
-  <!-- Title text -->
-  <text x="200" y="360" font-family="Inter, sans-serif" font-size="32" font-weight="600" fill="#1A237E" fill-opacity="0.7" text-anchor="middle" letter-spacing="2">WSAttention</text>
-  <text x="200" y="390" font-family="Inter, sans-serif" font-size="22" fill="#009688" fill-opacity="0.6" text-anchor="middle" letter-spacing="1.5">PROSTATE</text>
+  <!-- Title text, right of logo -->
+  <text x="350" y="135" font-family="Inter, sans-serif" font-size="52" font-weight="600" fill="#7986CB" letter-spacing="2">WSAttention</text>
+  <text x="350" y="185" font-family="Inter, sans-serif" font-size="34" fill="#4DB6AC" letter-spacing="2">PROSTATE</text>
 </svg>
