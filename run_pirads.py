@@ -75,7 +75,7 @@ def main_worker(args):
         val_loss_min = float("inf")
         epochs_no_improve = 0
         for epoch in range(start_epoch, n_epochs):
-            logging.info(time.ctime(), "Epoch:", epoch)
+            logging.info(f"{time.ctime()} | Epoch: {epoch}")
             epoch_time = time.time()
             train_loss, train_acc, train_att_loss, batch_norm = train_epoch(
                 model, train_loader, optimizer, scaler=scaler, epoch=epoch, args=args
