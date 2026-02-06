@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions"><img alt="Continuous Integration" src="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions"><img alt="Continuous Integration" src="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions/workflows/ci.yaml/badge.svg"></a>
   <img src="https://img.shields.io/badge/python-3.9-blue?logo=python&logoColor=white" alt="Python 3.9">
   <img src="https://img.shields.io/badge/pytorch-2.5-ee4c2c?logo=pytorch&logoColor=white" alt="PyTorch 2.5">
   <img src="https://img.shields.io/badge/MONAI-1.4-3ddc84" alt="MONAI 1.4">
