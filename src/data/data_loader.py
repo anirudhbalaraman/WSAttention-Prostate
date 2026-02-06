@@ -26,6 +26,29 @@ from .custom_transforms import (
     NormalizeIntensity_customd,
 )
 
+class DummyMILDataset(torch.utils.data.Dataset):
+    def __init__(self, args, num_samples=8):
+        self.num_samples = num_samples
+        self.args = args
+
+    def __len__(self):
+        return self.num_samples
+
+    def __getitem__(self, index):
+        # Simulate the output of your 'data_transform'
+        # A list of dictionaries, one for each 'tile_count' (patch)
+        bag = []
+        label_value = float(index % 2)
+        for _ in range(self.args.tile_count):
+            item = {
+                # Shape: (Channels=3, Depth, H, W) based on your Transposed(indices=(0, 3, 1, 2))
+                "image": torch.randn(3, self.args.depth, self.args.tile_size, self.args.tile_size),
+                "label": torch.tensor(label_value, dtype=torch.float32)
+            }
+            if self.args.use_heatmap:
+                item["final_heatmap"] = torch.randn(1, self.args.depth, self.args.tile_size, self.args.tile_size)
+            bag.append(item)
+        return bag
 
 def list_data_collate(batch: list):
     """
@@ -107,13 +130,23 @@ def data_transform(args: argparse.Namespace) -> Transform:
 def get_dataloader(
     args: argparse.Namespace, split: Literal["train", "test"]
 ) -> torch.utils.data.DataLoader:
+
+    if args.dry_run:
+        print(f"🛠️  DRY RUN: Creating synthetic {split} dataloader...")
+        dummy_ds = DummyMILDataset(args, num_samples=args.batch_size * 2)
+        return torch.utils.data.DataLoader(
+            dummy_ds,
+            batch_size=args.batch_size,
+            collate_fn=list_data_collate, # Uses your custom stacking logic
+            num_workers=0 # Keep it simple for dry run
+        )
+
+
     data_list = load_decathlon_datalist(
         data_list_file_path=args.dataset_json,
         data_list_key=split,
         base_dir=args.data_root,
     )
-    if args.dry_run:
-        data_list = data_list[:2]  # Use only 8 samples for dry run
     cache_dir_ = os.path.join(args.logdir, "cache")
     os.makedirs(os.path.join(cache_dir_, split), exist_ok=True)
     transform = data_transform(args)

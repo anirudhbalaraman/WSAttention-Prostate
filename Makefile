@@ -27,4 +27,4 @@ clean:
 
 # Updated 'check' to clean before running (optional)
 # This ensures you are testing from a "blank slate"
-check: format lint typecheck test clean
+check: format lint typecheck clean

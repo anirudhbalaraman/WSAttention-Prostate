@@ -21,9 +21,9 @@ def main_worker(args):
     cache_dir_path = Path(os.path.join(args.logdir, "cache"))
 
     if args.mode == "train":
-        if not args.dry_run:
-            checkpoint = torch.load(args.checkpoint_pirads, weights_only=False, map_location="cpu")
-            mil_model.load_state_dict(checkpoint["state_dict"])
+
+        checkpoint = torch.load(args.checkpoint_pirads, weights_only=False, map_location="cpu")
+        mil_model.load_state_dict(checkpoint["state_dict"])
         mil_model = mil_model.to(args.device)
 
         model_dir = os.path.join(args.logdir, "models")
@@ -66,11 +66,8 @@ def main_worker(args):
 
 
     cspca_model = CSPCAModel(backbone=mil_model).to(args.device)
-
-    if not args.dry_run:
-        checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
-        cspca_model.load_state_dict(checkpt["state_dict"])
-
+    checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
+    cspca_model.load_state_dict(checkpt["state_dict"])
     cspca_model = cspca_model.to(args.device)
     if "auc" in checkpt and "sensitivity" in checkpt and "specificity" in checkpt:
         auc, sens, spec = checkpt["auc"], checkpt["sensitivity"], checkpt["specificity"]
@@ -195,15 +192,14 @@ if __name__ == "__main__":
     if args.dataset_json is None:
         logging.error("Dataset path not provided. Quitting.")
         sys.exit(1)
-    if not args.dry_run:
-        if args.checkpoint_pirads is None and args.mode == "train":
-            logging.error("PI-RADS checkpoint path not provided. Quitting.")
-            sys.exit(1)
-        elif args.checkpoint_cspca is None and args.mode == "test":
-            logging.error("csPCa checkpoint path not provided. Quitting.")
-            sys.exit(1)
-    args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if args.checkpoint_pirads is None and args.mode == "train":
+        logging.error("PI-RADS checkpoint path not provided. Quitting.")
+        sys.exit(1)
+    elif args.checkpoint_cspca is None and args.mode == "test":
+        logging.error("csPCa checkpoint path not provided. Quitting.")
+        sys.exit(1)
 
+    args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if args.device == torch.device("cuda"):
         torch.backends.cudnn.benchmark = True
 
@@ -218,6 +214,3 @@ if __name__ == "__main__":
         args.tile_count = 5
 
     main_worker(args)
-
-    if args.dry_run:
-        shutil.rmtree(args.logdir)
