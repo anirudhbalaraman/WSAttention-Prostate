@@ -10,6 +10,9 @@
   <img src="https://img.shields.io/badge/MONAI-1.4-3ddc84" alt="MONAI 1.4">
   <img src="https://img.shields.io/badge/license-Apache%202.0-green" alt="License">
   <a href="https://anirudhbalaraman.github.io/WSAttention-Prostate/"><img src="https://img.shields.io/badge/docs-mkdocs-blue" alt="Docs"></a>
+  <a href="https://github.com/astral-sh/ruff">
+  <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Code style: ruff">
+  </a>
 </p>
 
 # WSAttention-Prostate
