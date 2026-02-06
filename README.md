@@ -19,7 +19,9 @@
 
 **Weakly-Supervised Attention-based 3D Multiple Instance Learning for Prostate Cancer Characterization on Bi-parametric MRI.**
 
-WSAttention-Prostate is a two-stage deep learning pipeline that predicts clinically significant prostate cancer (csPCa) risk and PI-RADS score (2 to 5) from T2-weighted, DWI, and ADC MRI sequences. It uses 3D patch-based Multiple Instance Learning with transformer attention to first classify PI-RADS scores, then predict csPCa risk — all without requiring lesion-level annotations.
+Predicts PI-RADS score and risk of clinically significant prostate cancer (csPCa) from T2-Weighted (T2W), Diffusion Weighted Imaging (DWI) and Apparent Diffusion Coefficient (ADC) sequences of bi-paramteric MRI (bpMRI).
+
+'We utilized a two-phase MIL framework pretrained on PI-RADS scores using attention-based weak supervision. To transition from PI-RADS grading to risk assessment, the classification head was swapped and fine-tuned specifically to predict csPCa risk.'
 
 ## Key Features
 
