@@ -1,9 +1,10 @@
+![CI Status](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/ci.yaml/badge.svg)
 <p align="center">
   <img src="docs/assets/logo.svg" alt="WSAttention-Prostate Logo" width="560">
 </p>
 
 <p align="center">
-  ![CI Status](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/ci.yaml/badge.svg)
+  
   <img src="https://img.shields.io/badge/python-3.9-blue?logo=python&logoColor=white" alt="Python 3.9">
   <img src="https://img.shields.io/badge/pytorch-2.5-ee4c2c?logo=pytorch&logoColor=white" alt="PyTorch 2.5">
   <img src="https://img.shields.io/badge/MONAI-1.4-3ddc84" alt="MONAI 1.4">
