@@ -21,7 +21,6 @@ def main_worker(args):
     cache_dir_path = Path(os.path.join(args.logdir, "cache"))
 
     if args.mode == "train":
-
         checkpoint = torch.load(args.checkpoint_pirads, weights_only=False, map_location="cpu")
         mil_model.load_state_dict(checkpoint["state_dict"])
         mil_model = mil_model.to(args.device)
@@ -64,7 +63,6 @@ def main_worker(args):
         if cache_dir_path.exists() and cache_dir_path.is_dir():
             shutil.rmtree(cache_dir_path)
 
-
     cspca_model = CSPCAModel(backbone=mil_model).to(args.device)
     checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
     cspca_model.load_state_dict(checkpt["state_dict"])
@@ -90,7 +88,6 @@ def main_worker(args):
             shutil.rmtree(cache_dir_path)
 
     get_metrics(metrics_dict)
-
 
 
 def parse_args():

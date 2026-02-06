@@ -20,11 +20,8 @@ clean:
 	@python3 -Bc "import shutil, pathlib; \
 		[shutil.rmtree(p) for p in pathlib.Path('.').rglob('__pycache__')]; \
 		[shutil.rmtree(p) for p in pathlib.Path('.').rglob('.ipynb_checkpoints')]; \
-		[shutil.rmtree(p) for p in pathlib.Path('.').rglob('.monai-cache')]; \
-		[shutil.rmtree(p) for p in pathlib.Path('.').rglob('.mypy_cache')]; \
-		[shutil.rmtree(p) for p in pathlib.Path('.').rglob('.ruff_cache')]; \
-		[shutil.rmtree(p) for p in pathlib.Path('.').rglob('.pytest_cache')]"
+		[shutil.rmtree(p) for p in pathlib.Path('.').rglob('.monai-cache')];"
 
 # Updated 'check' to clean before running (optional)
 # This ensures you are testing from a "blank slate"
-check: format lint typecheck clean
+check: format lint typecheck test clean

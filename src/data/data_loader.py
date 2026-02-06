@@ -26,6 +26,7 @@ from .custom_transforms import (
     NormalizeIntensity_customd,
 )
 
+
 class DummyMILDataset(torch.utils.data.Dataset):
     def __init__(self, args, num_samples=8):
         self.num_samples = num_samples
@@ -43,12 +44,15 @@ class DummyMILDataset(torch.utils.data.Dataset):
             item = {
                 # Shape: (Channels=3, Depth, H, W) based on your Transposed(indices=(0, 3, 1, 2))
                 "image": torch.randn(3, self.args.depth, self.args.tile_size, self.args.tile_size),
-                "label": torch.tensor(label_value, dtype=torch.float32)
+                "label": torch.tensor(label_value, dtype=torch.float32),
             }
             if self.args.use_heatmap:
-                item["final_heatmap"] = torch.randn(1, self.args.depth, self.args.tile_size, self.args.tile_size)
+                item["final_heatmap"] = torch.randn(
+                    1, self.args.depth, self.args.tile_size, self.args.tile_size
+                )
             bag.append(item)
         return bag
+
 
 def list_data_collate(batch: list):
     """
@@ -130,17 +134,15 @@ def data_transform(args: argparse.Namespace) -> Transform:
 def get_dataloader(
     args: argparse.Namespace, split: Literal["train", "test"]
 ) -> torch.utils.data.DataLoader:
-
     if args.dry_run:
         print(f"🛠️  DRY RUN: Creating synthetic {split} dataloader...")
         dummy_ds = DummyMILDataset(args, num_samples=args.batch_size * 2)
         return torch.utils.data.DataLoader(
             dummy_ds,
             batch_size=args.batch_size,
-            collate_fn=list_data_collate, # Uses your custom stacking logic
-            num_workers=0 # Keep it simple for dry run
+            collate_fn=list_data_collate,  # Uses your custom stacking logic
+            num_workers=0,  # Keep it simple for dry run
         )
-
 
     data_list = load_decathlon_datalist(
         data_list_file_path=args.dataset_json,
