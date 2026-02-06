@@ -21,7 +21,7 @@
 
 Predicts PI-RADS score and risk of clinically significant prostate cancer (csPCa) from T2-Weighted (T2W), Diffusion Weighted Imaging (DWI) and Apparent Diffusion Coefficient (ADC) sequences of bi-paramteric MRI (bpMRI).
 
-'We utilized a two-phase MIL framework pretrained on PI-RADS scores using attention-based weak supervision. To transition from PI-RADS grading to risk assessment, the classification head was swapped and fine-tuned specifically to predict csPCa risk.'
+We utilized a two-phase MIL framework pretrained on PI-RADS scores using attention-based weak supervision. To transition from PI-RADS grading to risk assessment, the classification head was swapped and fine-tuned specifically to predict csPCa risk.
 
 ## Key Features
 
