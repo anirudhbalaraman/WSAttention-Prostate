@@ -247,9 +247,6 @@ def parse_args():
         type=int,
         help="run validation after this number of epochs, default 1 to run every epoch",
     )
-    parser.add_argument(
-        "--dry_run", action="store_true", help="Run the script in dry-run mode (default: False)"
-    )
     args = parser.parse_args()
     if args.config:
         with open(args.config) as config_file:
@@ -288,16 +285,6 @@ if __name__ == "__main__":
     if args.checkpoint is None and args.mode == "test":
         logging.error("Model checkpoint path not provided. Quitting.")
         sys.exit(1)
-
-    if args.dry_run:
-        logging.info("Dry run mode enabled.")
-        args.epochs = 1
-        args.batch_size = 2
-        args.workers = 0
-        args.num_seeds = 1
-        args.wandb = False
-        args.tile_size = 10
-        args.tile_count = 5
 
     mode_wandb = "online" if args.wandb and args.mode != "test" else "disabled"
 

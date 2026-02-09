@@ -149,9 +149,6 @@ def parse_args():
         type=int,
         help="run validation after this number of epochs, default 1 to run every epoch",
     )
-    parser.add_argument(
-        "--dry_run", action="store_true", help="Run the script in dry-run mode (default: False)"
-    )
     parser.add_argument("--checkpoint_cspca", default=None, help="load existing checkpoint")
     parser.add_argument(
         "--num_seeds", default=20, type=int, help="number of seeds to be run to build CI"
@@ -199,15 +196,5 @@ if __name__ == "__main__":
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if args.device == torch.device("cuda"):
         torch.backends.cudnn.benchmark = True
-
-    if args.dry_run:
-        logging.info("Dry run mode enabled.")
-        args.epochs = 1
-        args.batch_size = 2
-        args.workers = 0
-        args.num_seeds = 1
-        args.wandb = False
-        args.tile_size = 10
-        args.tile_count = 5
 
     main_worker(args)
