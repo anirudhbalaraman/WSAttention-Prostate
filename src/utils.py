@@ -4,7 +4,8 @@ import os
 import sys
 from pathlib import Path
 from typing import Any, Union
-
+import matplotlib.pyplot as plt 
+import matplotlib.patches as patches
 import cv2
 import numpy as np
 import torch
@@ -173,52 +174,81 @@ def get_parent_image(temp_data_list, args: argparse.Namespace) -> np.ndarray:
     return dataset_image[0]["image"][0].numpy()
 
 
-"""
-def visualise_patches():
-    sample = np.array([i.transpose(1,2,0) for i in patches_top_5])
-    rows = len(patches_top_5)
-    img = sample[0]
-    coords = []
-    rows, h, w, slices = sample.shape
 
-    fig, axes = plt.subplots(nrows=rows, ncols=slices, figsize=(slices * 3, rows * 3))
+def visualise_patches(coords, image, tile_size = 64, depth=3):
+    """
+    Visualize 3D image patches with their locations marked by bounding rectangles.
+    This function creates a grid of subplot visualizations where each row represents
+    a patch and each column represents a slice along the z-axis. Each patch location
+    is highlighted with a red rectangle on the corresponding image slice.
+    Args:
+        coords (list): List of patch coordinates, where each coordinate is a tuple/list
+                      of (y, x, z) representing the top-left corner position of the patch.
+        image (ndarray): 3D image array of shape (height, width, slices) containing the
+                        image data to visualize.
+        tile_size (int, optional): Size of the square patch in pixels. Defaults to 64.
+        depth (int, optional): Number of consecutive z-slices to display for each patch.
+                              Defaults to 3.
+    Returns:
+        None: Displays the visualization using plt.show(). The slice id is displayed on th etop left corner of the image.
+    Raises:
+        None
+    Example:
+        >>> coords = [(10, 20, 5), (50, 60, 10)]
+        >>> image = np.random.rand(256, 256, 50)
+        >>> visualise_patches(coords, image, tile_size=64, depth=3)
+    """
 
-    for i in range(rows):
+    rows, _, _, slices = (len(coords), tile_size, tile_size, depth)
+    fig, axes = plt.subplots(
+        nrows=rows,
+        ncols=slices,
+        figsize=(slices * 3, rows * 3),
+        squeeze=False
+    )
+
+    for i, x in enumerate(coords):
         for j in range(slices):
+
             ax = axes[i, j]
 
-            if j == 0:
+            slice_id = x[2] + j
+            ax.imshow(image[:, :, slice_id], cmap='gray')
 
-                for k in range(parent_image.shape[2]):
-                    img_temp = parent_image[:, :, k]
-                    H, W = img_temp.shape
-                    h, w = sample[i, :, :, j].shape
-                    a,b = 0, 0  # Initialize a and b
-                    bool1 = False
-                    for l in range(H - h + 1):
-                        for m in range(W - w + 1):
-                            if np.array_equal(img_temp[l:l+h, m:m+w], sample[i, :, :, j]):
-                                a,b = l, m  # top-left corner
-                                coords.append((a,b,k))
-                                bool1 = True
-                                break
-                        if bool1:
-                            break
-
-                    if bool1:
-                        break
-
-
-
-
-            ax.imshow(parent_image[:, :, k+j], cmap='gray')
-            rect = patches.Rectangle((b, a), args.tile_size, args.tile_size,
-                                    linewidth=2, edgecolor='red', facecolor='none')
+            rect = patches.Rectangle(
+                (x[1], x[0]),
+                tile_size,
+                tile_size,
+                linewidth=2,
+                edgecolor='red',
+                facecolor='none'
+            )
             ax.add_patch(rect)
+
+            # ---- slice ID text (every image) ----
+            ax.text(
+                0.02, 0.98,
+                f"z={slice_id}",
+                transform=ax.transAxes,
+                fontsize=10,
+                color='white',
+                va='top',
+                ha='left',
+                bbox=dict(facecolor='black', alpha=0.4, pad=2)
+            )
+
             ax.axis('off')
 
+        # Row label
+        axes[i, 0].text(
+            -0.08, 0.5,
+            f"Patch {i+1}",
+            transform=axes[i, 0].transAxes,
+            fontsize=12,
+            va='center',
+            ha='right'
+        )
 
+    plt.subplots_adjust(left=0.06)
     plt.tight_layout()
     plt.show()
-    a=1
-"""
