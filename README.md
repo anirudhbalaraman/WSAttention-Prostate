@@ -90,6 +90,7 @@ python preprocess_main.py \
   - *tile_count*: No. of patches per scan.
   - *tile_size*: Length and width of each patch.
   - *depth*: Depth of each 3D patch
+
 ⚠️ ***NOTE: run_cspca.py in train mode requires PI-RADS MIL backbone.***
 
 ```bash
