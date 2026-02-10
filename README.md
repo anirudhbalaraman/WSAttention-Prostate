@@ -22,15 +22,16 @@ Real-time inference via [GUI](https://huggingface.co/spaces/anirudh0410/Prostate
 
 ## ⭐ Abstract
 
-Deep learning methods used in medical AI—particularly for csPCa prediction and PI-RADS classification—typically rely on expert-annotated labels for training, which limits scalability to larger datasets and broader clinical adoption. To address this, we employ a two-stage multi-instance learning (MIL) framework pretrained using attention-based weak supervision on scan-level PI-RADS scores. For downstream risk assessment, the PI-RADS classification head is replaced and fine-tuned on a substantially smaller dataset to predict clinically significant prostate cancer (csPCa). Careful preprocessing is applied to mitigate variability arising from cross-site MRI acquisition differences. For further details, please refer to our paper or visit the project website.
+Deep learning methods used in medical AI—particularly for csPCa prediction and PI-RADS classification—typically rely on expert-annotated labels for training, which limits scalability to larger datasets and broader clinical adoption. To address this, we employ a two-stage multiple-instance learning (MIL) framework pretrained on scan-level PI-RADS annotations using attention-based weak supervision, guided by weak attention heatmaps automatically derived from ADC and DWI sequences. For downstream risk assessment, the PI-RADS classification head is replaced and fine-tuned on a substantially smaller dataset to predict csPCa risk. Careful preprocessing is applied to mitigate variability arising from cross-site MRI acquisition differences. For further details, please refer to our paper or visit the project website.
 
 ## Key Features
 
-- **Weakly-supervised attention** — Heatmap-guided patch sampling and cosine-similarity attention loss replace the need for voxel-level labels
-- **3D Multiple Instance Learning** — Extracts volumetric patches from MRI scans and aggregates them via transformer + attention pooling
-- **Two-stage pipeline** — Stage 1 trains a 4-class PI-RADS classifier; Stage 2 freezes its backbone and trains a binary csPCa head
-- **Multi-seed confidence intervals** — Runs 20 random seeds and reports 95% CI on AUC, sensitivity, and specificity
-- **End-to-end preprocessing** — Registration, segmentation, histogram matching, and heatmap generation in a single configurable pipeline
+- **Attention Heatmaps** - Weak attention heatmaps higlighting probable tumors on the scan are generated automatically from DWI and ADC sequnces.
+- **Weakly-Supervised Attention** — Heatmap-guided patch sampling and cosine-similarity attention loss replace the need for voxel-level labels.
+- **3D Multiple Instance Learning** — Extracts volumetric patches from bpMRI scans and aggregates them via transformer + attention pooling
+- **Two-stage pipeline** — Stage 1 trains a 4-class PI-RADS classifier; Stage 2 freezes its backbone and trains a binary csPCa head.
+- **Cross ** — Image pre processinf
+- **End-to-end preprocessing** — Registration, prostate segmentation, histogram matching, and heatmap generation in a single configurable pipeline.
 
 ## Pipeline Overview
 
