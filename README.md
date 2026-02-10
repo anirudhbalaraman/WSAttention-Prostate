@@ -29,7 +29,7 @@ Deep learning methods used in medical AI—particularly for csPCa prediction and
 - ⚡ **Automatic Attention Heatmaps** - Weak attention heatmaps generated automatically from DWI and ADC sequnces.
 - 🧠 **Weakly-Supervised Attention** — Heatmap-guided patch sampling and cosine-similarity attention loss, replace the need for voxel-level labels.
 - 🧩 **3D Multiple Instance Learning** — Extracts volumetric patches from bpMRI scans and aggregates them via transformer + attention pooling.
-- 👁️ **Two-stage pipeline** — Visualise salient patches highlighting probable tumour regions.
+- 👁️ **Explainable** — Visualise salient patches highlighting probable tumour regions.
 - 🧹 **Preprocessing** — Preprocessing to minimize inter-center MRI acquisiton variability.
 - 🏥 **End-to-end Pipeline** — Open source, clinically viable complete pipeline. 
 
@@ -52,32 +52,31 @@ curl -L -o models/file3.pth https://huggingface.co/anirudh0410/WSAttention-Prost
 ```
 
 ## 🚀 Usage
-### Inference
+### 🩺 Inference
 ```bash
 python run_inference.py --config config/config_preprocess.yaml
 ```
 
 Run run_inference.py to execute the full pipeline, from preprocessing to model predictions. 
-- 📝 **Input arguments:**
-  - 📂 *t2_dir, dwi_dir, adc_dir*: Path to T2W, DWI and ADC sequnces respectively.
-  - 📂 *output_dir*: Path to store preprocessed files and results.
+- 📂 **Input arguments:**
+  -  *t2_dir, dwi_dir, adc_dir*: Path to T2W, DWI and ADC sequnces respectively.
+  -  *output_dir*: Path to store preprocessed files and results.
  
 
 ⚠️ ***NOTE: For each scan, all sequences should share the same filename, and the input files must be in NRRD format.***
 
 - 📊 **Outputs:**
   The following are stored for each scan:
-  - 🩺 Risk of csPCa.
-  - 🔢 PI-RADS score.
-  - 📍 Coordinaates of top 5 salient patches. 
-The results are stored in results.json saved in output_dir along with the intermediary files from pre processing including the prostate segmentation mask. The patches can be visualised using visualisation.ipynb
+  -  Risk of csPCa.
+  -  PI-RADS score.
+  -  Coordinaates of top 5 salient patches. 
+The results are stored in `results.json` saved in output_dir along with the intermediary files from pre processing including the prostate segmentation mask. The patches can be visualised using `visualisation.ipynb`
 
 
+### 🧹 Preprocessing
 
-
-### Preprocessing
-
-Execute preprocess_main.py to preprocess your MRI files. Each sequence—T2W, DWI, and ADC—must be placed in separate folders, with paths specified in config_preprocess.yaml. 
+Execute preprocess_main.py to preprocess your MRI files.
+⚠️ ***NOTE: For each scan, all sequences should share the same filename, and the input files must be in NRRD format.***
 ```bash
 python preprocess_main.py \
   --steps register_and_crop get_segmentation_mask histogram_match get_heatmap \
@@ -85,23 +84,22 @@ python preprocess_main.py \
 ```
 
 
-### PI-RADS Training
+### ⚙️ PI-RADS Training
 
 ```bash
 python run_pirads.py --mode train --config config/config_pirads_train.yaml
 ```
 
-### csPCa Training
+### ⚙️ csPCa Training
 
 ```bash
 python run_cspca.py --mode train --config config/config_cspca_train.yaml
 ```
-### Testing
+### 📊 Testing
 
 ```bash
 python run_pirads.py --mode test --config config/config_pirads_test.yaml
 python run_cspca.py --mode test --config config/config_cspca_test.yaml
-python run_inference.py --config config/config_preprocess.yaml
 ```
 
 See the [full documentation](https://anirudhbalaraman.github.io/WSAttention-Prostate/) for detailed configuration options and data format requirements.
@@ -117,35 +115,22 @@ WSAttention-Prostate/
 ├── config/                    # YAML configuration files
 ├── src/
 │   ├── model/
-│   │   ├── MIL.py             # MILModel_3D — core MIL architecture
-│   │   └── csPCa_model.py     # csPCa_Model + SimpleNN head
+│   │   ├── MIL.py             # MILModel_3D — core MIL architecture, PI-RADS model
+│   │   └── csPCa_model.py     # csPCa_Model
 │   ├── data/
 │   │   ├── data_loader.py     # MONAI data pipeline
-│   │   └── custom_transforms.py
+│   │   └── custom_transforms.py # Custom MONAI transforms 
 │   ├── train/
 │   │   ├── train_pirads.py    # PI-RADS training loop
 │   │   └── train_cspca.py     # csPCa training loop
-│   ├── preprocessing/         # Registration, segmentation, heatmaps
-│   └── utils.py               # Shared utilities and step validation
+│   ├── preprocessing/         # Registration, segmentation, histogram matching, heatmaps
+│   └── utils.py               # Shared utilities
 ├── tests/
 ├── dataset/                   # Reference images for histogram matching
 └── models/                    # Downloaded checkpoints (not in repo)
 ```
 
-## Architecture
+## 🙏 Acknowledgement
+This work was in large parts funded by the Wilhelm Sander Foundation. Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Health and Digital Executive Agency (HADEA). Neither the European Union nor the granting authority can be held responsible for them. 
 
-Input MRI patches are processed independently through a 3D ResNet18 backbone, then aggregated via a transformer encoder and attention pooling:
-
-```mermaid
-flowchart TD
-    A["Input [B, N, C, D, H, W]"] --> B["Reshape to [B*N, C, D, H, W]"]
-    B --> C[ResNet18-3D Backbone]
-    C --> D["Reshape to [B, N, 512]"]
-    D --> E[Transformer Encoder\n4 layers, 8 heads]
-    E --> F[Attention Pooling\n512 → 2048 → 1]
-    F --> G["Weighted Sum [B, 512]"]
-    G --> H["FC Head [B, num_classes]"]
-```
-
-For csPCa prediction, the backbone is frozen and a 3-layer MLP (`512 → 256 → 128 → 1`) replaces the classification head.
 
