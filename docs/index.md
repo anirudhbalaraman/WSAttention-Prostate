@@ -13,17 +13,17 @@ WSAttention-Prostate is a two-stage deep learning pipeline that predicts clinica
 - **Weakly-supervised attention** — Heatmap-guided patch sampling and cosine-similarity attention loss replace the need for voxel-level labels
 - **3D Multiple Instance Learning** — Extracts volumetric patches from MRI scans and aggregates them via transformer + attention pooling
 - **Two-stage pipeline** — Stage 1 trains a 4-class PI-RADS classifier; Stage 2 freezes its backbone and trains a binary csPCa head
-- **Multi-seed confidence intervals** — Runs 20 random seeds and reports 95% CI on AUC, sensitivity, and specificity
-- **End-to-end preprocessing** — Registration, segmentation, histogram matching, and heatmap generation in a single configurable pipeline
+- **Preprocessing** — Preprocessing to minimize inter-center MRI acquisiton variability.
+- **End-to-end pipeline** — Registration, segmentation, histogram matching, and heatmap generation, and inferencing in a single configurable pipeline
 
 ## Pipeline Overview
 
 ```mermaid
 flowchart LR
     A[Raw MRI\nT2 + DWI + ADC] --> B[Preprocessing]
-    B --> C[Stage 1:\nPI-RADS Classification]
-    C --> D[Stage 2:\ncsPCa Prediction]
-    D --> E[Risk Score\n+ Top-5 Patches]
+    B --> C[Stage 1:PI-RADS Classification]
+    C --> D[Stage 2:csPCa Prediction]
+    D --> E[Risk Score+ Top-5 Patches]
 ```
 
 ## Quick Links
