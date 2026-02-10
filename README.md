@@ -44,13 +44,13 @@ pytest tests/
 ```
 ### Model Download
 
-´´´bash
+```bash
 MODELS_DIR="./models"
 mkdir -p ./models
 curl -L -o models/file1.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/cspca_model.pth
 curl -L -o models/file2.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/pirads.pt
 curl -L -o models/file3.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/prostate_segmentation_model.pt
-´´´
+```
 
 ## Usage
 
