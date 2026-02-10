@@ -11,11 +11,11 @@ flowchart TD
     end
 
     subgraph Stage 1
-        P[PI-RADS Training \n CrossEntropy + Attention Loss]
+        P[PI-RADS Training<br/>CrossEntropy + Attention Loss]
     end
 
     subgraph Stage 2
-        C[csPCa Training \n Frozen Backbone + BCE Loss]
+        C[csPCa Training<br/>Frozen Backbone + BCE Loss]
     end
 
     G --> P
