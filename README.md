@@ -62,8 +62,7 @@ Run run_inference.py to execute the full pipeline, from preprocessing to model p
   -  *t2_dir, dwi_dir, adc_dir*: Path to T2W, DWI and ADC sequnces respectively.
   -  *output_dir*: Path to store preprocessed files and results.
  
-
-⚠️ ***NOTE: For each scan, all sequences should share the same filename, and the input files must be in NRRD format.***
+  ⚠️ ***NOTE: For each scan, all sequences should share the same filename, and the input files must be in NRRD format.***
 
 - 📊 **Outputs:**
   The following are stored for each scan:
@@ -84,17 +83,20 @@ python preprocess_main.py \
 ```
 
 
-### ⚙️ PI-RADS Training
+### ⚙️ PI-RADS ans csPCa Model Training
+- **Input Arguments:**
+  -*dataset_json*: File paths of the scans. JSON used for training: `dataset/PI-RADS_data.json`.
+  -*data_root*: Root direcotry of T2W files.
+  -*tile_count*: No. of patches per scan.
+  -*tile_size*: Length and width of each patch.
+  -*depth*: Depth of each 3D patch
+⚠️ ***NOTE: run_cspca.py in train mode requires PI-RADS MIL backbone.***
 
 ```bash
 python run_pirads.py --mode train --config config/config_pirads_train.yaml
-```
-
-### ⚙️ csPCa Training
-
-```bash
 python run_cspca.py --mode train --config config/config_cspca_train.yaml
 ```
+
 ### 📊 Testing
 
 ```bash
