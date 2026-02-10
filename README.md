@@ -53,15 +53,25 @@ curl -L -o models/file3.pth https://huggingface.co/anirudh0410/WSAttention-Prost
 
 ## 🚀 Usage
 ### Inference
-
-Run run_inference.py to execute the full pipeline, from preprocessing to model predictions. The script accepts paths to T2W, DWI, and ADC sequences, as well as an output directory(output_dir), which can be specified in config_preprocess.yaml. ***NOTE:*** For each scan, all sequences should share the same filename, and the input files must be in NRRD format.
-
-Outputs are risk of csPCa, PI-RADS score and coordinaates of top 5 salient patches for each scan summarised in results.json saved in output_dir along with the intermediary files from pre processing including the prostate segmentation mask. The patches can be visualised using visualisation.ipynb
-
-
 ```bash
 python run_inference.py --config config/config_preprocess.yaml
 ```
+
+Run run_inference.py to execute the full pipeline, from preprocessing to model predictions. 
+- 📝 Inputs:
+  - 📂 *t2_dir, dwi_dir, adc_dir*: Path to T2W, DWI and ADC sequnces respectively.
+  - 📂 *output_dir*: Path to store preprocessed files and results.
+⚠️ ***NOTE: For each scan, all sequences should share the same filename, and the input files must be in NRRD format.***
+
+- 📊 Outputs:
+  The following are stored for each scan:
+  - 🩺 Risk of csPCa.
+  - 🔢 PI-RADS score.
+  - 📍 Coordinaates of top 5 salient patches. 
+The results are stored in results.json saved in output_dir along with the intermediary files from pre processing including the prostate segmentation mask. The patches can be visualised using visualisation.ipynb
+
+
+
 
 ### Preprocessing
 
