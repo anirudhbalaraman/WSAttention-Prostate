@@ -35,14 +35,14 @@ Deep learning methods used in medical AI—particularly for csPCa prediction and
 
 
 ## 🚀 Quick Start
-
+1. Clone and Setup
 ```bash
 git clone https://github.com/anirudhbalaraman/WSAttention-Prostate.git
 cd WSAttention-Prostate
 pip install -r requirements.txt
 pytest tests/
 ```
-### Model Download
+2. Model Download
 
 ```bash
 mkdir -p ./models
