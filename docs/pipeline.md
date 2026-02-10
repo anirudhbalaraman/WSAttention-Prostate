@@ -4,18 +4,18 @@ The full pipeline has three phases: preprocessing, PI-RADS training (Stage 1), a
 
 ```mermaid
 flowchart TD
-    subgraph Preprocessing
+    subgraph <b>Preprocessing</b>
         R[register_and_crop] --> S[get_segmentation_mask]
         S --> H[histogram_match]
         H --> G[get_heatmap]
     end
 
     subgraph Stage 1
-        P[PI-RADS Training<br/>CrossEntropy + Attention Loss]
+        P[<b>PI-RADS Training</b><br/>CrossEntropy + Attention Loss]
     end
 
     subgraph Stage 2
-        C[csPCa Training<br/>Frozen Backbone + BCE Loss]
+        C[<b>csPCa Training</b><br/>Frozen Backbone + BCE Loss]
     end
 
     G --> P
@@ -68,7 +68,7 @@ python run_pirads.py --mode train --config config/config_pirads_train.yaml
 |-----------|-------|
 | Loss | CrossEntropy + cosine-similarity attention loss |
 | Attention loss weight | Linear warmup over 25 epochs to `lambda=2.0` |
-| Optimizer | AdamW (base LR `3e-5`, transformer LR `6e-5`) |
+| Optimizer | AdamW (base LR `2e-4`, transformer LR `6e-5`) |
 | Scheduler | CosineAnnealingLR |
 | Metric | Quadratic Weighted Kappa (QWK) |
 | Early stopping | After 40 epochs without validation loss improvement |
@@ -78,7 +78,7 @@ python run_pirads.py --mode train --config config/config_pirads_train.yaml
 
 ## Stage 2: csPCa Risk Prediction
 
-Builds on a frozen PI-RADS backbone to predict binary csPCa risk.
+Builds on a frozen PI-RADS backbone to predict binary csPCa risk. The self-attention and classification head are fine-tuned.
 
 ```bash
 python run_cspca.py --mode train --config config/config_cspca_train.yaml
@@ -95,4 +95,4 @@ python run_cspca.py --mode train --config config/config_cspca_train.yaml
 | Seeds | 20 random seeds (default) for 95% CI |
 | Metrics | AUC, Sensitivity, Specificity |
 
-The backbone's feature extractor (`net`), transformer, and `myfc` are frozen. The attention module and `SimpleNN` classification head are trained. After training across all seeds, the framework reports mean and 95% confidence intervals for AUC, sensitivity, and specificity.
+The backbone's feature extractor (`net`), transformer, and `myfc` are frozen. The attention module and `SimpleNN` classification head are trained. After training the framework reports mean and 95% confidence intervals for AUC, sensitivity, and specificity by testing across 20 random seeds.
