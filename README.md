@@ -33,15 +33,6 @@ Deep learning methods used in medical AI—particularly for csPCa prediction and
 - 🧹**Preprocessing** — Preprocessing to minimize inter-center MRI acquisiton variability.
 - 🏥**End-to-end Pipeline** — Open source, clinically viable complete pipeline. 
 
-## Pipeline Overview
-
-```mermaid
-flowchart LR
-    A[Raw MRI\nT2 + DWI + ADC] --> B[Preprocessing]
-    B --> C[Stage 1:\nPI-RADS Classification]
-    C --> D[Stage 2:\ncsPCa Prediction]
-    D --> E[Risk Score\n+ Top-5 Patches]
-```
 
 ## Quick Start
 
@@ -51,6 +42,15 @@ cd WSAttention-Prostate
 pip install -r requirements.txt
 pytest tests/
 ```
+### Model Download
+
+´´´bash
+MODELS_DIR="./models"
+mkdir -p ./models
+curl -L -o models/file1.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/cspca_model.pth
+curl -L -o models/file2.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/pirads.pt
+curl -L -o models/file3.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/prostate_segmentation_model.pt
+´´´
 
 ## Usage
 
