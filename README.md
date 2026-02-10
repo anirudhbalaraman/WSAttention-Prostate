@@ -19,7 +19,8 @@
 **Weakly Supervised Attention-Based Deep Learning for Prostate Cancer Characterization from Bi-Parametric Prostate MRI.**
 
 
-🚀**Real-time Inference via [Hugging Face Spaces](https://huggingface.co/spaces/anirudh0410/Prostate-Inference)**
+## 🚀 Platform Access
+Real-time inference via [GUI](https://huggingface.co/spaces/anirudh0410/Prostate-Inference)
 
 Predicts PI-RADS score and risk of clinically significant prostate cancer (csPCa) from T2-Weighted (T2W), Diffusion Weighted Imaging (DWI) and Apparent Diffusion Coefficient (ADC) sequences of bi-paramteric MRI (bpMRI).
 
