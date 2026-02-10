@@ -2,16 +2,11 @@
 
 ## Installation
 
-```bash
-git clone https://github.com/anirudhbalaraman/WSAttention-Prostate.git
-cd WSAttention-Prostate
-pip install -r requirements.txt
-pytest tests/  # verify installation
-```
+For installation and downloading the saved weights of the models, please check the [github](https://github.com/anirudhbalaraman/WSAttention-Prostate) repository.
 
 ## Data Format
 
-Input MRI scans should be in **NRRD** or **NIfTI** format with three modalities per patient: T2W, DWI, and ADC.
+Input MRI scans should be in **NRRD** format with three modalities per patient: T2W, DWI, and ADC.
 
 The data pipeline uses MONAI's decathlon-format JSON:
 
