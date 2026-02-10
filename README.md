@@ -108,26 +108,26 @@ See the [full documentation](https://anirudhbalaraman.github.io/WSAttention-Pros
 
 ```
 WSAttention-Prostate/
-├── run_pirads.py              # PI-RADS training/testing entry point
-├── run_cspca.py               # csPCa training/testing entry point
-├── run_inference.py           # Full inference pipeline
-├── preprocess_main.py         # Preprocessing entry point
-├── config/                    # YAML configuration files
+├── run_pirads.py                # PI-RADS training/testing entry point
+├── run_cspca.py                 # csPCa training/testing entry point
+├── run_inference.py             # Full inference pipeline
+├── preprocess_main.py           # Preprocessing entry point
+├── config/                      # YAML configuration files
 ├── src/
 │   ├── model/
-│   │   ├── MIL.py             # MILModel_3D — core MIL architecture, PI-RADS model
-│   │   └── csPCa_model.py     # csPCa_Model
+│   │   ├── MIL.py               # MILModel_3D — core MIL architecture, PI-RADS model
+│   │   └── csPCa_model.py       # csPCa_Model
 │   ├── data/
-│   │   ├── data_loader.py     # MONAI data pipeline
+│   │   ├── data_loader.py       # MONAI data pipeline
 │   │   └── custom_transforms.py # Custom MONAI transforms 
 │   ├── train/
-│   │   ├── train_pirads.py    # PI-RADS training loop
-│   │   └── train_cspca.py     # csPCa training loop
-│   ├── preprocessing/         # Registration, segmentation, histogram matching, heatmaps
-│   └── utils.py               # Shared utilities
+│   │   ├── train_pirads.py      # PI-RADS training loop
+│   │   └── train_cspca.py       # csPCa training loop
+│   ├── preprocessing/           # Registration, segmentation, histogram matching, heatmaps
+│   └── utils.py                 # Shared utilities
 ├── tests/
-├── dataset/                   # Reference images for histogram matching
-└── models/                    # Downloaded checkpoints (not in repo)
+├── dataset/                     # Reference images for histogram matching
+└── models/                      # Downloaded checkpoints (not in repo)
 ```
 
 ## 🙏 Acknowledgement
