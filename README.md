@@ -35,14 +35,14 @@ Deep learning methods used in medical AI—particularly for csPCa prediction and
 
 
 ## 🚀 Quick Start
-1. Clone and Setup
+### 1. Clone and Setup
 ```bash
 git clone https://github.com/anirudhbalaraman/WSAttention-Prostate.git
 cd WSAttention-Prostate
 pip install -r requirements.txt
 pytest tests/
 ```
-2. Model Download
+### 2. Model Download
 
 ```bash
 mkdir -p ./models
@@ -52,13 +52,26 @@ curl -L -o models/file3.pth https://huggingface.co/anirudh0410/WSAttention-Prost
 ```
 
 ## 🚀 Usage
+### Inference
+
+Run run_inference.py to execute the full pipeline, from preprocessing to model predictions. The script accepts paths to T2W, DWI, and ADC sequences, as well as an output directory(output_dir), which can be specified in config_preprocess.yaml. ***NOTE:*** For each scan, all sequences should share the same filename, and the input files must be in NRRD format.
+
+Outputs are risk of csPCa, PI-RADS score and coordinaates of top 5 salient patches for each scan summarised in results.json saved in output_dir along with the intermediary files from pre processing including the prostate segmentation mask. The patches can be visualised using visualisation.ipynb
+
+
+```bash
+python run_inference.py --config config/config_preprocess.yaml
+```
 
 ### Preprocessing
 
+Execute preprocess_main.py to preprocess your MRI files. Each sequence—T2W, DWI, and ADC—must be placed in separate folders, with paths specified in config_preprocess.yaml. 
 ```bash
-python preprocess_main.py --config config/config_preprocess.yaml \
-    --steps register_and_crop get_segmentation_mask histogram_match get_heatmap
+python preprocess_main.py \
+  --steps register_and_crop get_segmentation_mask histogram_match get_heatmap \
+  --config config/config_preprocess.yaml
 ```
+
 
 ### PI-RADS Training
 
@@ -71,12 +84,11 @@ python run_pirads.py --mode train --config config/config_pirads_train.yaml
 ```bash
 python run_cspca.py --mode train --config config/config_cspca_train.yaml
 ```
-
-### Inference
+### Testing
 
 ```bash
-python run_pirads.py --mode test --config config/config_pirads_test.yaml --checkpoint <path>
-python run_cspca.py --mode test --config config/config_cspca_test.yaml --checkpoint_cspca <path>
+python run_pirads.py --mode test --config config/config_pirads_test.yaml
+python run_cspca.py --mode test --config config/config_cspca_test.yaml
 python run_inference.py --config config/config_preprocess.yaml
 ```
 
