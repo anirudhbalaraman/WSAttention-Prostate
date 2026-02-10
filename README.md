@@ -85,11 +85,11 @@ python preprocess_main.py \
 
 ### ⚙️ PI-RADS ans csPCa Model Training
 - **Input Arguments:**
-  -*dataset_json*: File paths of the scans. JSON used for training: `dataset/PI-RADS_data.json`.
-  -*data_root*: Root direcotry of T2W files.
-  -*tile_count*: No. of patches per scan.
-  -*tile_size*: Length and width of each patch.
-  -*depth*: Depth of each 3D patch
+  - *dataset_json*: File paths of the scans. JSON used for training: `dataset/PI-RADS_data.json`.
+  - *data_root*: Root direcotry of T2W files.
+  - *tile_count*: No. of patches per scan.
+  - *tile_size*: Length and width of each patch.
+  - *depth*: Depth of each 3D patch
 ⚠️ ***NOTE: run_cspca.py in train mode requires PI-RADS MIL backbone.***
 
 ```bash
