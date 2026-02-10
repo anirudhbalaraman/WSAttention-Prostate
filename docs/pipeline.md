@@ -4,18 +4,18 @@ The full pipeline has three phases: preprocessing, PI-RADS training (Stage 1), a
 
 ```mermaid
 flowchart TD
-    subgraph <b>Preprocessing</b>
+    subgraph Preprocessing
         R[register_and_crop] --> S[get_segmentation_mask]
         S --> H[histogram_match]
         H --> G[get_heatmap]
     end
 
     subgraph Stage 1
-        P[<b>PI-RADS Training</b><br/>CrossEntropy + Attention Loss]
+        P[PI-RADS Training<br/>CrossEntropy + Attention Loss]
     end
 
     subgraph Stage 2
-        C[<b>csPCa Training</b><br/>Frozen Backbone + BCE Loss]
+        C[csPCa Training<br/>Frozen Backbone + BCE Loss]
     end
 
     G --> P
@@ -96,3 +96,5 @@ python run_cspca.py --mode train --config config/config_cspca_train.yaml
 | Metrics | AUC, Sensitivity, Specificity |
 
 The backbone's feature extractor (`net`), transformer, and `myfc` are frozen. The attention module and `SimpleNN` classification head are trained. After training the framework reports mean and 95% confidence intervals for AUC, sensitivity, and specificity by testing across 20 random seeds.
+
+Refer to [Getting Started](getting-started.md) for JSON dataset format to run run_pirads.py and run_cspca.py
