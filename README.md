@@ -26,15 +26,15 @@ Deep learning methods used in medical AI—particularly for csPCa prediction and
 
 ## Key Features
 
-- ⚡**Automatic Attention Heatmaps** - Weak attention heatmaps generated automatically from DWI and ADC sequnces.
-- 🧠**Weakly-Supervised Attention** — Heatmap-guided patch sampling and cosine-similarity attention loss, replace the need for voxel-level labels.
-- 🧩**3D Multiple Instance Learning** — Extracts volumetric patches from bpMRI scans and aggregates them via transformer + attention pooling.
-- 👁️**Two-stage pipeline** — Visualise salient patches highlighting probable tumour regions.
-- 🧹**Preprocessing** — Preprocessing to minimize inter-center MRI acquisiton variability.
-- 🏥**End-to-end Pipeline** — Open source, clinically viable complete pipeline. 
+- ⚡ **Automatic Attention Heatmaps** - Weak attention heatmaps generated automatically from DWI and ADC sequnces.
+- 🧠 **Weakly-Supervised Attention** — Heatmap-guided patch sampling and cosine-similarity attention loss, replace the need for voxel-level labels.
+- 🧩 **3D Multiple Instance Learning** — Extracts volumetric patches from bpMRI scans and aggregates them via transformer + attention pooling.
+- 👁️ **Two-stage pipeline** — Visualise salient patches highlighting probable tumour regions.
+- 🧹 **Preprocessing** — Preprocessing to minimize inter-center MRI acquisiton variability.
+- 🏥 **End-to-end Pipeline** — Open source, clinically viable complete pipeline. 
 
 
-## Quick Start
+## 🚀 Quick Start
 
 ```bash
 git clone https://github.com/anirudhbalaraman/WSAttention-Prostate.git
@@ -45,14 +45,13 @@ pytest tests/
 ### Model Download
 
 ```bash
-MODELS_DIR="./models"
 mkdir -p ./models
 curl -L -o models/file1.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/cspca_model.pth
 curl -L -o models/file2.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/pirads.pt
 curl -L -o models/file3.pth https://huggingface.co/anirudh0410/WSAttention-Prostate/resolve/main/prostate_segmentation_model.pt
 ```
 
-## Usage
+## 🚀 Usage
 
 ### Preprocessing
 
