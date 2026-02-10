@@ -11,11 +11,11 @@ flowchart TD
     end
 
     subgraph Stage 1
-        P[PI-RADS Training\nCrossEntropy + Attention Loss]
+        P[PI-RADS Training \n CrossEntropy + Attention Loss]
     end
 
     subgraph Stage 2
-        C[csPCa Training\nFrozen Backbone + BCE Loss]
+        C[csPCa Training \n Frozen Backbone + BCE Loss]
     end
 
     G --> P
@@ -23,18 +23,17 @@ flowchart TD
 ```
 
 ## Preprocessing
-
-Run all four steps in sequence:
-
 ```bash
 python preprocess_main.py \
     --config config/config_preprocess.yaml \
     --steps register_and_crop get_segmentation_mask histogram_match get_heatmap
 ```
 
+Run the following steps in sequnce:
+
 ### Step 1: Register and Crop
 
-Resamples T2, DWI, and ADC to a common spacing of `(0.4, 0.4, 3.0)` mm using `picai_prep`, then center-crops with a configurable margin (default 20%).
+Resamples T2W, DWI, and ADC to a common spacing of `(0.4, 0.4, 3.0)` mm using `picai_prep`, then center-crops with a configurable margin (default 20%).
 
 ### Step 2: Prostate Segmentation
 
@@ -42,11 +41,11 @@ Runs a pre-trained segmentation model on T2W images to generate binary prostate 
 
 ### Step 3: Histogram Matching
 
-Matches the intensity histogram of each modality to a reference image within masked (prostate) regions using `skimage.exposure.match_histograms`.
+Matches the histogram intensity of each sequnce to a reference image within masked (prostate) regions using `skimage.exposure.match_histograms`.
 
 ### Step 4: Heatmap Generation
 
-Creates attention heatmaps from DWI and ADC:
+Creates weak-attention heatmaps from DWI and ADC:
 
 - **DWI heatmap**: `(dwi - min) / (max - min)` — higher DWI signal = higher attention
 - **ADC heatmap**: `(max - adc) / (max - min)` — lower ADC = higher attention (inverted)
