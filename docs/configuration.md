@@ -12,8 +12,8 @@ python run_pirads.py --mode train --config config/config_pirads_train.yaml
 |-----------|---------|-------------|
 | `mode` | — | `train` or `test` (required) |
 | `config` | — | Path to YAML config file |
-| `data_root` | — | Root folder of images |
-| `dataset_json` | — | Path to dataset JSON file |
+| `data_root` | — | Root folder of T2W images |
+| `dataset_json` | — | Path to dataset JSON file. Format should be as specified in [Getting Started](getting-started.md) |
 | `num_classes` | `4` | Number of output classes (PI-RADS 2–5) |
 | `mil_mode` | `att_trans` | MIL algorithm (`mean`, `max`, `att`, `att_trans`, `att_trans_pyramid`) |
 | `tile_count` | `24` | Number of patches per scan |
@@ -31,8 +31,7 @@ python run_pirads.py --mode train --config config/config_pirads_train.yaml
 | `val_every` | `1` | Validation frequency (epochs) |
 | `wandb` | `False` | Enable Weights & Biases logging |
 | `project_name` | `Classification_prostate` | W&B project name |
-| `run_name` | `train_pirads` | Run name for logging |
-| `dry_run` | `False` | Quick test mode (2 epochs, batch_size=2, no W&B) |
+| `run_name` | `train_pirads` | Run name for logging. If using SLURM, takes SLURM JOB_ID |
 
 ## csPCa Training Parameters
 
@@ -48,7 +47,6 @@ python run_pirads.py --mode train --config config/config_pirads_train.yaml
 | `batch_size` | `32` | Scans per batch |
 | `optim_lr` | `2e-4` | Learning rate |
 | `num_seeds` | `20` | Number of random seeds for CI |
-| `dry_run` | `False` | Quick test mode |
 
 Shared parameters (`num_classes`, `mil_mode`, `tile_count`, `tile_size`, `depth`, `use_heatmap`, `workers`, `val_every`) have the same defaults as PI-RADS.
 
@@ -64,7 +62,6 @@ Shared parameters (`num_classes`, `mil_mode`, `tile_count`, `tile_size`, `depth`
 | `seg_dir` | — | Directory of segmentation masks |
 | `output_dir` | — | Output directory |
 | `margin` | `0.2` | Center-crop margin fraction |
-| `project_dir` | — | Project root (for reference images and models) |
 
 ## Example YAML
 
@@ -113,5 +110,4 @@ Shared parameters (`num_classes`, `mil_mode`, `tile_count`, `tile_size`, `depth`
     dwi_dir: /path/to/raw/dwi
     adc_dir: /path/to/raw/adc
     output_dir: /path/to/processed
-    project_dir: /path/to/WSAttention-Prostate
     ```
