@@ -1,5 +1,14 @@
 # Architecture
 
+## Patch Extraction
+
+Patches are extracted using MONAI's `RandWeightedCropd` (when heatmaps are available) or `RandCropByPosNegLabeld` (without heatmaps):
+
+- **With heatmaps**: The combined DWI/ADC heatmap multiplied by the prostate mask serves as the sampling weight map — regions with high DWI and low ADC are sampled more frequently
+- **Without heatmaps**: Crops are sampled from positive (prostate) regions based on the binary mask
+
+Each scan yields `N` patches (default 24) of size `tile_size x tile_size x depth` (default 64x64x3).
+
 ## Tensor Shape Convention
 
 Throughout the pipeline, tensors follow the shape `[B, N, C, D, H, W]`:
@@ -13,26 +22,24 @@ Throughout the pipeline, tensors follow the shape `[B, N, C, D, H, W]`:
 | H | Patch height | 64 |
 | W | Patch width | 64 |
 
-## MILModel_3D
+## MILModel3D
 
 The core model processes each patch independently through a CNN backbone, then aggregates patch-level features via a transformer encoder and attention pooling.
 
 ```mermaid
 flowchart TD
-    A["Input [B, N, C, D, H, W]"] --> B["Reshape to [B*N, C, D, H, W]"]
-    B --> C[ResNet18-3D Backbone]
-    C --> D["Reshape to [B, N, 512]"]
-    D --> E[Transformer Encoder\n4 layers, 8 heads]
-    E --> F[Attention Pooling\n512 → 2048 → 1]
-    F --> G["Weighted Sum [B, 512]"]
-    G --> H["FC Head [B, num_classes]"]
+    A["Input [B, N, C, D, H, W]"] --> B[ResNet18-3D Backbone]
+    B --> C[Transformer Encoder<br/>4 layers, 8 heads]
+    C --> D[Attention Pooling<br/>512 → 2048 → 1]
+    D --> E["Weighted Sum [B, 512]"]
+    E --> F["FC Head [B, num_classes]"]
 ```
 
 ### Forward Pass
 
 1. **Backbone**: Input is reshaped from `[B, N, C, D, H, W]` to `[B*N, C, D, H, W]` and passed through a 3D ResNet18 (with 3 input channels). The final FC layer is removed, yielding 512-dimensional features per patch.
 
-2. **Transformer**: Features are reshaped to `[B, N, 512]`, permuted to `[N, B, 512]` for the transformer encoder (4 layers, 8 attention heads), then permuted back.
+2. **Transformer**: Output from the ResNet 18 encoder is forwarded to the transformer encoder.
 
 3. **Attention**: A two-layer attention network (`512 → 2048 → 1` with Tanh) computes a scalar weight per patch, normalized via softmax.
 
@@ -56,9 +63,9 @@ Wraps a frozen `MILModel_3D` backbone and replaces the classification head:
 
 ```mermaid
 flowchart TD
-    A["Input [B, N, C, D, H, W]"] --> B["Frozen Backbone\n(ResNet18 + Transformer)"]
+    A["Input [B, N, C, D, H, W]"] --> B["Frozen Backbone<br/>(ResNet18 + Transformer)"]
     B --> C["Pooled Features [B, 512]"]
-    C --> D["SimpleNN Head\n512 → 256 → 128 → 1"]
+    C --> D["SimpleNN Head<br/>512 → 256 → 128 → 1"]
     D --> E["Sigmoid → csPCa Probability"]
 ```
 
@@ -70,7 +77,7 @@ Linear(256, 128) → ReLU → Dropout(0.3)
 Linear(128, 1) → Sigmoid
 ```
 
-During csPCa training, the backbone's `net` (ResNet18), `transformer`, and `myfc` parameters are frozen. The `attention` module and `SimpleNN` head remain trainable.
+During csPCa training, the backbone's `net` (ResNet18), `transformer` are frozen. The `attention` module and `SimpleNN` head remain trainable.
 
 ## Attention Loss
 
@@ -87,11 +94,4 @@ total_loss = class_loss + lambda_att * attention_loss
     - `lambda_att` warms up linearly from 0 to 2.0 over the first 25 epochs
     - The attention predictions are computed with detached transformer outputs to avoid gradient interference with classification
 
-## Patch Extraction
 
-Patches are extracted using MONAI's `RandWeightedCropd` (when heatmaps are available) or `RandCropByPosNegLabeld` (without heatmaps):
-
-- **With heatmaps**: The combined DWI/ADC heatmap multiplied by the prostate mask serves as the sampling weight map — regions with high DWI and low ADC are sampled more frequently
-- **Without heatmaps**: Crops are sampled from positive (prostate) regions based on the binary mask
-
-Each scan yields `N` patches (default 24) of size `tile_size x tile_size x depth` (default 64x64x3).
