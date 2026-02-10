@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+from pathlib import Path
 
 import yaml
 
@@ -37,6 +38,7 @@ def parse_args():
     parser.add_argument("--project_dir", default=None, help="Project directory")
 
     args = parser.parse_args()
+
     if args.config:
         with open(args.config) as config_file:
             config = yaml.safe_load(config_file)
@@ -46,6 +48,9 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
+    if args.project_dir is None:
+        args.project_dir = Path(__file__).resolve().parent  # Set project directory
+
     FUNCTIONS = {
         "register_and_crop": register_files,
         "histogram_match": histmatch,

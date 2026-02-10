@@ -2,6 +2,8 @@ import argparse
 import json
 import logging
 import os
+from pathlib import Path
+
 
 import torch
 import yaml
@@ -44,8 +46,12 @@ def parse_args():
     return args
 
 
+
 if __name__ == "__main__":
     args = parse_args()
+    if args.project_dir is None:
+        args.project_dir = Path(__file__).resolve().parent  # Set project directory
+
     FUNCTIONS = {
         "register_and_crop": register_files,
         "histogram_match": histmatch,
