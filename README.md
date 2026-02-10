@@ -58,12 +58,14 @@ python run_inference.py --config config/config_preprocess.yaml
 ```
 
 Run run_inference.py to execute the full pipeline, from preprocessing to model predictions. 
-- 📝 Inputs:
+- 📝 **Input arguments:**
   - 📂 *t2_dir, dwi_dir, adc_dir*: Path to T2W, DWI and ADC sequnces respectively.
   - 📂 *output_dir*: Path to store preprocessed files and results.
+ 
+
 ⚠️ ***NOTE: For each scan, all sequences should share the same filename, and the input files must be in NRRD format.***
 
-- 📊 Outputs:
+- 📊 **Outputs:**
   The following are stored for each scan:
   - 🩺 Risk of csPCa.
   - 🔢 PI-RADS score.
