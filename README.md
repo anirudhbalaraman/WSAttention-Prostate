@@ -17,10 +17,9 @@
 # WSAttention-Prostate
 
 **Weakly Supervised Attention-Based Deep Learning for Prostate Cancer Characterization from Bi-Parametric Prostate MRI.**
+🚀**Real-time Inference via [Hugging Face Spaces](https://huggingface.co/spaces/anirudh0410/Prostate-Inference)**
 
 Predicts PI-RADS score and risk of clinically significant prostate cancer (csPCa) from T2-Weighted (T2W), Diffusion Weighted Imaging (DWI) and Apparent Diffusion Coefficient (ADC) sequences of bi-paramteric MRI (bpMRI).
-
-## 🚀 Real-time Inference via [Hugging Face Spaces](https://huggingface.co/spaces/anirudh0410/Prostate-Inference)
 
 Deep learning methods used in medical AI—particularly for csPCa prediction and PI-RADS classification—typically rely on expert-annotated labels for training, which limits scalability to larger datasets and broader clinical adoption. To address this, we employ a two-stage multi-instance learning (MIL) framework pretrained using attention-based weak supervision on scan-level PI-RADS scores. For downstream risk assessment, the PI-RADS classification head is replaced and fine-tuned on a substantially smaller dataset to predict clinically significant prostate cancer (csPCa). Careful preprocessing is applied to mitigate variability arising from cross-site MRI acquisition differences. For further details, please refer to our paper or visit the project website.
 
