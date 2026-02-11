@@ -21,7 +21,7 @@ WSAttention-Prostate is a two-stage deep learning pipeline that predicts clinica
 ```mermaid
 %%{init: {'themeVariables': { 'fontSize': '20px' }}}%%
 flowchart LR
-    A[Raw MRI</br>T2 + DWI + ADC] --> B[Preprocessing]
+    A[Raw bpMRI</br>T2 + DWI + ADC] --> B[Preprocessing]
     B --> C[Stage 1:</br>PI-RADS Classification]
     C --> D[Stage 2:</br>csPCa Prediction]
     D --> E[Risk Score + Top-5 Salient Patches]
