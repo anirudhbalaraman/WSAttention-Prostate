@@ -8,6 +8,8 @@
 
 WSAttention-Prostate is a two-stage deep learning pipeline that predicts clinically significant prostate cancer (csPCa) risk and PI-RADS score (2 to 5) from T2W, DWI, and ADC bpMRI sequences. The backbone is a patch based 3D Multiple-Instance Learning (MIL) model pre-trained to classify PI-RADS scores and fine-tuned to predict csPCa risk — all without requiring lesion-level annotations.
 
+💡 **GUI for real-time inference available at [Hugging Face Spaces](https://huggingface.co/spaces/anirudh0410/Prostate-Inference)**
+
 ## Key Features
 
 - **Weakly-supervised attention** — Heatmap-guided patch sampling and cosine-similarity attention loss replace the need for voxel-level labels
