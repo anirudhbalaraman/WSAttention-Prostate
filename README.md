@@ -1,13 +1,3 @@
----
-title: Prostate Inference
-emoji: 🚀
-colorFrom: blue
-colorTo: red
-sdk: docker
-pinned: false
-short_description: Predicts csPCa risk and PI-RADS score from bpMRI sequences
-app_port: 8501
----
 <p align="center">
   <img src="docs/assets/logo.svg" alt="WSAttention-Prostate Logo" width="560">
 </p>

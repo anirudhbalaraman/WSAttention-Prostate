@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -42,9 +42,26 @@ jobs:
           HF_USERNAME: "anirudh0410"
           SPACE_NAME: "WSA_Prostate"
         run: |
+          # Create a temporary file with the metadata
+          echo "---" > hf_header.txt
+          echo "title: Prostate Inference" >> hf_header.txt
+          echo "emoji: 🚀" >> hf_header.txt
+          echo "colorFrom: blue" >> hf_header.txt
+          echo "colorTo: red" >> hf_header.txt
+          echo "sdk: docker" >> hf_header.txt
+          echo "pinned: false" >> hf_header.txt
+          echo "short_description: Predicts csPCa risk and PI-RADS score from bpMRI sequences" >> hf_header.txt
+          echo "app_port: 8501" >> hf_header.txt
+          echo "---" >> hf_header.txt
+          
+          # Combine metadata with the real README
+          cat hf_header.txt README.md > README_new.md
+          mv README_new.md README.md
+
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          
+          git add README.md
+          git commit -m "Add HF metadata for deployment"
           # Add Hugging Face as a remote
           git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME
           
