@@ -1,4 +1,12 @@
-
+---
+title: My Streamlit App
+emoji: 🚀
+colorFrom: blue
+colorTo: red
+sdk: docker
+pinned: false
+app_port: 8501
+---
 <p align="center">
   <img src="docs/assets/logo.svg" alt="WSAttention-Prostate Logo" width="560">
 </p>
