@@ -4,9 +4,10 @@ import os
 import sys
 from pathlib import Path
 from typing import Any, Union
-import matplotlib.pyplot as plt 
-import matplotlib.patches as patches
+
 import cv2
+import matplotlib.patches as patches
+import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from monai.data import Dataset
@@ -174,8 +175,7 @@ def get_parent_image(temp_data_list, args: argparse.Namespace) -> np.ndarray:
     return dataset_image[0]["image"][0].numpy()
 
 
-
-def visualise_patches(coords, image, tile_size = 64, depth=3):
+def visualise_patches(coords, image, tile_size=64, depth=3):
     """
     Visualize 3D image patches with their locations marked by bounding rectangles.
     This function creates a grid of subplot visualizations where each row represents
@@ -201,52 +201,45 @@ def visualise_patches(coords, image, tile_size = 64, depth=3):
 
     rows, _, _, slices = (len(coords), tile_size, tile_size, depth)
     fig, axes = plt.subplots(
-        nrows=rows,
-        ncols=slices,
-        figsize=(slices * 3, rows * 3),
-        squeeze=False
+        nrows=rows, ncols=slices, figsize=(slices * 3, rows * 3), squeeze=False
     )
 
     for i, x in enumerate(coords):
         for j in range(slices):
-
             ax = axes[i, j]
 
             slice_id = x[2] + j
-            ax.imshow(image[:, :, slice_id], cmap='gray')
+            ax.imshow(image[:, :, slice_id], cmap="gray")
 
             rect = patches.Rectangle(
-                (x[1], x[0]),
-                tile_size,
-                tile_size,
-                linewidth=2,
-                edgecolor='red',
-                facecolor='none'
+                (x[1], x[0]), tile_size, tile_size, linewidth=2, edgecolor="red", facecolor="none"
             )
             ax.add_patch(rect)
 
             # ---- slice ID text (every image) ----
             ax.text(
-                0.02, 0.98,
+                0.02,
+                0.98,
                 f"z={slice_id}",
                 transform=ax.transAxes,
                 fontsize=10,
-                color='white',
-                va='top',
-                ha='left',
-                bbox=dict(facecolor='black', alpha=0.4, pad=2)
+                color="white",
+                va="top",
+                ha="left",
+                bbox=dict(facecolor="black", alpha=0.4, pad=2),
             )
 
-            ax.axis('off')
+            ax.axis("off")
 
         # Row label
         axes[i, 0].text(
-            -0.08, 0.5,
-            f"Patch {i+1}",
+            -0.08,
+            0.5,
+            f"Patch {i + 1}",
             transform=axes[i, 0].transAxes,
             fontsize=12,
-            va='center',
-            ha='right'
+            va="center",
+            ha="right",
         )
 
     plt.subplots_adjust(left=0.06)

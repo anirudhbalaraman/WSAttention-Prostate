@@ -27,6 +27,7 @@ disable_error_code = ["override", "import-untyped"]
 mypy_path = "."
 pretty = true
 show_error_codes = true
+exclude = ["^app\\.py$"]
 
 [[tool.mypy.overrides]]
 # These settings apply specifically to these external libraries

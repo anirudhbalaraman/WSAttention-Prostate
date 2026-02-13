@@ -4,7 +4,6 @@ import logging
 import os
 from pathlib import Path
 
-
 import torch
 import yaml
 from monai.data import Dataset
@@ -44,7 +43,6 @@ def parse_args():
             config = yaml.safe_load(config_file)
             args.__dict__.update(config)
     return args
-
 
 
 if __name__ == "__main__":
