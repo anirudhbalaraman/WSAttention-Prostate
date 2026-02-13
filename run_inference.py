@@ -18,9 +18,9 @@ from src.preprocessing.register_and_crop import register_files
 from src.utils import get_parent_image, get_patch_coordinate, setup_logging
 import streamlit as st
 
-@st.cache_resource  # <--- This decorator is the magic!
+@st.cache_resource 
 def load_pirads_model(num_classes, mil_mode, project_dir, device):
-    # Move the model initialization inside here
+
     model = MILModel3D(num_classes=num_classes, mil_mode=mil_mode)
     checkpoint = torch.load(
         os.path.join(project_dir, "models", "pirads.pt"), map_location="cpu"
@@ -28,11 +28,11 @@ def load_pirads_model(num_classes, mil_mode, project_dir, device):
     model.load_state_dict(checkpoint["state_dict"])
     model.to(device)
     
-    model.eval()  # Set to evaluation mode
+    model.eval()
     return model
 @st.cache_resource
 def load_cspca_model(_pirads_model, project_dir, device):
-    # Move the model initialization inside here
+
     model = CSPCAModel(backbone=_pirads_model).to(device)
     checkpt = torch.load(
         os.path.join(project_dir, "models", "cspca_model.pth"), map_location="cpu"
@@ -40,7 +40,7 @@ def load_cspca_model(_pirads_model, project_dir, device):
     model.load_state_dict(checkpt["state_dict"])
     model = model.to(device)
     
-    model.eval()  # Set to evaluation mode
+    model.eval() 
     return model
 
 
