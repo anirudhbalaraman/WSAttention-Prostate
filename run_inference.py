@@ -31,9 +31,9 @@ def load_pirads_model(num_classes, mil_mode, project_dir, device):
     model.eval()  # Set to evaluation mode
     return model
 @st.cache_resource
-def load_cspca_model(pirads_model, project_dir, device):
+def load_cspca_model(_pirads_model, project_dir, device):
     # Move the model initialization inside here
-    model = CSPCAModel(backbone=pirads_model).to(device)
+    model = CSPCAModel(backbone=_pirads_model).to(device)
     checkpt = torch.load(
         os.path.join(project_dir, "models", "cspca_model.pth"), map_location="cpu"
     )
