@@ -40,7 +40,7 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           # Replace with your HF username and Space name
           HF_USERNAME: "anirudh0410"
-          SPACE_NAME: "WSA_Prostate"
+          SPACE_NAME: "Prostate-Inference"
         run: |
           # Create a temporary file with the metadata
           echo "---" > hf_header.txt

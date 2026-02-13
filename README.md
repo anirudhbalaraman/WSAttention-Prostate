@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://huggingface.co/spaces/anirudh0410/WSA_Prostate">
+  <a href="https://huggingface.co/spaces/anirudh0410/Prostate-Inference">
     <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue" alt="Hugging Face Spaces">
   </a>
 <a href="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions/workflows/ci.yaml">
@@ -19,7 +19,7 @@
 Predicts PI-RADS score and risk of clinically significant prostate cancer (csPCa) from T2-Weighted (T2W), Diffusion Weighted Imaging (DWI) and Apparent Diffusion Coefficient (ADC) sequences of bi-paramteric MRI (bpMRI).
 
 ## 🚀 Platform Access
-Real-time inference via [GUI](https://huggingface.co/spaces/anirudh0410/WSA_Prostate)
+Real-time inference via [GUI](https://huggingface.co/spaces/anirudh0410/Prostate-Inference)
 
 ## ⭐ Abstract
 
