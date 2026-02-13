@@ -25,3 +25,29 @@ jobs:
 
       - name: Run CI Suite
         run: make check
+
+
+  deploy-to-hf:
+    needs: quality-assurance # CRITICAL: Only runs if 'test' passes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true # Enable if you are using large files
+
+      - name: Push to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          # Replace with your HF username and Space name
+          HF_USERNAME: "anirudh0410"
+          SPACE_NAME: "WSA_Prostate"
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          
+          # Add Hugging Face as a remote
+          git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME
+          
+          # Force push to the Space
+          git push --force space main
