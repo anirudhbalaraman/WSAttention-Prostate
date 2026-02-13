@@ -16,6 +16,32 @@ from src.preprocessing.histogram_match import histmatch
 from src.preprocessing.prostate_mask import get_segmask
 from src.preprocessing.register_and_crop import register_files
 from src.utils import get_parent_image, get_patch_coordinate, setup_logging
+import streamlit as st
+
+@st.cache_resource  # <--- This decorator is the magic!
+def load_pirads_model(num_classes, mil_mode, project_dir, device):
+    # Move the model initialization inside here
+    model = MILModel3D(num_classes=num_classes, mil_mode=mil_mode)
+    checkpoint = torch.load(
+        os.path.join(project_dir, "models", "pirads.pt"), map_location="cpu"
+    )
+    model.load_state_dict(checkpoint["state_dict"])
+    model.to(device)
+    
+    model.eval()  # Set to evaluation mode
+    return model
+@st.cache_resource
+def load_cspca_model(pirads_model, project_dir, device):
+    # Move the model initialization inside here
+    model = CSPCAModel(backbone=pirads_model).to(device)
+    checkpt = torch.load(
+        os.path.join(project_dir, "models", "cspca_model.pth"), map_location="cpu"
+    )
+    model.load_state_dict(checkpt["state_dict"])
+    model = model.to(device)
+    
+    model.eval()  # Set to evaluation mode
+    return model
 
 
 def parse_args():
@@ -70,20 +96,24 @@ if __name__ == "__main__":
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     logging.info("Loading PIRADS model")
-    pirads_model = MILModel3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
+    pirads_model = load_pirads_model(args.num_classes, args.mil_mode, args.project_dir, args.device)
+    '''
     pirads_checkpoint = torch.load(
         os.path.join(args.project_dir, "models", "pirads.pt"), map_location="cpu"
     )
     pirads_model.load_state_dict(pirads_checkpoint["state_dict"])
     pirads_model.to(args.device)
+    '''
     logging.info("Loading csPCa model")
+    cspca_model = load_cspca_model(pirads_model, args.project_dir, args.device)
+    '''
     cspca_model = CSPCAModel(backbone=pirads_model).to(args.device)
     checkpt = torch.load(
         os.path.join(args.project_dir, "models", "cspca_model.pth"), map_location="cpu"
     )
     cspca_model.load_state_dict(checkpt["state_dict"])
     cspca_model = cspca_model.to(args.device)
-
+    '''
     transform = data_transform(args)
     files = os.listdir(args.t2_dir)
     args.data_list = []
