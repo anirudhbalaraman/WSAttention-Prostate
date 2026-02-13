@@ -16,8 +16,8 @@ app_port: 8501
   <a href="https://huggingface.co/spaces/anirudh0410/WSA_Prostate">
     <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue" alt="Hugging Face Spaces">
   </a>
-<a href="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions/workflows/ci.yml">
-    <img src="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions/workflows/ci.yml/badge.svg" alt="CI/CD Status">
+<a href="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions/workflows/ci.yaml">
+    <img src="https://github.com/anirudhbalaraman/WSAttention-Prostate/actions/workflows/ci.yaml/badge.svg" alt="CI/CD Status">
   </a>
   <img src="https://img.shields.io/badge/python-3.9-blue?logo=python&logoColor=white" alt="Python 3.9">
   <img src="https://img.shields.io/badge/pytorch-2.5-ee4c2c?logo=pytorch&logoColor=white" alt="PyTorch 2.5">  
