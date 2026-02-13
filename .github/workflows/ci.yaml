@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    paths:
-      - '**/*.py'
+    branches: [main]
 
 jobs:
   quality-assurance:
@@ -50,4 +49,4 @@ jobs:
           git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME
           
           # Force push to the Space
-          git push --force space main
+          git push --force space HEAD:main
