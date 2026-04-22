@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=cspca_test_epoch20     # Specify job name
+#SBATCH --job-name=preprocess_picai     # Specify job name
 #SBATCH --partition=gpu               # Specify partition name
 #SBATCH --mem=128G   
 #SBATCH --gres=gpu:1             
@@ -16,4 +16,4 @@ conda activate foundation
 RUNDIR="/sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate"
 
 
-srun python -u $RUNDIR/run_cspca.py --mode test --config $RUNDIR/config/config_cspca_test.yaml
+srun python -u $RUNDIR/preprocess_main.py --config $RUNDIR/config/config_preprocess.yaml

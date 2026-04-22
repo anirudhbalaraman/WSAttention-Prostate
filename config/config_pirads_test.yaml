@@ -1,14 +1,14 @@
 run_name: pirads_test_run
-data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate-foundation/PICAI_registered/t2_hist_matched
-dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/PI-RADS_data.json
+data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/t2_registered
+dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/test_data_updated.json
 num_classes: !!int 4
 mil_mode: att_trans
-tile_count: !!int 24
-tile_size: !!int 64
+tile_count: !!int 40
+tile_size: !!int 48
 depth: !!int 3
 use_heatmap: !!bool True
 workers: !!int 8
-checkpoint: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/models/pirads.pt
+checkpoint: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/logs/pirads_training_new/model_44.pt
 amp: !!bool True
 
 

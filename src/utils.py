@@ -53,7 +53,7 @@ def save_cspca_checkpoint(
         "specificity": val_metric["specificity"],
         "state_dict": state_dict,
     }
-    torch.save(save_dict, os.path.join(model_dir, "cspca_model.pth"))
+    torch.save(save_dict, os.path.join(model_dir, f"cspca_model_{val_metric['epoch']}.pth"))
     logging.info(f"Saving model with auc: {val_metric['auc']}")
 
 

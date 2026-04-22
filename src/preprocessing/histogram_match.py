@@ -68,8 +68,8 @@ def histmatch(args: argparse.Namespace) -> argparse.Namespace:
         nrrd.write(os.path.join(dwi_histmatched_dir, file), histmatched_dwi, header_dwi)
         nrrd.write(os.path.join(adc_histmatched_dir, file), histmatched_adc, header_adc)
 
-        args.t2_dir = t2_histmatched_dir
-        args.dwi_dir = dwi_histmatched_dir
-        args.adc_dir = adc_histmatched_dir
+    args.t2_dir = t2_histmatched_dir
+    args.dwi_dir = dwi_histmatched_dir
+    args.adc_dir = adc_histmatched_dir
 
     return args

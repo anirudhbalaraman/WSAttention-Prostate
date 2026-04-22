@@ -27,33 +27,6 @@ from .custom_transforms import (
 )
 
 
-class DummyMILDataset(torch.utils.data.Dataset):
-    def __init__(self, args, num_samples=8):
-        self.num_samples = num_samples
-        self.args = args
-
-    def __len__(self):
-        return self.num_samples
-
-    def __getitem__(self, index):
-        # Simulate the output of your 'data_transform'
-        # A list of dictionaries, one for each 'tile_count' (patch)
-        bag = []
-        label_value = float(index % 2)
-        for _ in range(self.args.tile_count):
-            item = {
-                # Shape: (Channels=3, Depth, H, W) based on your Transposed(indices=(0, 3, 1, 2))
-                "image": torch.randn(3, self.args.depth, self.args.tile_size, self.args.tile_size),
-                "label": torch.tensor(label_value, dtype=torch.float32),
-            }
-            if self.args.use_heatmap:
-                item["final_heatmap"] = torch.randn(
-                    1, self.args.depth, self.args.tile_size, self.args.tile_size
-                )
-            bag.append(item)
-        return bag
-
-
 def list_data_collate(batch: list):
     """
     Combine instances from a list of dicts into a single dict, by stacking them along first dim
@@ -67,6 +40,7 @@ def list_data_collate(batch: list):
 
         if all("final_heatmap" in ix for ix in item):
             data["final_heatmap"] = torch.stack([ix["final_heatmap"] for ix in item], dim=0)
+            data["smooth_mask"] = torch.stack([ix["smooth_mask"] for ix in item], dim=0)
 
         batch[i] = data
     return default_collate(batch)
@@ -74,10 +48,11 @@ def list_data_collate(batch: list):
 
 def data_transform(args: argparse.Namespace) -> Transform:
     if args.use_heatmap:
+        '''
         transform = Compose(
             [
                 LoadImaged(
-                    keys=["image", "mask", "dwi", "adc", "heatmap"],
+                    keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
                     reader="ITKReader",
                     ensure_channel_first=True,
                     dtype=np.float32,
@@ -87,17 +62,48 @@ def data_transform(args: argparse.Namespace) -> Transform:
                     keys=["image", "dwi", "adc"], name="image", dim=0
                 ),  # stacks to (3, H, W)
                 NormalizeIntensity_customd(keys=["image"], channel_wise=True, mask_key="mask"),
-                ElementwiseProductd(keys=["mask", "heatmap"], output_key="final_heatmap"),
+                ElementwiseProductd(keys=["heatmap", "mask"], output_key="final_heatmap"),
                 RandWeightedCropd(
-                    keys=["image", "final_heatmap"],
+                    keys=["image", "final_heatmap", "mask"],
                     w_key="final_heatmap",
                     spatial_size=(args.tile_size, args.tile_size, args.depth),
                     num_samples=args.tile_count,
                 ),
                 EnsureTyped(keys=["label"], dtype=torch.float32),
                 Transposed(keys=["image"], indices=(0, 3, 1, 2)),
-                DeleteItemsd(keys=["mask", "dwi", "adc", "heatmap"]),
-                ToTensord(keys=["image", "label", "final_heatmap"]),
+                DeleteItemsd(keys=[ "dwi", "adc", "heatmap"]),
+                ToTensord(keys=["image", "label", "final_heatmap", "mask"]),
+            ]
+        )
+        '''
+        transform = Compose(
+            [
+                LoadImaged(
+                    keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
+                    reader="ITKReader",
+                    ensure_channel_first=True,
+                    dtype=np.float32,
+                ),
+                ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+                ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
+                NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
+                NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
+                ConcatItemsd(
+                    keys=["image", "dwi", "adc"], name="image", dim=0
+                ),  # stacks to (3, H, W)
+                ElementwiseProductd(keys=["heatmap", "smooth_mask"], output_key="final_heatmap"),
+                RandCropByPosNegLabeld(
+                    keys=["image", "final_heatmap", "smooth_mask"],
+                    label_key="smooth_mask",
+                    spatial_size=(args.tile_size, args.tile_size, args.depth),
+                    pos=1,
+                    neg=0,
+                    num_samples=args.tile_count,
+                ),
+                EnsureTyped(keys=["label"], dtype=torch.float32),
+                Transposed(keys=["image"], indices=(0, 3, 1, 2)),
+                DeleteItemsd(keys=[ "dwi", "adc", "heatmap", "mask"]),
+                ToTensord(keys=["image", "label", "final_heatmap", "smooth_mask"]),
             ]
         )
     else:
@@ -134,15 +140,6 @@ def data_transform(args: argparse.Namespace) -> Transform:
 def get_dataloader(
     args: argparse.Namespace, split: Literal["train", "test"]
 ) -> torch.utils.data.DataLoader:
-    if args.dry_run:
-        print(f"🛠️  DRY RUN: Creating synthetic {split} dataloader...")
-        dummy_ds = DummyMILDataset(args, num_samples=args.batch_size * 2)
-        return torch.utils.data.DataLoader(
-            dummy_ds,
-            batch_size=args.batch_size,
-            collate_fn=list_data_collate,  # Uses your custom stacking logic
-            num_workers=0,  # Keep it simple for dry run
-        )
 
     data_list = load_decathlon_datalist(
         data_list_file_path=args.dataset_json,
@@ -159,7 +156,7 @@ def get_dataloader(
         dataset,
         batch_size=args.batch_size,
         shuffle=(split == "train"),
-        num_workers=args.workers,
+        num_workers=args.workers if split == "train" else 2,
         pin_memory=True,
         multiprocessing_context="fork" if args.workers > 0 else None,
         sampler=None,

@@ -1,9 +1,9 @@
-data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate-foundation/PICAI_registered/t2_hist_matched
-dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/PI-RADS_data.json
+data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate-foundation/processed/t2_registered
+dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/PI-RADS_data_updated.json
 num_classes: !!int 4
 mil_mode: att_trans
-tile_count: !!int 24
-tile_size: !!int 64
+tile_count: !!int 40
+tile_size: !!int 48
 depth: !!int 3
 use_heatmap: !!bool True
 workers: !!int 4

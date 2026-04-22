@@ -6,7 +6,7 @@ from pathlib import Path
 import yaml
 
 from src.preprocessing.generate_heatmap import get_heatmap
-from src.preprocessing.histogram_match import histmatch
+from src.preprocessing.clip_intensity import clip_adc
 from src.preprocessing.prostate_mask import get_segmask
 from src.preprocessing.register_and_crop import register_files
 from src.utils import setup_logging, validate_steps
@@ -24,7 +24,6 @@ def parse_args():
             "get_segmentation_mask",
             "get_heatmap",
         ],  # ← restrict allowed values
-        required=True,
         help="Steps to execute (one or more)",
     )
     parser.add_argument("--t2_dir", default=None, help="Path to T2W files")
@@ -53,7 +52,7 @@ if __name__ == "__main__":
 
     FUNCTIONS = {
         "register_and_crop": register_files,
-        "histogram_match": histmatch,
+        "clip_adc": clip_adc,
         "get_segmentation_mask": get_segmask,
         "get_heatmap": get_heatmap,
     }
@@ -61,7 +60,9 @@ if __name__ == "__main__":
     args.logfile = os.path.join(args.output_dir, "preprocessing.log")
     setup_logging(args.logfile)
     logging.info("Starting preprocessing")
-    validate_steps(args.steps)
+    if args.steps is None:
+        args.steps = ["register_and_crop", "get_segmentation_mask", "clip_adc", "get_heatmap"]
+    #validate_steps(args.steps)
     for step in args.steps:
         func = FUNCTIONS[step]
         args = func(args)

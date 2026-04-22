@@ -28,7 +28,7 @@ def main_worker(args):
         model_dir = os.path.join(args.logdir, "models")
         os.makedirs(model_dir, exist_ok=True)
 
-        set_determinism(seed=42)
+        set_determinism(seed=86)
 
         train_loader = get_dataloader(args, split="train")
         valid_loader = get_dataloader(args, split="test")
@@ -101,7 +101,7 @@ def parse_args():
         required=True,
         help="Operation mode: train or infer",
     )
-    parser.add_argument("--run_name", type=str, default="train_cspca", help="run name for log file")
+    parser.add_argument("--run_name", type=str, default="default_cspca", help="run name for log file")
     parser.add_argument("--config", type=str, help="Path to YAML config file")
     parser.add_argument("--project_dir", default=None, help="path to project firectory")
     parser.add_argument("--data_root", default=None, help="path to root folder of images")

@@ -223,7 +223,7 @@ class ElementwiseProductd(MapTransform):
 
     def __call__(self, data: Mapping[Hashable, NdarrayOrTensor]) -> dict[Hashable, NdarrayOrTensor]:
         d = dict(data)
-        d[self.output_key] = d[self.keys[0]] * d[self.keys[1]]
+        d[self.output_key] = d[self.keys[0]] * (d[self.keys[1]] > 0)
         return d
 
 
@@ -334,7 +334,7 @@ class NormalizeIntensity_custom(Transform):
             masked_img = img
         """
         slices = None
-        mask_data = mask_data.squeeze(0)
+        #mask_data = mask_data.squeeze(0)
         slices_mask = mask_data > 0
         masked_img = img[slices_mask]
 
@@ -381,12 +381,14 @@ class NormalizeIntensity_custom(Transform):
                 img, *_ = convert_data_type(img, dtype=torch.float32)
 
             for i, d in enumerate(img):
-                img[i] = self._normalize(  # type: ignore
-                    d,
+                img_temp = d.unsqueeze(0)
+                norm_temp = self._normalize(  # type: ignore
+                    img_temp,
                     mask_data,
                     sub=self.subtrahend[i] if self.subtrahend is not None else None,
                     div=self.divisor[i] if self.divisor is not None else None,
                 )
+                img[i] = norm_temp.squeeze(0)
         else:
             img = self._normalize(img, mask_data, self.subtrahend, self.divisor)
 

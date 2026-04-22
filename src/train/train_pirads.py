@@ -20,6 +20,7 @@ def get_attention_scores(
     data: torch.Tensor,
     target: torch.Tensor,
     heatmap: torch.Tensor,
+    mask: torch.Tensor,
     args: argparse.Namespace,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """
@@ -49,7 +50,13 @@ def get_attention_scores(
     for i in range(data.shape[0]):
         sample = heatmap[i]
         heatmap_patches = sample.squeeze(1)
-        raw_scores = heatmap_patches.view(len(heatmap_patches), -1).sum(dim=1)
+        raw_scores_unfil = heatmap_patches.view(len(heatmap_patches), -1).sum(dim=1)
+
+        prostate_mask = mask[i]
+        mask_patches = prostate_mask.squeeze(1)
+        valid_counts = (mask_patches != 0).sum(dim=(1, 2, 3))
+
+        raw_scores = raw_scores_unfil / valid_counts
         attention_score[i] = raw_scores / raw_scores.sum()
     shuffled_images = torch.empty_like(data).to(args.device)
     att_labels = torch.empty_like(attention_score).to(args.device)
@@ -61,7 +68,7 @@ def get_attention_scores(
     att_labels[torch.argwhere(target < 1)] = torch.ones_like(att_labels[0]) / len(
         att_labels[0]
     )  # For PI-RADS 2, uniform scores across patches
-    att_labels = att_labels**2  # Sharpening
+    att_labels = att_labels**4  # Sharpening
     att_labels = att_labels / att_labels.sum(dim=1, keepdim=True)
 
     return att_labels, shuffled_images
@@ -90,7 +97,7 @@ def train_epoch(model, loader, optimizer, scaler, epoch, args):
         target = target.long()
         if args.use_heatmap:
             att_labels, shuffled_images = get_attention_scores(
-                data, target, batch_data["final_heatmap"], args
+                data, target, batch_data["final_heatmap"], batch_data["smooth_mask"], args
             )
             att_labels = att_labels + eps
         else:
@@ -147,8 +154,8 @@ def train_epoch(model, loader, optimizer, scaler, epoch, args):
             )
             start_time = time.time()
 
-    del data, target, shuffled_images, logits, logits_attn
-    torch.cuda.empty_cache()
+        del data, target, shuffled_images, logits, logits_attn
+    #torch.cuda.empty_cache()
     batch_norm_epoch = batch_norm.aggregate()
     attn_loss_epoch = run_att_loss.aggregate()
     loss_epoch = run_loss.aggregate()
@@ -193,7 +200,7 @@ def val_epoch(model, loader, epoch, args):
             start_time = time.time()
 
             del data, target, logits
-            torch.cuda.empty_cache()
+            #torch.cuda.empty_cache()
 
         # Calculate QWK metric (Quadratic Weigted Kappa) https://en.wikipedia.org/wiki/Cohen%27s_kappa
         preds_cumulative = preds_cumulative.get_buffer().cpu().numpy()

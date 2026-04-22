@@ -1,0 +1,742 @@
+{
+    "test": [
+        {
+            "image": "0070.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0070.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0070.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0070.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0070.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0040.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0040.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0040.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0040.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0040.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0013.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0013.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0013.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0013.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0013.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0059.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0059.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0059.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0059.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0059.nrrd",
+            "label": 1.0,
+            "pirads": 2.0
+        },
+        {
+            "image": "0034.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0034.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0034.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0034.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0034.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0074.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0074.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0074.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0074.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0074.nrrd",
+            "label": 0.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0038.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0038.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0038.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0038.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0038.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0076.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0076.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0076.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0076.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0076.nrrd",
+            "label": 0.0,
+            "pirads": 2.0
+        },
+        {
+            "image": "0019.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0019.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0019.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0019.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0019.nrrd",
+            "label": 1.0,
+            "pirads": 2.0
+        },
+        {
+            "image": "0023.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0023.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0023.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0023.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0023.nrrd",
+            "label": 0.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0068.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0068.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0068.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0068.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0068.nrrd",
+            "label": 0.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0008.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0008.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0008.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0008.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0008.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0065.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0065.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0065.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0065.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0065.nrrd",
+            "label": 1.0,
+            "pirads": 2.0
+        },
+        {
+            "image": "0055.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0055.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0055.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0055.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0055.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0009.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0009.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0009.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0009.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0009.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0067.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0067.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0067.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0067.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0067.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0078.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0078.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0078.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0078.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0078.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0007.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0007.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0007.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0007.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0007.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0075.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0075.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0075.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0075.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0075.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0073.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0073.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0073.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0073.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0073.nrrd",
+            "label": 1.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0010.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0010.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0010.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0010.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0010.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0066.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0066.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0066.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0066.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0066.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0045.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0045.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0045.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0045.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0045.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0014.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0014.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0014.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0014.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0014.nrrd",
+            "label": 1.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0026.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0026.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0026.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0026.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0026.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0063.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0063.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0063.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0063.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0063.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0072.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0072.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0072.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0072.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0072.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0056.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0056.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0056.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0056.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0056.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0016.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0016.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0016.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0016.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0016.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0047.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0047.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0047.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0047.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0047.nrrd",
+            "label": 1.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0015.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0015.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0015.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0015.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0015.nrrd",
+            "label": 0.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0064.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0064.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0064.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0064.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0064.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0044.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0044.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0044.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0044.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0044.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0017.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0017.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0017.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0017.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0017.nrrd",
+            "label": 1.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0030.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0030.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0030.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0030.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0030.nrrd",
+            "label": 1.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0025.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0025.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0025.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0025.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0025.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0005.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0005.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0005.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0005.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0005.nrrd",
+            "label": 0.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0051.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0051.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0051.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0051.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0051.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0011.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0011.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0011.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0011.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0011.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0041.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0041.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0041.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0041.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0041.nrrd",
+            "label": 0.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0071.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0071.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0071.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0071.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0071.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0033.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0033.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0033.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0033.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0033.nrrd",
+            "label": 0.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0052.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0052.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0052.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0052.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0052.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0032.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0032.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0032.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0032.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0032.nrrd",
+            "label": 0.0,
+            "pirads": 2.0
+        },
+        {
+            "image": "0035.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0035.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0035.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0035.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0035.nrrd",
+            "label": 0.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0039.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0039.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0039.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0039.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0039.nrrd",
+            "label": 1.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0020.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0020.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0020.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0020.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0020.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0079.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0079.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0079.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0079.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0079.nrrd",
+            "label": 0.0,
+            "pirads": 2.0
+        },
+        {
+            "image": "0043.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0043.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0043.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0043.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0043.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0037.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0037.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0037.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0037.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0037.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0054.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0054.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0054.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0054.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0054.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0031.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0031.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0031.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0031.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0031.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0029.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0029.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0029.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0029.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0029.nrrd",
+            "label": 0.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0053.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0053.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0053.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0053.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0053.nrrd",
+            "label": 0.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0027.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0027.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0027.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0027.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0027.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0062.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0062.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0062.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0062.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0062.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0012.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0012.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0012.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0012.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0012.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0024.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0024.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0024.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0024.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0024.nrrd",
+            "label": 1.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0050.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0050.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0050.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0050.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0050.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0082.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0082.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0082.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0082.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0082.nrrd",
+            "label": 0.0,
+            "pirads": 3.0
+        },
+        {
+            "image": "0058.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0058.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0058.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0058.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0058.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0049.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0049.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0049.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0049.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0049.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0077.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0077.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0077.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0077.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0077.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0021.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0021.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0021.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0021.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0021.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0069.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0069.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0069.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0069.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0069.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0080.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0080.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0080.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0080.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0080.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0006.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0006.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0006.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0006.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0006.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0036.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0036.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0036.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0036.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0036.nrrd",
+            "label": 0.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0042.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0042.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0042.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0042.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0042.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0057.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0057.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0057.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0057.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0057.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0001.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0001.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0001.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0001.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0001.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0003.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0003.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0003.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0003.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0003.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0048.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0048.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0048.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0048.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0048.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0061.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0061.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0061.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0061.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0061.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0002.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0002.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0002.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0002.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0002.nrrd",
+            "label": 1.0,
+            "pirads": 2.0
+        },
+        {
+            "image": "0060.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0060.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0060.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0060.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0060.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0046.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0046.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0046.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0046.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0046.nrrd",
+            "label": 0.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0028.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0028.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0028.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0028.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0028.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0022.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0022.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0022.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0022.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0022.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0018.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0018.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0018.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0018.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0018.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        },
+        {
+            "image": "0081.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0081.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0081.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0081.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0081.nrrd",
+            "label": 1.0,
+            "pirads": 5.0
+        },
+        {
+            "image": "0004.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/prostate_mask/0004.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/DWI_histmatched/0004.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/ADC_histmatched/0004.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/heatmaps/0004.nrrd",
+            "label": 1.0,
+            "pirads": 4.0
+        }
+    ]
+}
