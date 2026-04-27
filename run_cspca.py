@@ -4,10 +4,12 @@ import os
 import shutil
 import sys
 from pathlib import Path
+import json
 
 import torch
 import yaml
 from monai.utils import set_determinism
+from sklearn.preprocessing import StandardScaler
 
 from src.data.data_loader import get_dataloader
 from src.model.cspca_model import CSPCAModel
@@ -19,6 +21,14 @@ from src.utils import get_metrics, save_cspca_checkpoint, setup_logging
 def main_worker(args):
     mil_model = MILModel3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
     cache_dir_path = Path(os.path.join(args.logdir, "cache"))
+    
+    scaler = StandardScaler()
+    with open(os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa.json")) as f:
+        dataset_json = json.load(f)
+    train_clinical = [i['psa'] for i in dataset_json['train']]
+    _ = scaler.fit_transform(train_clinical)
+    args.psa_mean = scaler.mean_.tolist()
+    args.psa_std = scaler.scale_.tolist()
 
     if args.mode == "train":
         checkpoint = torch.load(args.checkpoint_pirads, weights_only=False, map_location="cpu")
@@ -133,6 +143,7 @@ def parse_args():
         "--no_heatmap", dest="use_heatmap", action="store_false", help="disable heatmap"
     )
     parser.set_defaults(use_heatmap=True)
+    parser.add_argument("--use_psa", default=True, type=bool)
     parser.add_argument("--workers", default=2, type=int, help="number of workers for data loading")
     # parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--checkpoint_pirads", default=None, help="Load PI-RADS model")

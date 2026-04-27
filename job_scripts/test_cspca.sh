@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=cspca_training_70       # Specify job name
+#SBATCH --job-name=cspca_test_psa_64_59    # Specify job name
 #SBATCH --partition=gpu               # Specify partition name
 #SBATCH --mem=128G   
 #SBATCH --gres=gpu:1             
@@ -16,4 +16,4 @@ conda activate foundation
 RUNDIR="/sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate"
 
 
-srun python -u $RUNDIR/run_cspca.py --mode train --config $RUNDIR/config/config_cspca_train_2.yaml
+srun python -u $RUNDIR/run_cspca.py --mode test --config $RUNDIR/config/config_cspca_test.yaml

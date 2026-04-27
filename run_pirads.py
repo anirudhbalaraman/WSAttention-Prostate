@@ -229,6 +229,7 @@ def parse_args():
         "--no_heatmap", dest="use_heatmap", action="store_false", help="disable heatmap"
     )
     parser.set_defaults(use_heatmap=True)
+    parser.add_argument("--use_psa", default=False, type=bool)
     parser.add_argument("--workers", default=2, type=int, help="number of workers for data loading")
 
     parser.add_argument("--checkpoint", default=None, help="load existing checkpoint")

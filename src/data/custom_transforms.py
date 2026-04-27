@@ -47,6 +47,25 @@ class DilateAndSaveMaskd(MapTransform):
             )  # Add channel dimension back
 
         return d
+    
+class NormalizePSAd(MapTransform):
+    """
+    Custom transform to dilate binary mask and save a copy.
+    """
+
+    def __init__(self, keys, mean, std):
+        super().__init__(keys)
+        self.mean = torch.tensor(mean)       
+        self.std = torch.tensor(std)
+
+    def __call__(self, data):
+        d = dict(data)
+
+        for key in self.keys:
+            d[key] = torch.tensor(d[key], dtype=torch.float32)
+            d[key] = (d[key] - self.mean) / self.std
+
+        return d
 
 
 class ClipMaskIntensityPercentiles(Transform):

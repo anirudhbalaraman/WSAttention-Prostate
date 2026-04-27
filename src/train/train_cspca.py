@@ -15,9 +15,10 @@ def train_epoch(cspca_model, loader, optimizer, epoch, args):
     for _, batch_data in enumerate(loader):
         data = batch_data["image"].as_subclass(torch.Tensor).to(args.device)
         target = batch_data["label"].as_subclass(torch.Tensor).to(args.device)
+        psa_data = batch_data["psa"].as_subclass(torch.Tensor).to(args.device)
 
         optimizer.zero_grad()
-        output = cspca_model(data)
+        output = cspca_model(x = data, psa_data = psa_data)
         output = output.squeeze(1)
         loss = criterion(output, target)
         loss.backward()
@@ -46,8 +47,9 @@ def val_epoch(cspca_model, loader, epoch, args):
         for _, batch_data in enumerate(loader):
             data = batch_data["image"].as_subclass(torch.Tensor).to(args.device)
             target = batch_data["label"].as_subclass(torch.Tensor).to(args.device)
+            psa_data = batch_data["psa"].as_subclass(torch.Tensor).to(args.device)
 
-            output = cspca_model(data)
+            output = cspca_model(x = data, psa_data = psa_data)
             output = output.squeeze(1)
             loss = criterion(output, target)
 

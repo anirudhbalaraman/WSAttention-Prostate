@@ -24,7 +24,9 @@ from .custom_transforms import (
     ClipMaskIntensityPercentilesd,
     ElementwiseProductd,
     NormalizeIntensity_customd,
+    NormalizePSAd,
 )
+from sklearn.preprocessing import StandardScaler
 
 
 def list_data_collate(batch: list):
@@ -48,92 +50,131 @@ def list_data_collate(batch: list):
 
 def data_transform(args: argparse.Namespace) -> Transform:
     if args.use_heatmap:
-        '''
-        transform = Compose(
-            [
-                LoadImaged(
-                    keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
-                    reader="ITKReader",
-                    ensure_channel_first=True,
-                    dtype=np.float32,
-                ),
-                ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
-                ConcatItemsd(
-                    keys=["image", "dwi", "adc"], name="image", dim=0
-                ),  # stacks to (3, H, W)
-                NormalizeIntensity_customd(keys=["image"], channel_wise=True, mask_key="mask"),
-                ElementwiseProductd(keys=["heatmap", "mask"], output_key="final_heatmap"),
-                RandWeightedCropd(
-                    keys=["image", "final_heatmap", "mask"],
-                    w_key="final_heatmap",
-                    spatial_size=(args.tile_size, args.tile_size, args.depth),
-                    num_samples=args.tile_count,
-                ),
-                EnsureTyped(keys=["label"], dtype=torch.float32),
-                Transposed(keys=["image"], indices=(0, 3, 1, 2)),
-                DeleteItemsd(keys=[ "dwi", "adc", "heatmap"]),
-                ToTensord(keys=["image", "label", "final_heatmap", "mask"]),
-            ]
-        )
-        '''
-        transform = Compose(
-            [
-                LoadImaged(
-                    keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
-                    reader="ITKReader",
-                    ensure_channel_first=True,
-                    dtype=np.float32,
-                ),
-                ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
-                ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
-                NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
-                NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
-                ConcatItemsd(
-                    keys=["image", "dwi", "adc"], name="image", dim=0
-                ),  # stacks to (3, H, W)
-                ElementwiseProductd(keys=["heatmap", "smooth_mask"], output_key="final_heatmap"),
-                RandCropByPosNegLabeld(
-                    keys=["image", "final_heatmap", "smooth_mask"],
-                    label_key="smooth_mask",
-                    spatial_size=(args.tile_size, args.tile_size, args.depth),
-                    pos=1,
-                    neg=0,
-                    num_samples=args.tile_count,
-                ),
-                EnsureTyped(keys=["label"], dtype=torch.float32),
-                Transposed(keys=["image"], indices=(0, 3, 1, 2)),
-                DeleteItemsd(keys=[ "dwi", "adc", "heatmap", "mask"]),
-                ToTensord(keys=["image", "label", "final_heatmap", "smooth_mask"]),
-            ]
-        )
+        if args.use_psa:
+            transform = Compose(
+                [
+                    LoadImaged(
+                        keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
+                        reader="ITKReader",
+                        ensure_channel_first=True,
+                        dtype=np.float32,
+                    ),
+                    ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+                    ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
+                    ConcatItemsd(
+                        keys=["image", "dwi", "adc"], name="image", dim=0
+                    ),  # stacks to (3, H, W)
+                    ElementwiseProductd(keys=["heatmap", "smooth_mask"], output_key="final_heatmap"),
+                    RandCropByPosNegLabeld(
+                        keys=["image", "final_heatmap", "smooth_mask"],
+                        label_key="smooth_mask",
+                        spatial_size=(args.tile_size, args.tile_size, args.depth),
+                        pos=1,
+                        neg=0,
+                        num_samples=args.tile_count,
+                    ),
+                    NormalizePSAd(keys=["psa"], mean=args.psa_mean, std=args.psa_std),
+                    EnsureTyped(keys=["label", "psa"], dtype=torch.float32),
+                    Transposed(keys=["image"], indices=(0, 3, 1, 2)),
+                    DeleteItemsd(keys=[ "dwi", "adc", "heatmap", "mask"]),
+                    ToTensord(keys=["image", "label", "final_heatmap", "smooth_mask", "psa"]),
+                ]
+            )
+        else:
+            transform = Compose(
+                [
+                    LoadImaged(
+                        keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
+                        reader="ITKReader",
+                        ensure_channel_first=True,
+                        dtype=np.float32,
+                    ),
+                    ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+                    ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
+                    ConcatItemsd(
+                        keys=["image", "dwi", "adc"], name="image", dim=0
+                    ),  # stacks to (3, H, W)
+                    ElementwiseProductd(keys=["heatmap", "smooth_mask"], output_key="final_heatmap"),
+                    RandCropByPosNegLabeld(
+                        keys=["image", "final_heatmap", "smooth_mask"],
+                        label_key="smooth_mask",
+                        spatial_size=(args.tile_size, args.tile_size, args.depth),
+                        pos=1,
+                        neg=0,
+                        num_samples=args.tile_count,
+                    ),
+                    EnsureTyped(keys=["label"], dtype=torch.float32),
+                    Transposed(keys=["image"], indices=(0, 3, 1, 2)),
+                    DeleteItemsd(keys=[ "dwi", "adc", "heatmap", "mask"]),
+                    ToTensord(keys=["image", "label", "final_heatmap", "smooth_mask"]),
+                ]
+            )
     else:
-        transform = Compose(
-            [
-                LoadImaged(
-                    keys=["image", "mask", "dwi", "adc"],
-                    reader="ITKReader",
-                    ensure_channel_first=True,
-                    dtype=np.float32,
-                ),
-                ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
-                ConcatItemsd(
-                    keys=["image", "dwi", "adc"], name="image", dim=0
-                ),  # stacks to (3, H, W)
-                NormalizeIntensityd(keys=["image"], channel_wise=True),
-                RandCropByPosNegLabeld(
-                    keys=["image"],
-                    label_key="mask",
-                    spatial_size=(args.tile_size, args.tile_size, args.depth),
-                    pos=1,
-                    neg=0,
-                    num_samples=args.tile_count,
-                ),
-                EnsureTyped(keys=["label"], dtype=torch.float32),
-                Transposed(keys=["image"], indices=(0, 3, 1, 2)),
-                DeleteItemsd(keys=["mask", "dwi", "adc"]),
-                ToTensord(keys=["image", "label"]),
-            ]
-        )
+        if args.use_psa:
+            transform = Compose(
+                [
+                    LoadImaged(
+                        keys=["image", "mask", "dwi", "adc","smooth_mask"],
+                        reader="ITKReader",
+                        ensure_channel_first=True,
+                        dtype=np.float32,
+                    ),
+                    ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+                    ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
+                    ConcatItemsd(
+                        keys=["image", "dwi", "adc"], name="image", dim=0
+                    ),  # stacks to (3, H, W)
+                    RandCropByPosNegLabeld(
+                        keys=["image", "smooth_mask"],
+                        label_key="smooth_mask",
+                        spatial_size=(args.tile_size, args.tile_size, args.depth),
+                        pos=1,
+                        neg=0,
+                        num_samples=args.tile_count,
+                    ),
+                    NormalizePSAd(keys=["psa"], mean=args.psa_mean, std=args.psa_std),
+                    EnsureTyped(keys=["label", "psa"], dtype=torch.float32),
+                    Transposed(keys=["image"], indices=(0, 3, 1, 2)),
+                    DeleteItemsd(keys=[ "dwi", "adc", "mask"]),
+                    ToTensord(keys=["image", "label", "smooth_mask", "psa"]),
+                ]
+            )
+        else:
+            transform = Compose(
+                [
+                    LoadImaged(
+                        keys=["image", "mask", "dwi", "adc","smooth_mask"],
+                        reader="ITKReader",
+                        ensure_channel_first=True,
+                        dtype=np.float32,
+                    ),
+                    ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+                    ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
+                    NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
+                    ConcatItemsd(
+                        keys=["image", "dwi", "adc"], name="image", dim=0
+                    ),  # stacks to (3, H, W)
+                    RandCropByPosNegLabeld(
+                        keys=["image", "smooth_mask"],
+                        label_key="smooth_mask",
+                        spatial_size=(args.tile_size, args.tile_size, args.depth),
+                        pos=1,
+                        neg=0,
+                        num_samples=args.tile_count,
+                    ),
+                    EnsureTyped(keys=["label"], dtype=torch.float32),
+                    Transposed(keys=["image"], indices=(0, 3, 1, 2)),
+                    DeleteItemsd(keys=[ "dwi", "adc", "mask"]),
+                    ToTensord(keys=["image", "label", "smooth_mask"]),
+                ]
+            )
     return transform
 
 

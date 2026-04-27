@@ -3,6 +3,7 @@ import json
 import logging
 import os
 from pathlib import Path
+import json
 
 import torch
 import yaml
@@ -58,6 +59,7 @@ def parse_args():
     parser.add_argument("--num_classes", default=4, type=int)
     parser.add_argument("--mil_mode", default="att_trans", type=str)
     parser.add_argument("--use_heatmap", default=True, type=bool)
+    parser.add_argument("--use_psa", default=True, type=bool)
     parser.add_argument("--tile_size", default=64, type=int)
     parser.add_argument("--tile_count", default=24, type=int)
     parser.add_argument("--depth", default=3, type=int)
