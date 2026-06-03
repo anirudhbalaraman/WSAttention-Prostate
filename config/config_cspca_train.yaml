@@ -1,16 +1,15 @@
-data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/pirad_model_test_PICAI/processed/t2_registered/
-dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/PICAI_cspca_updated_with_psa.json
+data_root: 
+dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/cspca_train_tcia.json
 mil_mode: att_trans
 tile_count: !!int 40
 tile_size: !!int 48
 depth: !!int 3
-use_heatmap: !!bool True
-workers: !!int 2
-checkpoint_pirads: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/logs/pirads_training_new/model_44.pt
-epochs: !!int 80
+workers: !!int 1
+checkpoint_pirads: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/logs/pirads_training_resnet18-rand-new/model_55.pt
 batch_size: !!int 8
-optim_lr: !!float 2e-5
-num_seeds: !!int 5
+optim_lr: !!float 1e-5
+epochs: !!int 100
+num_classes: !!int 4
 
 
 

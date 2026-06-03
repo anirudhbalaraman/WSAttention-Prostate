@@ -1,7 +1,7 @@
-t2_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/t2w_nrrd
-dwi_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/dwi_nrrd
-adc_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/adc_nrrd
-output_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed
+t2_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/t2
+dwi_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/dwi
+adc_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/adc
+output_dir: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed
 
 
 

@@ -10,3 +10,5 @@ __pycache__/
 .mypy_cache/
 .pytest_cache/
 site/
+updated_segmentations.zip
+updated_segmentations

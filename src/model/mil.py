@@ -130,7 +130,7 @@ class MILModel3D(nn.Module):
             self.attention = nn.Sequential(nn.Linear(nfc, 2048), nn.Tanh(), nn.Linear(2048, 1))
 
         elif self.mil_mode == "att_trans":
-            transformer = nn.TransformerEncoderLayer(d_model=nfc, nhead=8, dropout=trans_dropout)
+            transformer = nn.TransformerEncoderLayer(d_model=nfc, nhead=8, dropout=trans_dropout, batch_first=True)
             self.transformer = nn.TransformerEncoder(transformer, num_layers=trans_blocks)
             self.attention = nn.Sequential(nn.Linear(nfc, 2048), nn.Tanh(), nn.Linear(2048, 1))
 
@@ -190,9 +190,8 @@ class MILModel3D(nn.Module):
             x = self.myfc(x)
 
         elif self.mil_mode == "att_trans" and self.transformer is not None:
-            x = x.permute(1, 0, 2)
+            
             x = self.transformer(x)
-            x = x.permute(1, 0, 2)
 
             a = self.attention(x)
             a = torch.softmax(a, dim=1)

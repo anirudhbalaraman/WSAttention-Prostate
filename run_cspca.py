@@ -25,7 +25,7 @@ def main_worker(args):
     scaler = StandardScaler()
     with open(os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa.json")) as f:
         dataset_json = json.load(f)
-    train_clinical = [i['psa'] for i in dataset_json['train']]
+    train_clinical = [i['psa'] for i in dataset_json['test']]
     _ = scaler.fit_transform(train_clinical)
     args.psa_mean = scaler.mean_.tolist()
     args.psa_std = scaler.scale_.tolist()
@@ -57,10 +57,10 @@ def main_worker(args):
 
         old_loss = float("inf")
         for epoch in range(args.epochs):
-            train_loss, train_auc = train_epoch(
+            train_loss, train_attn_loss, train_auc = train_epoch(
                 cspca_model, train_loader, optimizer, epoch=epoch, args=args
             )
-            logging.info(f"EPOCH {epoch} TRAIN loss: {train_loss:.4f} AUC: {train_auc:.4f}")
+            logging.info(f"EPOCH {epoch} TRAIN loss: {train_loss:.4f} TRAIN ATTN LOSS: {train_attn_loss:.4f} TRAIN AUC: {train_auc:.4f}")
             val_metric = val_epoch(cspca_model, valid_loader, epoch=epoch, args=args)
             logging.info(
                 f"EPOCH {epoch} VAL loss: {val_metric['loss']:.4f} AUC: {val_metric['auc']:.4f}"
@@ -69,35 +69,34 @@ def main_worker(args):
                 old_loss = val_metric["loss"]
                 save_cspca_checkpoint(cspca_model, val_metric, model_dir)
 
-        args.checkpoint_cspca = os.path.join(model_dir, "cspca_model.pth")
         if cache_dir_path.exists() and cache_dir_path.is_dir():
             shutil.rmtree(cache_dir_path)
+    elif args.mode == "test":
+        cspca_model = CSPCAModel(backbone=mil_model).to(args.device)
+        checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
+        cspca_model.load_state_dict(checkpt["state_dict"])
+        cspca_model = cspca_model.to(args.device)
+        if "auc" in checkpt and "sensitivity" in checkpt and "specificity" in checkpt:
+            auc, sens, spec = checkpt["auc"], checkpt["sensitivity"], checkpt["specificity"]
+            logging.info(
+                f"csPCa Model loaded from {args.checkpoint_cspca} with AUC: {auc}, Sensitivity: {sens}, Specificity: {spec} on the test set."
+            )
+        else:
+            logging.info(f"csPCa Model loaded from {args.checkpoint_cspca}.")
 
-    cspca_model = CSPCAModel(backbone=mil_model).to(args.device)
-    checkpt = torch.load(args.checkpoint_cspca, map_location="cpu")
-    cspca_model.load_state_dict(checkpt["state_dict"])
-    cspca_model = cspca_model.to(args.device)
-    if "auc" in checkpt and "sensitivity" in checkpt and "specificity" in checkpt:
-        auc, sens, spec = checkpt["auc"], checkpt["sensitivity"], checkpt["specificity"]
-        logging.info(
-            f"csPCa Model loaded from {args.checkpoint_cspca} with AUC: {auc}, Sensitivity: {sens}, Specificity: {spec} on the test set."
-        )
-    else:
-        logging.info(f"csPCa Model loaded from {args.checkpoint_cspca}.")
+        metrics_dict = {"auc": [], "sensitivity": [], "specificity": []}
+        for st in list(range(args.num_seeds)):
+            set_determinism(seed=st)
+            test_loader = get_dataloader(args, split="test")
+            test_metric = val_epoch(cspca_model, test_loader, epoch=0, args=args)
+            metrics_dict["auc"].append(test_metric["auc"])
+            metrics_dict["sensitivity"].append(test_metric["sensitivity"])
+            metrics_dict["specificity"].append(test_metric["specificity"])
+            logging.info(f"AUC: {test_metric['auc']}.")
+            if cache_dir_path.exists() and cache_dir_path.is_dir():
+                shutil.rmtree(cache_dir_path)
 
-    metrics_dict = {"auc": [], "sensitivity": [], "specificity": []}
-    for st in list(range(args.num_seeds)):
-        set_determinism(seed=st)
-        test_loader = get_dataloader(args, split="test")
-        test_metric = val_epoch(cspca_model, test_loader, epoch=0, args=args)
-        metrics_dict["auc"].append(test_metric["auc"])
-        metrics_dict["sensitivity"].append(test_metric["sensitivity"])
-        metrics_dict["specificity"].append(test_metric["specificity"])
-
-        if cache_dir_path.exists() and cache_dir_path.is_dir():
-            shutil.rmtree(cache_dir_path)
-
-    get_metrics(metrics_dict)
+        get_metrics(metrics_dict)
 
 
 def parse_args():
@@ -145,7 +144,6 @@ def parse_args():
     parser.set_defaults(use_heatmap=True)
     parser.add_argument("--use_psa", default=True, type=bool)
     parser.add_argument("--workers", default=2, type=int, help="number of workers for data loading")
-    # parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--checkpoint_pirads", default=None, help="Load PI-RADS model")
     parser.add_argument(
         "--epochs", "--max_epochs", default=30, type=int, help="number of training epochs"

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=preprocess_picai     # Specify job name
+#SBATCH --job-name=preprocess_tum     # Specify job name
 #SBATCH --partition=gpu               # Specify partition name
 #SBATCH --mem=128G   
 #SBATCH --gres=gpu:1             

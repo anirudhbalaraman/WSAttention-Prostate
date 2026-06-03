@@ -8,7 +8,7 @@ tile_size: !!int 48
 depth: !!int 3
 use_heatmap: !!bool True
 workers: !!int 8
-checkpoint: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/logs/pirads_training_new/model_44.pt
+checkpoint: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/logs/pirads_training_resnet18-rand-new/model_67.pt
 amp: !!bool True
 
 

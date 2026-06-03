@@ -27,7 +27,6 @@ class SimpleNN(nn.Module):
             nn.ReLU(),
             nn.Dropout(p=0.3),
             nn.Linear(128, 1),
-            nn.Sigmoid(),  # since binary classification
         )
 
     def forward(self, x):
@@ -88,9 +87,7 @@ class CSPCAModel(nn.Module):
         x = x.reshape(sh[0] * sh[1], sh[2], sh[3], sh[4], sh[5])
         x = self.backbone.net(x)
         x = x.reshape(sh[0], sh[1], -1)
-        x = x.permute(1, 0, 2)
         x = self.backbone.transformer(x)
-        x = x.permute(1, 0, 2)
         a = self.backbone.attention(x)
         a = torch.softmax(a, dim=1)
         x = torch.sum(x * a, dim=1)

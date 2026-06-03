@@ -108,9 +108,7 @@ def train_epoch(model, loader, optimizer, scaler, epoch, args):
             # Classification Loss
             logits_attn = model(shuffled_images, no_head=True)
             x = logits_attn.to(torch.float32)
-            x = x.permute(1, 0, 2)
             x = model.transformer(x)
-            x = x.permute(1, 0, 2)
             a = model.attention(x)
             a = torch.softmax(a, dim=1)
             x = torch.sum(x * a, dim=1)
@@ -119,9 +117,8 @@ def train_epoch(model, loader, optimizer, scaler, epoch, args):
             # Attention Loss
             if args.use_heatmap:
                 y = logits_attn.to(torch.float32)
-                y = y.permute(1, 0, 2)
                 y = model.transformer(y)
-                y_detach = y.permute(1, 0, 2).detach()
+                y_detach = y.detach()
                 b = model.attention(y_detach)
                 b = b.squeeze(-1)
                 b = b + eps

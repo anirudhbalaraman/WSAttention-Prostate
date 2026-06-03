@@ -15,6 +15,39 @@ from monai.utils.enums import TransformBackends
 from monai.utils.type_conversion import convert_data_type, convert_to_dst_type, convert_to_tensor
 from scipy.ndimage import binary_dilation
 
+class LabelEncodeIntegerGraded(MapTransform):
+    """
+    Convert an integer label to encoded array representation of length num_classes,
+    with 1 filled in up to label index, and 0 otherwise. For example for num_classes=5,
+    embedding of 2 -> (0,0,0), 3 -> (0,0,1)...
+
+    Args:
+        num_classes: the number of classes to convert to encoded format.
+        keys: keys of the corresponding items to be transformed. Defaults to ``'label'``.
+        allow_missing_keys: don't raise exception if key is missing.
+
+    """
+
+    def __init__(
+        self,
+        num_classes: int,
+        keys: KeysCollection = "label",
+        allow_missing_keys: bool = False,
+    ):
+        super().__init__(keys, allow_missing_keys)
+        self.num_classes = num_classes
+
+    def __call__(self, data):
+        d = dict(data)
+        for key in self.keys:
+            label = int(d[key])
+
+            lz = np.zeros(self.num_classes , dtype=np.float32)
+            lz[:label] = 1.0
+            # alternative oneliner lz=(np.arange(self.num_classes)<int(label)).astype(np.float32) #same oneliner
+            d[key] = lz
+
+        return d
 
 class DilateAndSaveMaskd(MapTransform):
     """

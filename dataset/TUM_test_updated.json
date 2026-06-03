@@ -1,0 +1,953 @@
+{
+    "test": [
+        {
+            "image": "117182577.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/117182577.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/117182577.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/117182577.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/117182577.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/117182577.nrrd",
+            "psa": [
+                7.42,
+                73.14278400000002
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "40125295.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/40125295.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/40125295.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/40125295.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/40125295.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/40125295.nrrd",
+            "psa": [
+                12.7,
+                111.99651840000003
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "131281281.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/131281281.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/131281281.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/131281281.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/131281281.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/131281281.nrrd",
+            "psa": [
+                9.89,
+                42.708556800000004
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "157418473.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157418473.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157418473.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157418473.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157418473.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157418473.nrrd",
+            "psa": [
+                8.8,
+                59.439744000000005
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "89236863.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/89236863.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/89236863.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/89236863.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/89236863.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/89236863.nrrd",
+            "psa": [
+                11.8,
+                73.78076160000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "157178228.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157178228.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157178228.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157178228.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157178228.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157178228.nrrd",
+            "psa": [
+                4.07,
+                31.79105280000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "197871303.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/197871303.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/197871303.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/197871303.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/197871303.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/197871303.nrrd",
+            "psa": [
+                4.44,
+                41.333760000000005
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "166430557.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/166430557.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/166430557.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/166430557.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/166430557.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/166430557.nrrd",
+            "psa": [
+                10.4,
+                46.51745280000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "124172999.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/124172999.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/124172999.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/124172999.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/124172999.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/124172999.nrrd",
+            "psa": [
+                1.39,
+                40.985568
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "209065382.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/209065382.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/209065382.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/209065382.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/209065382.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/209065382.nrrd",
+            "psa": [
+                3.29,
+                35.463168
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "98949688.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/98949688.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/98949688.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/98949688.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/98949688.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/98949688.nrrd",
+            "psa": [
+                7.7,
+                41.693184000000024
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "157948077.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157948077.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157948077.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157948077.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157948077.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157948077.nrrd",
+            "psa": [
+                47.3,
+                81.46944000000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "90893592.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/90893592.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/90893592.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/90893592.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/90893592.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/90893592.nrrd",
+            "psa": [
+                7.69,
+                42.98711039999999
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "206955637.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/206955637.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/206955637.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/206955637.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/206955637.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/206955637.nrrd",
+            "psa": [
+                4.99,
+                42.02265600000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "209300602.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/209300602.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/209300602.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/209300602.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/209300602.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/209300602.nrrd",
+            "psa": [
+                3.69,
+                42.044620800000004
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "165961870.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/165961870.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/165961870.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/165961870.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/165961870.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/165961870.nrrd",
+            "psa": [
+                13.7,
+                46.549401599999996
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "161128213.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/161128213.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/161128213.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/161128213.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/161128213.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/161128213.nrrd",
+            "psa": [
+                11.7,
+                49.99587840000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "41633158.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/41633158.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/41633158.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/41633158.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/41633158.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/41633158.nrrd",
+            "psa": [
+                11.0,
+                73.31450880000003
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "158458345.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/158458345.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/158458345.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/158458345.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/158458345.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/158458345.nrrd",
+            "psa": [
+                5.0,
+                31.71168
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "205333684.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/205333684.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/205333684.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/205333684.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/205333684.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/205333684.nrrd",
+            "psa": [
+                4.4,
+                26.996736000000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "110498822.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/110498822.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/110498822.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/110498822.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/110498822.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/110498822.nrrd",
+            "psa": [
+                7.2,
+                27.172454400000007
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "156663622.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/156663622.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/156663622.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/156663622.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/156663622.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/156663622.nrrd",
+            "psa": [
+                4.6,
+                28.684031999999995
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "180637259.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/180637259.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/180637259.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/180637259.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/180637259.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/180637259.nrrd",
+            "psa": [
+                5.27,
+                52.18836480000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "37790894.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/37790894.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/37790894.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/37790894.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/37790894.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/37790894.nrrd",
+            "psa": [
+                14.7,
+                35.38429440000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "158458296.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/158458296.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/158458296.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/158458296.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/158458296.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/158458296.nrrd",
+            "psa": [
+                5.1,
+                57.849292800000015
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "39200701.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/39200701.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/39200701.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/39200701.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/39200701.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/39200701.nrrd",
+            "psa": [
+                14.7,
+                26.050752000000003
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "160796776.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/160796776.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/160796776.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/160796776.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/160796776.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/160796776.nrrd",
+            "psa": [
+                5.98,
+                72.345312
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "156848492.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/156848492.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/156848492.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/156848492.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/156848492.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/156848492.nrrd",
+            "psa": [
+                6.4,
+                44.939980800000015
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "39531576.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/39531576.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/39531576.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/39531576.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/39531576.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/39531576.nrrd",
+            "psa": [
+                11.0,
+                199.7498880000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "156873199.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/156873199.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/156873199.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/156873199.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/156873199.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/156873199.nrrd",
+            "psa": [
+                7.8,
+                71.515392
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "202320128.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/202320128.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/202320128.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/202320128.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/202320128.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/202320128.nrrd",
+            "psa": [
+                3.81,
+                39.783744
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "157341179.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157341179.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157341179.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157341179.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157341179.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157341179.nrrd",
+            "psa": [
+                4.15,
+                61.67715840000001
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "157419103.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157419103.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157419103.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157419103.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157419103.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157419103.nrrd",
+            "psa": [
+                4.2,
+                72.54074880000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "43391901.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/43391901.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/43391901.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/43391901.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/43391901.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/43391901.nrrd",
+            "psa": [
+                86.4,
+                100.48147200000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "40942757.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/40942757.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/40942757.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/40942757.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/40942757.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/40942757.nrrd",
+            "psa": [
+                25.02,
+                175.40490240000003
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "156753931.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/156753931.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/156753931.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/156753931.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/156753931.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/156753931.nrrd",
+            "psa": [
+                5.2,
+                109.25890560000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "156873202.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/156873202.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/156873202.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/156873202.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/156873202.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/156873202.nrrd",
+            "psa": [
+                9.3,
+                52.90721280000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "105462884.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/105462884.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/105462884.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/105462884.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/105462884.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/105462884.nrrd",
+            "psa": [
+                3.65,
+                41.46954240000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "202320085.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/202320085.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/202320085.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/202320085.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/202320085.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/202320085.nrrd",
+            "psa": [
+                4.2,
+                22.05815040000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "158110530.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/158110530.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/158110530.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/158110530.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/158110530.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/158110530.nrrd",
+            "psa": [
+                10.4,
+                99.47059200000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "157255508.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157255508.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157255508.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157255508.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157255508.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157255508.nrrd",
+            "psa": [
+                9.13,
+                40.51906560000001
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "171501199.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/171501199.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/171501199.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/171501199.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/171501199.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/171501199.nrrd",
+            "psa": [
+                3.4,
+                28.234752000000004
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "221486580.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/221486580.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/221486580.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/221486580.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/221486580.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/221486580.nrrd",
+            "psa": [
+                3.04,
+                0.07413120000000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "157178223.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157178223.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157178223.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157178223.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157178223.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157178223.nrrd",
+            "psa": [
+                5.9,
+                40.87449600000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "41549608.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/41549608.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/41549608.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/41549608.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/41549608.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/41549608.nrrd",
+            "psa": [
+                14.9,
+                134.10109440000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "30124411.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/30124411.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/30124411.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/30124411.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/30124411.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/30124411.nrrd",
+            "psa": [
+                65.88,
+                299.24294399999997
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "41635973.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/41635973.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/41635973.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/41635973.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/41635973.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/41635973.nrrd",
+            "psa": [
+                12.7,
+                66.04416000000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "153649143.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/153649143.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/153649143.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/153649143.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/153649143.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/153649143.nrrd",
+            "psa": [
+                5.49,
+                49.704345600000025
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "157255454.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/157255454.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/157255454.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/157255454.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/157255454.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/157255454.nrrd",
+            "psa": [
+                10.5,
+                35.45418240000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "196244801.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/196244801.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/196244801.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/196244801.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/196244801.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/196244801.nrrd",
+            "psa": [
+                3.9,
+                54.062611200000006
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "44282370.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/44282370.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/44282370.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/44282370.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/44282370.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/44282370.nrrd",
+            "psa": [
+                0.72,
+                41.53344
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "158458298.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/158458298.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/158458298.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/158458298.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/158458298.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/158458298.nrrd",
+            "psa": [
+                5.8,
+                38.054016000000004
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "108724699.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/108724699.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/108724699.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/108724699.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/108724699.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/108724699.nrrd",
+            "psa": [
+                3.5,
+                49.02543360000001
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "43501021.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/43501021.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/43501021.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/43501021.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/43501021.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/43501021.nrrd",
+            "psa": [
+                14.9,
+                25.075814400000002
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "189638607.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/189638607.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/189638607.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/189638607.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/189638607.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/189638607.nrrd",
+            "psa": [
+                8.1,
+                43.354521600000005
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "35676325.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/35676325.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/35676325.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/35676325.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/35676325.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/35676325.nrrd",
+            "psa": [
+                35.79,
+                45.302400000000006
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "158363661.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/158363661.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/158363661.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/158363661.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/158363661.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/158363661.nrrd",
+            "psa": [
+                5.7,
+                42.45696
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "121414478.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/121414478.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/121414478.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/121414478.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/121414478.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/121414478.nrrd",
+            "psa": [
+                5.45,
+                39.097344000000014
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "37269047.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/37269047.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/37269047.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/37269047.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/37269047.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/37269047.nrrd",
+            "psa": [
+                35.79,
+                28.346572800000004
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "44762365.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/44762365.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/44762365.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/44762365.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/44762365.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/44762365.nrrd",
+            "psa": [
+                12.1,
+                58.85568000000001
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "182654162.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/182654162.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/182654162.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/182654162.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/182654162.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/182654162.nrrd",
+            "psa": [
+                3.95,
+                47.880268799999996
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "33396953.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/33396953.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/33396953.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/33396953.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/33396953.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/33396953.nrrd",
+            "psa": [
+                6.68,
+                38.683008
+            ],
+            "label": 0.0
+        },
+        {
+            "image": "161339683.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/161339683.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/161339683.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/161339683.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/161339683.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/161339683.nrrd",
+            "psa": [
+                5.97,
+                49.55258880000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "32285423.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/32285423.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/32285423.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/32285423.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/32285423.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/32285423.nrrd",
+            "psa": [
+                13.2,
+                152.9708544
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "189626198.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/189626198.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/189626198.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/189626198.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/189626198.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/189626198.nrrd",
+            "psa": [
+                3.61,
+                37.05811200000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "187308282.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/187308282.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/187308282.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/187308282.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/187308282.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/187308282.nrrd",
+            "psa": [
+                3.9,
+                61.2144
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "158110532.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/158110532.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/158110532.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/158110532.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/158110532.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/158110532.nrrd",
+            "psa": [
+                6.8,
+                65.1036672
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "129647990.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/129647990.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/129647990.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/129647990.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/129647990.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/129647990.nrrd",
+            "psa": [
+                3.75,
+                51.21792
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "130259806.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/130259806.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/130259806.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/130259806.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/130259806.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/130259806.nrrd",
+            "psa": [
+                3.62,
+                42.45696
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "42462900.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/42462900.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/42462900.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/42462900.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/42462900.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/42462900.nrrd",
+            "psa": [
+                0.72,
+                41.41363200000001
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "199903825.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/199903825.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/199903825.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/199903825.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/199903825.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/199903825.nrrd",
+            "psa": [
+                4.06,
+                46.665215999999994
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "38789145.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/38789145.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/38789145.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/38789145.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/38789145.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/38789145.nrrd",
+            "psa": [
+                25.02,
+                40.934400000000004
+            ],
+            "label": 1.0
+        },
+        {
+            "image": "38579441.nrrd",
+            "mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/prostate_mask/38579441.nrrd",
+            "dwi": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/DWI_registered/38579441.nrrd",
+            "adc": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/ADC_clipped/38579441.nrrd",
+            "heatmap": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/heatmaps/38579441.nrrd",
+            "smooth_mask": "/sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/TUM/data_prostate_test/processed/smooth_prostate_mask/38579441.nrrd",
+            "psa": [
+                23.0,
+                36.66873600000002
+            ],
+            "label": 1.0
+        }
+    ]
+}

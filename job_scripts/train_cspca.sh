@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=cspca_train_psa_64    # Specify job name
+#SBATCH --job-name=cspca_train_randmodel_newtrain_tcia_withattn  # Specify job name
 #SBATCH --partition=gpu               # Specify partition name
 #SBATCH --mem=128G   
 #SBATCH --gres=gpu:1             

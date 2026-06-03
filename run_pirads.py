@@ -12,6 +12,8 @@ import wandb
 import yaml
 from monai.utils import set_determinism
 from torch.utils.tensorboard import SummaryWriter
+from sklearn.preprocessing import StandardScaler
+import json
 
 from src.data.data_loader import get_dataloader
 from src.model.mil import MILModel3D
@@ -43,6 +45,15 @@ def main_worker(args):
     cache_dir_ = os.path.join(args.logdir, "cache")
     model.to(args.device)
     params = model.parameters()
+    
+    scaler = StandardScaler()
+    with open(os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa.json")) as f:
+        dataset_json = json.load(f)
+    train_clinical = [i['psa'] for i in dataset_json['test']]
+    _ = scaler.fit_transform(train_clinical)
+    args.psa_mean = scaler.mean_.tolist()
+    args.psa_std = scaler.scale_.tolist()
+    
     if args.mode == "train":
         train_loader = get_dataloader(args, split="train")
         valid_loader = get_dataloader(args, split="test")

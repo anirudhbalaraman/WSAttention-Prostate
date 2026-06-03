@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=pirads_training_new      # Specify job name
+#SBATCH --job-name=pirads_training_ordinal_loss     # Specify job name
 #SBATCH --partition=gpu               # Specify partition name
 #SBATCH --mem=128G   
 #SBATCH --gres=gpu:1             

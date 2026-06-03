@@ -1,5 +1,5 @@
-data_root: /sc-projects/sc-proj-cc06-ag-ki-radiologie/prostate_test/COMFORT_data_mpMRI/processed/t2_registered
-dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/test_data_updated_with_psa.json
+data_root:
+dataset_json: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/dataset/cspca_train.json
 num_classes: !!int 4
 mil_mode: att_trans
 tile_count: !!int 40
@@ -7,7 +7,8 @@ tile_size: !!int 48
 depth: !!int 3
 use_heatmap: !!bool True
 workers: !!int 2
-checkpoint_cspca: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/logs/cspca_train_psa/models/cspca_model_57.pth
+checkpoint_cspca: /sc-scratch/sc-scratch-cc06-ag-ki-radiologie/prostate_foundation/WSAttention-Prostate/logs/cspca_train_randmodel_newtrain_tcia/models/cspca_model_71.pth
+num_seeds: !!int 10 
 batch_size: !!int 8
 
 

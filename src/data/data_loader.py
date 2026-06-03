@@ -17,6 +17,8 @@ from monai.transforms import (
     ToTensord,
     Transform,
     Transposed,
+    RandFlipd,
+    RandRotate90d,
 )
 from torch.utils.data.dataloader import default_collate
 
@@ -25,6 +27,8 @@ from .custom_transforms import (
     ElementwiseProductd,
     NormalizeIntensity_customd,
     NormalizePSAd,
+    LabelEncodeIntegerGraded,
+
 )
 from sklearn.preprocessing import StandardScaler
 
@@ -47,7 +51,77 @@ def list_data_collate(batch: list):
         batch[i] = data
     return default_collate(batch)
 
+def data_transform(args: argparse.Namespace, split) -> Transform:
+    if split == "train":
 
+        transform = Compose(
+            [
+                LoadImaged(
+                    keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
+                    reader="ITKReader",
+                    ensure_channel_first=True,
+                    dtype=np.float32,
+                ),
+                #LabelEncodeIntegerGraded(keys=["label"], num_classes=args.num_classes),
+                ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+                ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
+                NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
+                NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
+                ConcatItemsd(
+                    keys=["image", "dwi", "adc"], name="image", dim=0
+                ),  # stacks to (3, H, W)
+                ElementwiseProductd(keys=["heatmap", "smooth_mask"], output_key="final_heatmap"),
+                RandCropByPosNegLabeld(
+                    keys=["image", "final_heatmap", "smooth_mask"],
+                    label_key="smooth_mask",
+                    spatial_size=(args.tile_size, args.tile_size, args.depth),
+                    pos=1,
+                    neg=0,
+                    num_samples=args.tile_count,
+                ),
+                RandRotate90d(keys=["image", "final_heatmap", "smooth_mask"], prob=0.6, spatial_axes=(0, 1), max_k=3),
+                NormalizePSAd(keys=["psa"], mean=args.psa_mean, std=args.psa_std),
+                EnsureTyped(keys=["label", "psa"], dtype=torch.float32),
+                Transposed(keys=["image"], indices=(0, 3, 1, 2)),
+                DeleteItemsd(keys=[ "dwi", "adc", "heatmap", "mask"]),
+                ToTensord(keys=["image", "label", "final_heatmap", "smooth_mask", "psa"]),
+            ]
+        )
+    else:
+        transform = Compose(
+            [
+                LoadImaged(
+                    keys=["image", "mask", "dwi", "adc", "heatmap","smooth_mask"],
+                    reader="ITKReader",
+                    ensure_channel_first=True,
+                    dtype=np.float32,
+                ),
+                #LabelEncodeIntegerGraded(keys=["label"], num_classes=args.num_classes),
+                ClipMaskIntensityPercentilesd(keys=["image"], lower=0, upper=99.5, mask_key="mask"),
+                ClipMaskIntensityPercentilesd(keys=["dwi"], lower=0, upper=99.5, mask_key="mask"),
+                NormalizeIntensity_customd(keys=["image"], mask_key="mask"),
+                NormalizeIntensity_customd(keys=["dwi"], mask_key="mask"),
+                ConcatItemsd(
+                    keys=["image", "dwi", "adc"], name="image", dim=0
+                ),  # stacks to (3, H, W)
+                ElementwiseProductd(keys=["heatmap", "smooth_mask"], output_key="final_heatmap"),
+                RandCropByPosNegLabeld(
+                    keys=["image", "final_heatmap", "smooth_mask"],
+                    label_key="smooth_mask",
+                    spatial_size=(args.tile_size, args.tile_size, args.depth),
+                    pos=1,
+                    neg=0,
+                    num_samples=args.tile_count,
+                ),
+                NormalizePSAd(keys=["psa"], mean=args.psa_mean, std=args.psa_std),
+                EnsureTyped(keys=["label", "psa"], dtype=torch.float32),
+                Transposed(keys=["image"], indices=(0, 3, 1, 2)),
+                DeleteItemsd(keys=[ "dwi", "adc", "heatmap", "mask"]),
+                ToTensord(keys=["image", "label", "final_heatmap", "smooth_mask", "psa"]),
+            ]
+        )
+    return transform
+'''
 def data_transform(args: argparse.Namespace) -> Transform:
     if args.use_heatmap:
         if args.use_psa:
@@ -99,6 +173,7 @@ def data_transform(args: argparse.Namespace) -> Transform:
                         keys=["image", "dwi", "adc"], name="image", dim=0
                     ),  # stacks to (3, H, W)
                     ElementwiseProductd(keys=["heatmap", "smooth_mask"], output_key="final_heatmap"),
+                    #RandRotate90d(keys=["image", "final_heatmap", "smooth_mask"], prob=0.5, spatial_axes=(0, 1)),
                     RandCropByPosNegLabeld(
                         keys=["image", "final_heatmap", "smooth_mask"],
                         label_key="smooth_mask",
@@ -176,6 +251,7 @@ def data_transform(args: argparse.Namespace) -> Transform:
                 ]
             )
     return transform
+'''
 
 
 def get_dataloader(
@@ -187,11 +263,15 @@ def get_dataloader(
         data_list_key=split,
         base_dir=args.data_root,
     )
+    data_list_updated = [
+    {**i, 'psa': i.get('psa', [0, 0])}
+    for i in data_list
+    ]
     cache_dir_ = os.path.join(args.logdir, "cache")
     os.makedirs(os.path.join(cache_dir_, split), exist_ok=True)
-    transform = data_transform(args)
+    transform = data_transform(args, split)
     dataset = PersistentDataset(
-        data=data_list, transform=transform, cache_dir=os.path.join(cache_dir_, split)
+        data=data_list_updated, transform=transform, cache_dir=os.path.join(cache_dir_, split)
     )
     loader = torch.utils.data.DataLoader(
         dataset,
