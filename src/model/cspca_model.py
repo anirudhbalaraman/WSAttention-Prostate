@@ -70,17 +70,17 @@ class CSPCAModel(nn.Module):
     def __init__(self, backbone: nn.Module) -> None:
         super().__init__()
         self.backbone = backbone
-        
+
         self.clinical_dim = 2
         self.projection_dim = 32
         self.clinical_projection = nn.Sequential(
             nn.Linear(self.clinical_dim, self.projection_dim),
             nn.ReLU(),
-            nn.BatchNorm1d(self.projection_dim) # Helps stabilize the merged scale
+            nn.BatchNorm1d(self.projection_dim),  # Helps stabilize the merged scale
         )
-        
+
         self.fc_dim = backbone.myfc.in_features
-        self.fc_cspca = SimpleNN(input_dim=self.fc_dim + self.projection_dim) 
+        self.fc_cspca = SimpleNN(input_dim=self.fc_dim + self.projection_dim)
 
     def forward(self, x, psa_data):
         sh = x.shape
@@ -91,7 +91,7 @@ class CSPCAModel(nn.Module):
         a = self.backbone.attention(x)
         a = torch.softmax(a, dim=1)
         x = torch.sum(x * a, dim=1)
-        
+
         psa_features = self.clinical_projection(psa_data)
         x = torch.cat((x, psa_features), dim=1)
 

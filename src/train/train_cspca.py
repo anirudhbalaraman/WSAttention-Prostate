@@ -1,8 +1,9 @@
+import argparse
+
 import torch
 import torch.nn as nn
 from monai.metrics import Cumulative, CumulativeAverage
 from sklearn.metrics import confusion_matrix, roc_auc_score
-import argparse
 
 
 def get_lambda_att(epoch: int, max_lambda: float = 2.0, warmup_epochs: int = 10) -> float:
@@ -10,7 +11,8 @@ def get_lambda_att(epoch: int, max_lambda: float = 2.0, warmup_epochs: int = 10)
         return (epoch / warmup_epochs) * max_lambda
     else:
         return max_lambda
-    
+
+
 def get_attention_scores(
     data: torch.Tensor,
     target: torch.Tensor,
@@ -68,10 +70,10 @@ def get_attention_scores(
 
     return att_labels, shuffled_images
 
+
 def train_epoch(cspca_model, loader, optimizer, epoch, args):
-    
     lambda_att = get_lambda_att(epoch, warmup_epochs=25)
-    
+
     cspca_model.train()
     criterion = nn.BCEWithLogitsLoss()
     att_criterion = nn.CosineSimilarity(dim=1, eps=1e-6)
@@ -87,7 +89,7 @@ def train_epoch(cspca_model, loader, optimizer, epoch, args):
         data = batch_data["image"].as_subclass(torch.Tensor).to(args.device)
         target = batch_data["label"].as_subclass(torch.Tensor).to(args.device)
         psa_data = batch_data["psa"].as_subclass(torch.Tensor).to(args.device)
-        
+
         if args.use_heatmap:
             att_labels, shuffled_images = get_attention_scores(
                 data, target, batch_data["final_heatmap"], batch_data["smooth_mask"], args
@@ -95,9 +97,9 @@ def train_epoch(cspca_model, loader, optimizer, epoch, args):
             att_labels = att_labels + eps
         else:
             shuffled_images = data.to(args.device)
-            
+
         optimizer.zero_grad()
-        output = cspca_model(x = shuffled_images, psa_data = psa_data)
+        output = cspca_model(x=shuffled_images, psa_data=psa_data)
         output = output.squeeze(1)
         class_loss = criterion(output, target)
         if args.use_heatmap:
@@ -117,8 +119,7 @@ def train_epoch(cspca_model, loader, optimizer, epoch, args):
         else:
             loss = class_loss
             attn_loss = torch.tensor(0.0)
-  
-                
+
         loss.backward()
         optimizer.step()
 
@@ -149,7 +150,7 @@ def val_epoch(cspca_model, loader, epoch, args):
             target = batch_data["label"].as_subclass(torch.Tensor).to(args.device)
             psa_data = batch_data["psa"].as_subclass(torch.Tensor).to(args.device)
 
-            output = cspca_model(x = data, psa_data = psa_data)
+            output = cspca_model(x=data, psa_data=psa_data)
             output = output.squeeze(1)
             loss = criterion(output, target)
 

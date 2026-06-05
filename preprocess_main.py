@@ -1,15 +1,17 @@
 import argparse
 import logging
 import os
+from argparse import Namespace
+from collections.abc import Callable
 from pathlib import Path
 
 import yaml
 
-from src.preprocessing.generate_heatmap import get_heatmap
 from src.preprocessing.clip_intensity import clip_adc
+from src.preprocessing.generate_heatmap import get_heatmap
 from src.preprocessing.prostate_mask import get_segmask
 from src.preprocessing.register_and_crop import register_files
-from src.utils import setup_logging, validate_steps
+from src.utils import setup_logging
 
 
 def parse_args():
@@ -50,7 +52,7 @@ if __name__ == "__main__":
     if args.project_dir is None:
         args.project_dir = Path(__file__).resolve().parent  # Set project directory
 
-    FUNCTIONS = {
+    FUNCTIONS: dict[str, Callable[[Namespace], Namespace]] = {
         "register_and_crop": register_files,
         "clip_adc": clip_adc,
         "get_segmentation_mask": get_segmask,
@@ -62,7 +64,7 @@ if __name__ == "__main__":
     logging.info("Starting preprocessing")
     if args.steps is None:
         args.steps = ["register_and_crop", "get_segmentation_mask", "clip_adc", "get_heatmap"]
-    #validate_steps(args.steps)
+    # validate_steps(args.steps)
     for step in args.steps:
         func = FUNCTIONS[step]
         args = func(args)

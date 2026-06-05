@@ -8,6 +8,7 @@ from typing import Any, Union
 import cv2
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
+import nrrd
 import numpy as np
 import torch
 from monai.data import Dataset
@@ -245,3 +246,19 @@ def visualise_patches(coords, image, tile_size=64, depth=3):
     plt.subplots_adjust(left=0.06)
     plt.tight_layout()
     plt.show()
+
+
+def get_prostate_volume(mask_path) -> np.ndarray:
+    mask_data, header = nrrd.read(mask_path)
+    space_directions = header.get("space directions")
+    spacing = np.array([np.linalg.norm(vec) for vec in space_directions if np.any(vec)])
+
+    if len(spacing) != 3:
+        raise ValueError(f"Expected 3 spatial dimensions, found {len(spacing)}")
+
+    voxel_volume_mm3 = np.prod(spacing)
+    voxel_count = np.sum(mask_data > 0)
+    true_volume_mm3 = voxel_count * voxel_volume_mm3
+    true_volume_cc = true_volume_mm3 / 1000.0  # Convert mm³ to cc (mL)
+
+    return true_volume_cc

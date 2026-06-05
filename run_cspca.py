@@ -1,10 +1,10 @@
 import argparse
+import json
 import logging
 import os
 import shutil
 import sys
 from pathlib import Path
-import json
 
 import torch
 import yaml
@@ -21,11 +21,11 @@ from src.utils import get_metrics, save_cspca_checkpoint, setup_logging
 def main_worker(args):
     mil_model = MILModel3D(num_classes=args.num_classes, mil_mode=args.mil_mode)
     cache_dir_path = Path(os.path.join(args.logdir, "cache"))
-    
+
     scaler = StandardScaler()
     with open(os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa.json")) as f:
         dataset_json = json.load(f)
-    train_clinical = [i['psa'] for i in dataset_json['test']]
+    train_clinical = [i["psa"] for i in dataset_json["train"]]
     _ = scaler.fit_transform(train_clinical)
     args.psa_mean = scaler.mean_.tolist()
     args.psa_std = scaler.scale_.tolist()
@@ -60,7 +60,9 @@ def main_worker(args):
             train_loss, train_attn_loss, train_auc = train_epoch(
                 cspca_model, train_loader, optimizer, epoch=epoch, args=args
             )
-            logging.info(f"EPOCH {epoch} TRAIN loss: {train_loss:.4f} TRAIN ATTN LOSS: {train_attn_loss:.4f} TRAIN AUC: {train_auc:.4f}")
+            logging.info(
+                f"EPOCH {epoch} TRAIN loss: {train_loss:.4f} TRAIN ATTN LOSS: {train_attn_loss:.4f} TRAIN AUC: {train_auc:.4f}"
+            )
             val_metric = val_epoch(cspca_model, valid_loader, epoch=epoch, args=args)
             logging.info(
                 f"EPOCH {epoch} VAL loss: {val_metric['loss']:.4f} AUC: {val_metric['auc']:.4f}"
@@ -110,7 +112,9 @@ def parse_args():
         required=True,
         help="Operation mode: train or infer",
     )
-    parser.add_argument("--run_name", type=str, default="default_cspca", help="run name for log file")
+    parser.add_argument(
+        "--run_name", type=str, default="default_cspca", help="run name for log file"
+    )
     parser.add_argument("--config", type=str, help="Path to YAML config file")
     parser.add_argument("--project_dir", default=None, help="path to project firectory")
     parser.add_argument("--data_root", default=None, help="path to root folder of images")

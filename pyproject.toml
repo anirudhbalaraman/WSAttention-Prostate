@@ -1,6 +1,7 @@
 [tool.ruff]
 line-length = 100
 target-version = "py39" # Ensures ruff uses 3.9 compatible syntax
+extend-exclude = ["*.ipynb"]
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "I", "B", "N", "UP"]
@@ -22,6 +23,7 @@ skip-magic-trailing-comma = false
 ignore-names = ["sitk", "NormalizeIntensity_custom", "NormalizeIntensity_customd"]
 
 [tool.mypy]
+
 ignore_missing_imports = true
 disable_error_code = ["override", "import-untyped"]
 mypy_path = "."

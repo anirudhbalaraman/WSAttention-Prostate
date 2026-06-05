@@ -22,9 +22,11 @@ from tqdm import tqdm
 
 set_determinism(43)
 
+
 def is_continuous(idx):
     idx = sorted(idx)
     return all(b - a == 1 for a, b in zip(idx, idx[1:]))
+
 
 def get_segmask(args: argparse.Namespace) -> argparse.Namespace:
     """
@@ -110,8 +112,10 @@ def get_segmask(args: argparse.Namespace) -> argparse.Namespace:
         top_slices = np.argsort(nonzero_counts)[-10:]
         try:
             assert is_continuous(top_slices), "Top slices are not continuous"
-        except AssertionError as e:
-            logging.warning(f"Top slices for {file} are not continuous: {top_slices}. Proceeding with non-continuous slices.")
+        except AssertionError:
+            logging.warning(
+                f"Top slices for {file} are not continuous: {top_slices}. Proceeding with non-continuous slices."
+            )
         output_ = np.zeros_like(pred_nrrd)
         output_[:, :, top_slices] = pred_nrrd[:, :, top_slices]
 

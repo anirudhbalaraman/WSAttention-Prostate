@@ -12,3 +12,7 @@ __pycache__/
 site/
 updated_segmentations.zip
 updated_segmentations
+temp_2.ipynb
+temp copy.ipynb
+tcia_dataset.ipynb
+check_tum_datatset.ipynb

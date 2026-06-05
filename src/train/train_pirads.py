@@ -152,7 +152,7 @@ def train_epoch(model, loader, optimizer, scaler, epoch, args):
             start_time = time.time()
 
         del data, target, shuffled_images, logits, logits_attn
-    #torch.cuda.empty_cache()
+    # torch.cuda.empty_cache()
     batch_norm_epoch = batch_norm.aggregate()
     attn_loss_epoch = run_att_loss.aggregate()
     loss_epoch = run_loss.aggregate()
@@ -197,7 +197,7 @@ def val_epoch(model, loader, epoch, args):
             start_time = time.time()
 
             del data, target, logits
-            #torch.cuda.empty_cache()
+            # torch.cuda.empty_cache()
 
         # Calculate QWK metric (Quadratic Weigted Kappa) https://en.wikipedia.org/wiki/Cohen%27s_kappa
         preds_cumulative = preds_cumulative.get_buffer().cpu().numpy()

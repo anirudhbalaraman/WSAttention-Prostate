@@ -15,6 +15,7 @@ from monai.utils.enums import TransformBackends
 from monai.utils.type_conversion import convert_data_type, convert_to_dst_type, convert_to_tensor
 from scipy.ndimage import binary_dilation
 
+
 class LabelEncodeIntegerGraded(MapTransform):
     """
     Convert an integer label to encoded array representation of length num_classes,
@@ -42,12 +43,13 @@ class LabelEncodeIntegerGraded(MapTransform):
         for key in self.keys:
             label = int(d[key])
 
-            lz = np.zeros(self.num_classes , dtype=np.float32)
+            lz = np.zeros(self.num_classes, dtype=np.float32)
             lz[:label] = 1.0
             # alternative oneliner lz=(np.arange(self.num_classes)<int(label)).astype(np.float32) #same oneliner
             d[key] = lz
 
         return d
+
 
 class DilateAndSaveMaskd(MapTransform):
     """
@@ -80,7 +82,8 @@ class DilateAndSaveMaskd(MapTransform):
             )  # Add channel dimension back
 
         return d
-    
+
+
 class NormalizePSAd(MapTransform):
     """
     Custom transform to dilate binary mask and save a copy.
@@ -88,7 +91,7 @@ class NormalizePSAd(MapTransform):
 
     def __init__(self, keys, mean, std):
         super().__init__(keys)
-        self.mean = torch.tensor(mean)       
+        self.mean = torch.tensor(mean)
         self.std = torch.tensor(std)
 
     def __call__(self, data):
@@ -386,7 +389,7 @@ class NormalizeIntensity_custom(Transform):
             masked_img = img
         """
         slices = None
-        #mask_data = mask_data.squeeze(0)
+        # mask_data = mask_data.squeeze(0)
         slices_mask = mask_data > 0
         masked_img = img[slices_mask]
 
@@ -440,6 +443,8 @@ class NormalizeIntensity_custom(Transform):
                     sub=self.subtrahend[i] if self.subtrahend is not None else None,
                     div=self.divisor[i] if self.divisor is not None else None,
                 )
+                if isinstance(norm_temp, np.ndarray):
+                    norm_temp = torch.from_numpy(norm_temp)
                 img[i] = norm_temp.squeeze(0)
         else:
             img = self._normalize(img, mask_data, self.subtrahend, self.divisor)
