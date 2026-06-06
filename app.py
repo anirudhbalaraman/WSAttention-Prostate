@@ -257,6 +257,7 @@ t2_file = None
 adc_file = None
 dwi_file = None
 is_demo_mode = data_source != "Upload My Own Files"
+psa_value = None
 if is_demo_mode:
     # --- DEMO MODE LOGIC ---
     selected_sample = SAMPLE_CASES[data_source]
@@ -280,6 +281,7 @@ if is_demo_mode:
         c1.success(f"T2: {f_names['t2']}")
         c2.success(f"ADC: {f_names['adc']}")
         c3.success(f"DWI: {f_names['dwi']}")
+        psa_value = 5.0
 
 else:
     # --- UPLOAD MODE LOGIC ---
@@ -295,6 +297,22 @@ else:
         adc_file = st.file_uploader("Upload ADC (NRRD)", type=["nrrd"])
     with col3:
         dwi_file = st.file_uploader("Upload DWI (NRRD)", type=["nrrd"])
+        
+    st.divider()
+    
+    st.markdown("### Patient Clinical Data")
+    
+    # We use a smaller column so the input box doesn't stretch across the whole screen
+    col_psa, _ = st.columns([1, 2])
+    with col_psa:
+        psa_value = st.number_input(
+            "PSA Value (ng/mL)", 
+            min_value=0.0, 
+            max_value=500.0, 
+            value=5.0, 
+            step=0.1,
+            help="Enter the patient's Prostate-Specific Antigen level."
+        )
 
 # --- 2. EXECUTION LOGIC ---
 if "inference_done" not in st.session_state:
@@ -572,7 +590,7 @@ if st.session_state.inference_done:
         if "coords" in st.session_state:
             detected_boxes = []
             for i in st.session_state.coords:
-                indi_box = [i[1], i[0], i[2], 64, 64, 3]
+                indi_box = [i[1], i[0], i[2], 48, 48, 3]
                 detected_boxes.append(indi_box)
 
         scan_dict = {}
