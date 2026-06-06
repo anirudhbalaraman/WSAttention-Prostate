@@ -261,7 +261,8 @@ psa_value = None
 if is_demo_mode:
     # --- DEMO MODE LOGIC ---
     selected_sample = SAMPLE_CASES[data_source]
-    st.info(f"👉 **Demo Mode Active:** Using {data_source}")
+    psa_value = 5.0
+    st.info(f"👉 **Demo Mode Active:** Using {data_source} (PSA: {psa_value} ng/mL)")
 
     # Verify files exist
     base_path = selected_sample["path"]
@@ -281,7 +282,7 @@ if is_demo_mode:
         c1.success(f"T2: {f_names['t2']}")
         c2.success(f"ADC: {f_names['adc']}")
         c3.success(f"DWI: {f_names['dwi']}")
-        psa_value = 5.0
+        
 
 else:
     # --- UPLOAD MODE LOGIC ---
@@ -346,6 +347,8 @@ if ready_to_run:
             shutil.copy(
                 os.path.join(src["path"], src["files"]["dwi"]), os.path.join(DWI_DIR, "sample.nrrd")
             )
+            with open(os.path.join(T2_DIR, "psa_data.json"), "w") as f:
+                json.dump({"sample": float(psa_value)}, f, indent=4)
             st.write(f"Loaded data from {data_source}...")
 
         else:
@@ -353,6 +356,9 @@ if ready_to_run:
             # We save it inside the T2_DIR folder
             with open(os.path.join(T2_DIR, t2_file.name), "wb") as f:
                 shutil.copyfileobj(t2_file, f)
+            
+            with open(os.path.join(T2_DIR, "psa_data.json"), "w") as f:
+                json.dump({t2_file.name.replace(".nrrd", ""): float(psa_value)}, f, indent=4)
 
             # Save ADC
             with open(os.path.join(ADC_DIR, t2_file.name), "wb") as f:
@@ -380,6 +386,8 @@ if ready_to_run:
             OUTPUT_DIR,
             "--project_dir",
             BASE_DIR,
+            "--json_path",
+            os.path.join(T2_DIR, "psa_data.json"),
         ]
 
         # DEBUG: Show the exact command being run (helpful for troubleshooting)
