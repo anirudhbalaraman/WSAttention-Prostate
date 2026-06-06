@@ -347,7 +347,7 @@ if ready_to_run:
             shutil.copy(
                 os.path.join(src["path"], src["files"]["dwi"]), os.path.join(DWI_DIR, "sample.nrrd")
             )
-            with open(os.path.join(T2_DIR, "psa_data.json"), "w") as f:
+            with open(os.path.join(OUTPUT_DIR, "psa_data.json"), "w") as f:
                 json.dump({"sample": float(psa_value)}, f, indent=4)
             st.write(f"Loaded data from {data_source}...")
 
@@ -357,7 +357,7 @@ if ready_to_run:
             with open(os.path.join(T2_DIR, t2_file.name), "wb") as f:
                 shutil.copyfileobj(t2_file, f)
             
-            with open(os.path.join(T2_DIR, "psa_data.json"), "w") as f:
+            with open(os.path.join(OUTPUT_DIR, "psa_data.json"), "w") as f:
                 json.dump({t2_file.name.replace(".nrrd", ""): float(psa_value)}, f, indent=4)
 
             # Save ADC
@@ -387,7 +387,7 @@ if ready_to_run:
             "--project_dir",
             BASE_DIR,
             "--json_path",
-            os.path.join(T2_DIR, "psa_data.json"),
+            os.path.join(OUTPUT_DIR, "psa_data.json"),
         ]
 
         # DEBUG: Show the exact command being run (helpful for troubleshooting)
