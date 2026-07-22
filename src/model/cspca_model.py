@@ -76,7 +76,8 @@ class CSPCAModel(nn.Module):
         self.clinical_projection = nn.Sequential(
             nn.Linear(self.clinical_dim, self.projection_dim),
             nn.ReLU(),
-            nn.BatchNorm1d(self.projection_dim),  # Helps stabilize the merged scale
+            nn.LayerNorm(self.projection_dim),
+            #nn.BatchNorm1d(self.projection_dim),  # Helps stabilize the merged scale
         )
 
         self.fc_dim = backbone.myfc.in_features

@@ -104,7 +104,7 @@ if __name__ == "__main__":
     cspca_model = load_cspca_model(pirads_model, args.project_dir, args.device)
 
     scaler = StandardScaler()
-    with open(os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa.json")) as f:
+    with open(os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa_updated_vol.json")) as f:
         dataset_json = json.load(f)
     train_clinical = [i["psa"] for i in dataset_json["train"]]
     _ = scaler.fit_transform(train_clinical)
@@ -183,12 +183,14 @@ if __name__ == "__main__":
     output_dict = {}
 
     for i, j in enumerate(files):
+        assert args.data_list[i]["image"].split("/")[-1] == j, "File names do not match"
         logging.info(
-            f"File: {j}, PIRADS score: {pirads_list[i] + 2.0}, csPCa risk score: {cspca_risk_list[i]:.4f}"
+            f"File: {j}, PIRADS score: {pirads_list[i] + 2.0}, csPCa risk score: {cspca_risk_list[i]:.4f}, prostate volume: {args.data_list[i]['psa'][1]:.4f}"
         )
         output_dict[j] = {
             "Predicted PIRAD Score": pirads_list[i] + 2.0,
             "csPCa risk": cspca_risk_list[i],
+            "Prostate Volume": args.data_list[i]["psa"][1],
             "Top left coordinate of top 5 patches(x,y,z)": coords_list[i],
         }
 

@@ -328,6 +328,7 @@ if ready_to_run:
         # --- A. CLEANUP & SAVE ---
         # Clear old files to prevent mixing previous runs
         # (Optional but recommended for a clean state)
+        st.cache_data.clear()
         for folder in [T2_DIR, ADC_DIR, DWI_DIR, OUTPUT_DIR]:
             for f in os.listdir(folder):
                 if os.path.isfile(os.path.join(folder, f)):
@@ -576,7 +577,7 @@ if st.session_state.inference_done:
             files_in_dir = os.listdir(t2_vis_dir)[0]
             t2_vis_path = os.path.join(t2_vis_dir, files_in_dir)
 
-        adc_vis_dir = os.path.join(OUTPUT_DIR, "ADC_registered")
+        adc_vis_dir = os.path.join(OUTPUT_DIR, "ADC_clipped")
         if os.path.exists(adc_vis_dir) and len(os.listdir(adc_vis_dir)) > 0:
             files_in_dir = os.listdir(adc_vis_dir)[0]
             adc_vis_path = os.path.join(adc_vis_dir, files_in_dir)
