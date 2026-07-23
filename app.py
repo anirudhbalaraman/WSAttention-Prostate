@@ -282,7 +282,7 @@ if is_demo_mode:
         c1.success(f"T2: {f_names['t2']}")
         c2.success(f"ADC: {f_names['adc']}")
         c3.success(f"DWI: {f_names['dwi']}")
-        
+
 
 else:
     # --- UPLOAD MODE LOGIC ---
@@ -298,21 +298,21 @@ else:
         adc_file = st.file_uploader("Upload ADC (NRRD)", type=["nrrd"])
     with col3:
         dwi_file = st.file_uploader("Upload DWI (NRRD)", type=["nrrd"])
-        
+
     st.divider()
-    
+
     st.markdown("### Patient Clinical Data")
-    
+
     # We use a smaller column so the input box doesn't stretch across the whole screen
     col_psa, _ = st.columns([1, 2])
     with col_psa:
         psa_value = st.number_input(
-            "PSA Value (ng/mL)", 
-            min_value=0.0, 
-            max_value=500.0, 
-            value=5.0, 
+            "PSA Value (ng/mL)",
+            min_value=0.0,
+            max_value=500.0,
+            value=5.0,
             step=0.1,
-            help="Enter the patient's Prostate-Specific Antigen level."
+            help="Enter the patient's Prostate-Specific Antigen level.",
         )
 
 # --- 2. EXECUTION LOGIC ---
@@ -357,7 +357,7 @@ if ready_to_run:
             # We save it inside the T2_DIR folder
             with open(os.path.join(T2_DIR, t2_file.name), "wb") as f:
                 shutil.copyfileobj(t2_file, f)
-            
+
             with open(os.path.join(OUTPUT_DIR, "psa_data.json"), "w") as f:
                 json.dump({t2_file.name.replace(".nrrd", ""): float(psa_value)}, f, indent=4)
 

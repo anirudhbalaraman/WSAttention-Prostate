@@ -4,10 +4,6 @@ import pytest
 import torch
 
 from src.data.custom_transforms import NormalizeIntensity_custom
-from src.data.data_loader import get_dataloader
-from src.model.cspca_model import CSPCAModel
-from src.model.mil import MILModel3D
-from src.train import train_cspca, train_pirads
 from src.train.train_pirads import get_attention_scores
 
 
@@ -32,8 +28,8 @@ def test_get_attention_scores_logic(mock_args):
     heatmap = torch.zeros(batch_size, num_patches, 1, 1, 8, 8)
     heatmap[0, 0] = 10.0  # High attention on patch 0 for the first sample
     heatmap[1, :] = 5.0  # Should be overridden by PI-RADS 2 logic anyway
-    
-    mask = torch.ones(batch_size, num_patches, 1, 1, 8, 8)    
+
+    mask = torch.ones(batch_size, num_patches, 1, 1, 8, 8)
     att_labels, shuffled_images = get_attention_scores(data, target, heatmap, mask, mock_args)
 
     # --- TEST 1: Normalization ---
@@ -141,7 +137,8 @@ def test_normalize_intensity_constant_area():
 
     torch.testing.assert_close(out, normalized_data)
 
-'''
+
+"""
 def test_run_models():
     args = argparse.Namespace()
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -170,4 +167,4 @@ def test_run_models():
     optimizer_cspca = torch.optim.AdamW(cspca_model.parameters(), lr=1e-5)
     _ = train_cspca.train_epoch(cspca_model, loader, optimizer_cspca, epoch=0, args=args)
     _ = train_cspca.val_epoch(cspca_model, loader, epoch=0, args=args)
-'''
+"""

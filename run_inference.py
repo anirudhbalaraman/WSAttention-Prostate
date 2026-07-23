@@ -104,7 +104,9 @@ if __name__ == "__main__":
     cspca_model = load_cspca_model(pirads_model, args.project_dir, args.device)
 
     scaler = StandardScaler()
-    with open(os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa_updated_vol.json")) as f:
+    with open(
+        os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa_updated_vol.json")
+    ) as f:
         dataset_json = json.load(f)
     train_clinical = [i["psa"] for i in dataset_json["train"]]
     _ = scaler.fit_transform(train_clinical)
