@@ -291,6 +291,6 @@ def create_additive_heatmap(
         heatmap_masked /= heatmap_masked.max()
 
     if apply_blur:
-        heatmap = gaussian_filter(heatmap_masked, sigma=1.0)
+        heatmap = gaussian_filter(heatmap_masked, sigma=2.0)
 
     return heatmap
