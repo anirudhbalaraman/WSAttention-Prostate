@@ -6,6 +6,7 @@ from argparse import Namespace
 from collections.abc import Callable
 from pathlib import Path
 
+import nrrd
 import streamlit as st
 import torch
 import yaml
@@ -19,7 +20,13 @@ from src.preprocessing.clip_intensity import clip_adc
 from src.preprocessing.generate_heatmap import get_heatmap
 from src.preprocessing.prostate_mask import get_segmask
 from src.preprocessing.register_and_crop import register_files
-from src.utils import get_parent_image, get_patch_coordinate, get_prostate_volume, setup_logging
+from src.utils import (
+    create_additive_heatmap,
+    get_parent_image,
+    get_patch_coordinate,
+    get_prostate_volume,
+    setup_logging,
+)
 
 
 @st.cache_resource
@@ -105,7 +112,7 @@ if __name__ == "__main__":
 
     scaler = StandardScaler()
     with open(
-        os.path.join(args.project_dir, "dataset", "PICAI_cspca_updated_with_psa_updated_vol.json")
+        os.path.join(args.project_dir, "dataset", "cspca_train_tcia.json.json")
     ) as f:
         dataset_json = json.load(f)
     train_clinical = [i["psa"] for i in dataset_json["train"]]
@@ -169,10 +176,10 @@ if __name__ == "__main__":
             a = cspca_model.backbone.attention(x)
             a = torch.softmax(a, dim=1)
             a = a.view(-1)
-            top5_values, top5_indices = torch.topk(a, 5)
+            top5_values, top5_indices = torch.topk(a, args.tile_count)
 
             patches_top_5 = []
-            for i in range(5):
+            for i in range(args.tile_count):
                 patch_temp = data[0, top5_indices.cpu().numpy()[i]][0].cpu().numpy()
                 patches_top_5.append(patch_temp)
             patches_top_5_list.append(patches_top_5)
@@ -193,8 +200,18 @@ if __name__ == "__main__":
             "Predicted PIRAD Score": pirads_list[i] + 2.0,
             "csPCa risk": cspca_risk_list[i],
             "Prostate Volume": args.data_list[i]["psa"][1],
-            "Top left coordinate of top 5 patches(x,y,z)": coords_list[i],
+            "Top left coordinates of the patches(x,y,z)": coords_list[i],
         }
+
+    pmask, _ = nrrd.read(args.data_list[0]["smooth_mask"])
+    score_map = create_additive_heatmap(
+        coords_list[0],
+        top5_values.cpu().numpy(),
+        parent_image.shape,
+        (args.tile_size, args.tile_size, args.depth),
+        pmask,
+    )
+    nrrd.write(os.path.join(args.output_dir, "attention_weights.nrrd"), score_map)
 
     with open(os.path.join(args.output_dir, "results.json"), "w") as f:
         json.dump(output_dict, f, indent=4)

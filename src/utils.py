@@ -18,6 +18,7 @@ from monai.transforms import (
     LoadImaged,
     ToTensord,
 )
+from scipy.ndimage import gaussian_filter
 
 from .data.custom_transforms import ClipMaskIntensityPercentilesd, NormalizeIntensity_customd
 
@@ -262,3 +263,34 @@ def get_prostate_volume(mask_path) -> np.ndarray:
     true_volume_cc = true_volume_mm3 / 1000.0  # Convert mm³ to cc (mL)
 
     return true_volume_cc
+
+
+def create_additive_heatmap(
+    patch_coords, attention_scores, volume_shape, patch_size, pmask, apply_blur=True
+):
+    """
+    Sums attention scores in overlapping regions.
+    """
+    heatmap = np.zeros(volume_shape, dtype=np.float32)
+    dz, dy, dx = patch_size
+    for (z, y, x), score in zip(patch_coords, attention_scores):
+        # Define boundaries starting from top-left corner
+        z_end = min(volume_shape[0], z + dz)
+        y_end = min(volume_shape[1], y + dy)
+        x_end = min(volume_shape[2], x + dx)
+
+        # Add scores to the region
+        heatmap[z:z_end, y:y_end, x:x_end] += score
+        """
+            heatmap[z:z_end, y:y_end, x:x_end] = np.maximum(
+                heatmap[z:z_end, y:y_end, x:x_end], score
+            )
+            """
+    heatmap_masked = heatmap  # * (pmask > 0)
+    if heatmap_masked.max() > 0:
+        heatmap_masked /= heatmap_masked.max()
+
+    if apply_blur:
+        heatmap = gaussian_filter(heatmap_masked, sigma=1.0)
+
+    return heatmap

@@ -4,7 +4,6 @@ import os
 import shutil
 import subprocess
 
-import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import nrrd
 import numpy as np
@@ -45,6 +44,119 @@ def load_nrrd(file_path):
     return data, header
 
 
+def display_slicer(
+    scan_paths, mask_path=None, heatmap_path=None, title="Scan Viewer", key_suffix=""
+):
+    """
+    Displays slicer with Multi-Background Support, Mask Overlay, and Attention Heatmap.
+
+    Args:
+        scan_paths: Dict of {Label: FilePath}. Example: {"T2W": "path/to/t2.nrrd"}
+        mask_path: Path to the segmentation mask (optional)
+        heatmap_path: Path to the 3D attention heatmap nrrd file (optional)
+    """
+    # 1. Layout: Image/Slider (Left) | Controls (Right)
+    c_viewer, c_controls = st.columns([3, 1.5])
+
+    # --- CONTROLS SECTION (Right Column) ---
+    with c_controls:
+        st.write(f"**{title} Controls**")
+
+        # A. Background Selection
+        available_scans = list(scan_paths.keys())
+        selected_scan_name = st.radio(
+            "Background Image", available_scans, index=0, key=f"bg_{key_suffix}"
+        )
+        current_file_path = scan_paths[selected_scan_name]
+
+        # B. Heatmap Controls
+        st.write("---")
+        show_heatmap = False
+        if heatmap_path and os.path.exists(heatmap_path):
+            show_heatmap = st.checkbox("Show Attention Heatmap", value=True, key=f"hm_{key_suffix}")
+            if show_heatmap:
+                hm_alpha = st.slider(
+                    "Heatmap Opacity", 0.1, 1.0, 0.5, 0.1, key=f"hm_a_{key_suffix}"
+                )
+                # Threshold to hide low-attention areas (assumes heatmap is normalized 0-1)
+                hm_thresh = st.slider(
+                    "Hide Values Below", 0.0, 1.0, 0.1, 0.05, key=f"hm_t_{key_suffix}"
+                )
+
+        # C. Mask Controls
+        st.write("---")
+        show_mask = False
+        if mask_path and os.path.exists(mask_path):
+            show_mask = st.checkbox("Show Mask Overlay", value=False, key=f"mk_{key_suffix}")
+
+    # --- VIEWER SECTION (Left Column) ---
+    with c_viewer:
+        if not os.path.exists(current_file_path):
+            st.error(f"File not found: {current_file_path}")
+            return
+
+        # Load the selected background image
+        data, _ = load_nrrd(current_file_path)
+
+        if len(data.shape) != 3:
+            st.warning("Data is not 3D.")
+            return
+
+        total_slices = data.shape[2]
+
+        # D. Slider Logic
+        start_slice = total_slices // 2
+
+        slice_idx = st.slider(
+            "Select Slice (Z-Axis)", 0, total_slices - 1, start_slice, key=f"sl_{key_suffix}"
+        )
+
+        # E. Plotting
+        img_slice = data[:, :, slice_idx]
+
+        # Normalize Image (0-1)
+        img_slice = img_slice.astype(float)
+
+        fig, ax = plt.subplots(figsize=(5, 5))
+        ax.imshow(img_slice, cmap="gray", origin="upper")
+
+        # 1. Overlay Heatmap
+        if show_heatmap:
+            h_data, _ = load_nrrd(heatmap_path)
+
+            if h_data.shape == data.shape:
+                h_slice = h_data[:, :, slice_idx].astype(float)
+
+                # Normalize the heatmap slice to 0-1 if it isn't already
+                max_val = np.max(h_slice)
+                if max_val > 0:
+                    h_slice = h_slice / max_val
+
+                # Mask out values below the user-defined threshold
+                h_overlay = np.ma.masked_where(h_slice < hm_thresh, h_slice)
+
+                # Overlay using 'jet', 'inferno', or 'hot' colormap
+                ax.imshow(h_overlay, cmap="jet", alpha=hm_alpha, origin="upper")
+            else:
+                ax.text(5, 5, "Heatmap shape mismatch", color="red", fontsize=8)
+
+        # 2. Overlay Mask
+        if show_mask:
+            m_data, _ = load_nrrd(mask_path)
+
+            if m_data.shape == data.shape:
+                mslice = m_data[:, :, slice_idx]
+                overlay = np.ma.masked_where(mslice == 0, mslice)
+                ax.imshow(overlay, cmap="Reds", alpha=0.5, origin="upper")
+            else:
+                # Placed slightly lower so it doesn't overlap with the heatmap warning
+                ax.text(5, 15, "Mask shape mismatch", color="red", fontsize=8)
+
+        ax.axis("off")
+        st.pyplot(fig, use_container_width=False)
+
+
+'''
 def display_slicer(scan_paths, mask_path=None, bboxes=None, title="Scan Viewer", key_suffix=""):
     """
     Displays slicer with Multi-Background Support, Mask Overlay, and Bounding Box Multiselect.
@@ -155,6 +267,8 @@ def display_slicer(scan_paths, mask_path=None, bboxes=None, title="Scan Viewer",
 
         ax.axis("off")
         st.pyplot(fig, use_container_width=False)
+
+'''
 
 
 @st.cache_resource
@@ -571,6 +685,7 @@ if st.session_state.inference_done:
         dwi_vis_path = None
         adc_vis_path = None
         mask_vis_path = None
+        att_map_path = None
 
         t2_vis_dir = os.path.join(OUTPUT_DIR, "t2_registered")
         if os.path.exists(t2_vis_dir) and len(os.listdir(t2_vis_dir)) > 0:
@@ -595,6 +710,8 @@ if st.session_state.inference_done:
         else:
             print("No mask dir")
 
+        att_map_path = os.path.join(OUTPUT_DIR, "attention_weights.nrrd")
+
         roi_bbox = None
         if "coords" in st.session_state:
             detected_boxes = []
@@ -614,7 +731,7 @@ if st.session_state.inference_done:
             display_slicer(
                 scan_paths=scan_dict,  # <--- Pass the Dict here
                 mask_path=mask_vis_path,
-                bboxes=detected_boxes,
+                heatmap_path=att_map_path,
                 title="Salient Patch Viewer",
                 key_suffix="main_viz",
             )
@@ -622,7 +739,7 @@ if st.session_state.inference_done:
             display_slicer(
                 scan_paths=scan_dict,  # <--- Pass the Dict here
                 mask_path=mask_vis_path,
-                bboxes=None,
+                heatmap_path=None,
                 title="Salient Patch Viewer",
                 key_suffix="main_viz",
             )
