@@ -128,11 +128,6 @@ def display_slicer(
                 h_slice = h_data[:, :, slice_idx].astype(float)
 
                 # Normalize the heatmap slice to 0-1 if it isn't already
-                '''
-                max_val = np.max(h_slice)
-                if max_val > 0:
-                    h_slice = h_slice / max_val
-                '''
                 # Mask out values below the user-defined threshold
                 h_overlay = np.ma.masked_where(h_slice < hm_thresh, h_slice)
 
