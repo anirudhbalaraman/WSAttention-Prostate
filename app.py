@@ -128,10 +128,11 @@ def display_slicer(
                 h_slice = h_data[:, :, slice_idx].astype(float)
 
                 # Normalize the heatmap slice to 0-1 if it isn't already
+                '''
                 max_val = np.max(h_slice)
                 if max_val > 0:
                     h_slice = h_slice / max_val
-
+                '''
                 # Mask out values below the user-defined threshold
                 h_overlay = np.ma.masked_where(h_slice < hm_thresh, h_slice)
 
@@ -155,120 +156,6 @@ def display_slicer(
         ax.axis("off")
         st.pyplot(fig, use_container_width=False)
 
-
-'''
-def display_slicer(scan_paths, mask_path=None, bboxes=None, title="Scan Viewer", key_suffix=""):
-    """
-    Displays slicer with Multi-Background Support, Mask Overlay, and Bounding Box Multiselect.
-
-    Args:
-        scan_paths: Dict of {Label: FilePath}. Example: {"T2W": "path/to/t2.nrrd", "ADC": "..."}
-    """
-    # 1. Layout: Image/Slider (Left) | Controls (Right)
-    c_viewer, c_controls = st.columns([3, 1.5])
-
-    # --- CONTROLS SECTION (Right Column) ---
-    with c_controls:
-        st.write(f"**{title} Controls**")
-
-        # A. Background Selection
-        # We assume the first key in the dict is the default
-        available_scans = list(scan_paths.keys())
-        selected_scan_name = st.radio(
-            "Background Image", available_scans, index=0, key=f"bg_{key_suffix}"
-        )
-        current_file_path = scan_paths[selected_scan_name]
-
-        # B. Lesion Selection (Multiselect)
-        box_labels = []
-        selected_labels = []
-        if bboxes:
-            box_labels = [f"Lesion {i + 1}" for i in range(len(bboxes))]
-            st.write("---")  # Divider
-            selected_labels = st.multiselect(
-                "Select Lesions", options=box_labels, default=box_labels, key=f"multi_{key_suffix}"
-            )
-
-        # C. Toggles
-        st.write("---")
-        show_mask = False
-        if mask_path and os.path.exists(mask_path):
-            show_mask = st.checkbox("Show Mask Overlay", value=False, key=f"mk_{key_suffix}")
-
-    # --- VIEWER SECTION (Left Column) ---
-    with c_viewer:
-        if not os.path.exists(current_file_path):
-            st.error(f"File not found: {current_file_path}")
-            return
-
-        # Load the selected background image
-        data, _ = load_nrrd(current_file_path)
-
-        if len(data.shape) != 3:
-            st.warning("Data is not 3D.")
-            return
-
-        total_slices = data.shape[2]
-
-        # D. Slider Logic
-        start_slice = total_slices // 2
-        # Auto-jump logic: If exactly one lesion is selected, jump to it
-        if len(selected_labels) == 1 and bboxes:
-            idx = int(selected_labels[0].split(" ")[1]) - 1
-            if 0 <= idx < len(bboxes):
-                b = bboxes[idx]
-                start_slice = int(b[2] + (b[5] // 2))
-                start_slice = max(0, min(start_slice, total_slices - 1))
-
-        slice_idx = st.slider(
-            "Select Slice (Z-Axis)", 0, total_slices - 1, start_slice, key=f"sl_{key_suffix}"
-        )
-
-        # E. Plotting
-        img_slice = data[:, :, slice_idx]
-
-        # Normalize Image (0-1)
-        img_slice = img_slice.astype(float)
-
-        fig, ax = plt.subplots(figsize=(5, 5))
-        ax.imshow(img_slice, cmap="gray", origin="upper")
-
-        # 1. Overlay Mask
-        if show_mask:
-            # Load mask on the fly (or cache it if slow)
-
-            m_data, _ = load_nrrd(mask_path)
-            # Check shape compatibility
-            if m_data.shape == data.shape:
-                mslice = m_data[:, :, slice_idx]
-                overlay = np.ma.masked_where(mslice == 0, mslice)
-                ax.imshow(overlay, cmap="Reds", alpha=0.5, origin="upper")
-            else:
-                # Fallback warning if mask dims don't match selected background
-                # (Common if ADC resolution != T2 resolution)
-                ax.text(5, 5, "Mask shape mismatch", color="red", fontsize=8)
-
-        # 2. Overlay Bounding Boxes
-        if bboxes:
-            for i, box in enumerate(bboxes):
-                label = f"Lesion {i + 1}"
-                if label not in selected_labels:
-                    continue
-
-                bx, by, bz, bw, bh, bd = box
-
-                # Visibility check
-                if bz <= slice_idx < (bz + bd):
-                    rect = patches.Rectangle(
-                        (bx, by), bw, bh, linewidth=2, edgecolor="yellow", facecolor="none"
-                    )
-                    ax.add_patch(rect)
-                    ax.text(bx, by - 5, f"L{i + 1}", color="yellow", fontsize=9, fontweight="bold")
-
-        ax.axis("off")
-        st.pyplot(fig, use_container_width=False)
-
-'''
 
 
 @st.cache_resource
@@ -551,7 +438,7 @@ if st.session_state.inference_done:
                         st.session_state.pirads = first_case.get("Predicted PIRAD Score")
                         st.session_state.risk = first_case.get("csPCa risk")
                         st.session_state.coords = first_case.get(
-                            "Top left coordinate of top 5 patches(x,y,z)"
+                            "Top left coordinates of the patches(x,y,z)"
                         )
 
         else:

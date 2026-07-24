@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     scaler = StandardScaler()
     with open(
-        os.path.join(args.project_dir, "dataset", "cspca_train_tcia.json.json")
+        os.path.join(args.project_dir, "dataset", "cspca_train_tcia.json")
     ) as f:
         dataset_json = json.load(f)
     train_clinical = [i["psa"] for i in dataset_json["train"]]
